@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>이층 : 서울, 0시</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-wrapper">
+        <div id="game-container">
+            <!-- BGM -->
+            <audio id="bgm-title" loop preload="auto">
+                <source src="assets/audio/title_bgm.mp3" type="audio/mpeg">
+            </audio>
+            <audio id="bgm-prologue" loop preload="auto">
+                <source src="assets/audio/prologue_bgm.mp3" type="audio/mpeg">
+            </audio>
+
+            <!-- 인트로 화면 -->
+            <div id="intro-screen" class="screen active">
+                <p class="intro-question">진실을 마주할 준비가 되어 있습니까?</p>
+                <div class="intro-choices">
+                    <button id="btn-intro-yes" class="intro-btn" data-text="YES">YES</button>
+                    <button id="btn-intro-no" class="intro-btn" data-text="NO">NO</button>
+                </div>
+            </div>
+
+            <!-- 타이틀 화면 -->
+            <div id="title-screen" class="screen">
+                <div class="title-bg"></div>
+                <div class="title-overlay">
+                    <div class="title-top-line"></div>
+                    <h1 class="title-main">
+                        <span class="title-hanja">裏層</span>
+                        이층
+                    </h1>
+                    <div class="title-divider">
+                        <span class="divider-line"></span>
+                        <span class="divider-dot">:</span>
+                        <span class="divider-line"></span>
+                    </div>
+                    <p class="title-sub">서울, 0시</p>
+                    <p class="title-tagline">아무도 없는 서울에서, 당신의 선택이 시작된다</p>
+                    <button id="btn-start" class="title-btn">
+                        <span class="btn-line left"></span>
+                        시작하기
+                        <span class="btn-line right"></span>
+                    </button>
+                    <div class="title-bottom-line"></div>
+                </div>
+                <!-- 떠다니는 한자 파티클 -->
+                <div class="title-particles">
+                    <span class="particle" style="--delay:0s; --x:15%; --y:20%">封</span>
+                    <span class="particle" style="--delay:2s; --x:80%; --y:35%">印</span>
+                    <span class="particle" style="--delay:4s; --x:25%; --y:70%">魂</span>
+                    <span class="particle" style="--delay:1s; --x:70%; --y:75%">鬼</span>
+                    <span class="particle" style="--delay:3s; --x:50%; --y:15%">夜</span>
+                    <span class="particle" style="--delay:5s; --x:85%; --y:60%">門</span>
+                    <span class="particle" style="--delay:2.5s; --x:10%; --y:50%">氣</span>
+                </div>
+            </div>
+
+            <!-- 게임 화면 -->
+            <div id="game-screen" class="screen">
+                <div id="scene-image-container">
+                    <img id="scene-image" src="" alt="">
+                    <div id="scene-overlay"></div>
+                    <img id="character-image" class="hidden" src="" alt="">
+                </div>
+
+                <div id="stats-bar">
+                    <div class="stat" id="stat-courage">
+                        <span class="stat-icon">勇</span>
+                        <span class="stat-label">용기</span>
+                        <div class="stat-bar"><div class="stat-fill" data-stat="courage"></div></div>
+                        <span class="stat-value" data-stat="courage">0</span>
+                    </div>
+                    <div class="stat" id="stat-empathy">
+                        <span class="stat-icon">感</span>
+                        <span class="stat-label">공감</span>
+                        <div class="stat-bar"><div class="stat-fill" data-stat="empathy"></div></div>
+                        <span class="stat-value" data-stat="empathy">0</span>
+                    </div>
+                    <div class="stat" id="stat-insight">
+                        <span class="stat-icon">察</span>
+                        <span class="stat-label">통찰</span>
+                        <div class="stat-bar"><div class="stat-fill" data-stat="insight"></div></div>
+                        <span class="stat-value" data-stat="insight">0</span>
+                    </div>
+                    <div class="stat" id="stat-trust">
+                        <span class="stat-icon">信</span>
+                        <span class="stat-label">신뢰</span>
+                        <div class="stat-bar"><div class="stat-fill" data-stat="trust"></div></div>
+                        <span class="stat-value" data-stat="trust">0</span>
+                    </div>
+                    <div class="stat" id="stat-will">
+                        <span class="stat-icon">志</span>
+                        <span class="stat-label">의지</span>
+                        <div class="stat-bar"><div class="stat-fill" data-stat="will"></div></div>
+                        <span class="stat-value" data-stat="will">0</span>
+                    </div>
+                    <div class="stat" id="stat-wisdom">
+                        <span class="stat-icon">智</span>
+                        <span class="stat-label">지혜</span>
+                        <div class="stat-bar"><div class="stat-fill" data-stat="wisdom"></div></div>
+                        <span class="stat-value" data-stat="wisdom">0</span>
+                    </div>
+                    <div class="stat" id="stat-charm">
+                        <span class="stat-icon">魅</span>
+                        <span class="stat-label">매력</span>
+                        <div class="stat-bar"><div class="stat-fill" data-stat="charm"></div></div>
+                        <span class="stat-value" data-stat="charm">0</span>
+                    </div>
+                    <div class="stat" id="stat-composure">
+                        <span class="stat-icon">定</span>
+                        <span class="stat-label">침착</span>
+                        <div class="stat-bar"><div class="stat-fill" data-stat="composure"></div></div>
+                        <span class="stat-value" data-stat="composure">0</span>
+                    </div>
+                </div>
+
+                <div id="dialogue-container" class="hidden">
+                    <div id="speaker-name"></div>
+                    <div id="dialogue-text"></div>
+                    <div id="dialogue-continue">&#9660; 계속</div>
+                </div>
+
+                <div id="choices-container" class="hidden"></div>
+                <div id="hotspot-container"></div>
+                <div id="stat-notification" class="hidden"></div>
+            </div>
+
+            <!-- 챕터 전환 -->
+            <div id="chapter-screen" class="screen">
+                <div class="chapter-content">
+                    <p class="chapter-number"></p>
+                    <h2 class="chapter-title"></h2>
+                </div>
+            </div>
+
+            <!-- 분기 플로우차트 -->
+            <div id="flowchart-screen" class="screen">
+                <div class="flowchart-wrapper">
+                    <div class="flowchart-header">
+                        <p class="flowchart-episode"></p>
+                        <h2 class="flowchart-title"></h2>
+                    </div>
+                    <div class="flowchart-scroll">
+                        <div class="flowchart-tree" id="flowchart-tree"></div>
+                    </div>
+                    <button id="btn-flowchart-close" class="flowchart-close-btn">계속하기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="engine.js"></script>
+    <script src="scenario.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
