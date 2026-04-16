@@ -16,6 +16,12 @@
             <audio id="bgm-prologue" loop preload="auto">
                 <source src="assets/audio/prologue_bgm.mp3" type="audio/mpeg">
             </audio>
+            <audio id="bgm-ch1" loop preload="auto">
+                <source src="assets/audio/ch1_bgm.mp3" type="audio/mpeg">
+            </audio>
+            <audio id="bgm-ch1-battle" loop preload="auto">
+                <source src="assets/audio/ch1_battle_bgm.mp3" type="audio/mpeg">
+            </audio>
 
             <!-- 인트로 화면 -->
             <div id="intro-screen" class="screen active">
@@ -64,9 +70,12 @@
             <!-- 게임 화면 -->
             <div id="game-screen" class="screen">
                 <div id="scene-image-container">
-                    <img id="scene-image" src="" alt="">
+                    <img id="scene-image-prev" class="scene-img-layer" src="" alt="">
+                    <img id="scene-image" class="scene-img-layer" src="" alt="">
                     <div id="scene-overlay"></div>
-                    <img id="character-image" class="hidden" src="" alt="">
+                    <img id="character-left" class="character-slot" src="" alt="">
+                    <img id="character-center" class="character-slot" src="" alt="">
+                    <img id="character-right" class="character-slot" src="" alt="">
                 </div>
 
                 <div id="stats-bar">
@@ -120,12 +129,34 @@
                     </div>
                 </div>
 
+                <!-- 동료 HUD -->
+                <div id="companion-hud" class="hidden"></div>
+
+                <!-- 동료 획득 알림 -->
+                <div id="companion-notify" class="hidden">
+                    <div class="companion-notify-inner">
+                        <img id="companion-notify-portrait" src="" alt="">
+                        <div class="companion-notify-text">
+                            <span class="companion-notify-label">동료</span>
+                            <span id="companion-notify-name"></span>
+                        </div>
+                    </div>
+                </div>
+
                 <div id="dialogue-container" class="hidden">
                     <div id="speaker-name"></div>
                     <div id="dialogue-text"></div>
                     <div id="dialogue-continue">&#9660; 계속</div>
+                    <div id="dialogue-tap-hint">
+                        <span class="tap-hint-icon"></span>
+                        <span class="tap-hint-text">탭하여 진행</span>
+                    </div>
                 </div>
 
+                <div id="choice-timer" class="hidden">
+                    <span id="choice-timer-text"></span>
+                    <div class="choice-timer-track"><div id="choice-timer-bar"></div></div>
+                </div>
                 <div id="choices-container" class="hidden"></div>
                 <div id="hotspot-container"></div>
                 <div id="stat-notification" class="hidden"></div>
@@ -157,6 +188,7 @@
 
     <script src="engine.js"></script>
     <script src="scenario.js"></script>
+    <script src="scenario_ch1.js"></script>
     <script src="main.js"></script>
 </body>
 </html>

@@ -165,8 +165,8 @@ const SCENES = {
             { speaker: '', text: '이 상황에 전혀 어울리지 않는 모습이다.' },
             { speaker: '', text: '그녀가 고개를 들어 나를 본다.' },
             { speaker: '', text: '잠깐 놀란 눈. 하지만 금방 경계하는 표정으로 바뀐다.' },
-            { speaker: '???', text: '...너도 여기 갇힌 거야?' },
-            { speaker: '???', text: '아까부터 여기서 나가려고 했는데, 문이 안 열려.' },
+            { speaker: '???', text: '...너도 여기 갇힌 거야?', voice: 'assets/audio/voice/1.mp3' },
+            { speaker: '???', text: '아까부터 여기서 나가려고 했는데, 문이 안 열려.', voice: 'assets/audio/voice/2.mp3' },
         ],
         choices: [
             {
@@ -195,16 +195,16 @@ const SCENES = {
         image: 'assets/images/prologue_subway_inside.png',
         character: 'assets/images/character_protagonist_2.png',
         dialogue: [
-            { speaker: '???', text: '나도 몰라. 나도 아무것도...' },
+            { speaker: '???', text: '나도 몰라. 나도 아무것도...', voice: 'assets/audio/voice/3.mp3' },
             { speaker: '', text: '그녀가 죽은 핸드폰을 보여준다.' },
-            { speaker: '???', text: '지하철 타고 가다가 잠들었는데, 눈 뜨니까 이래.' },
-            { speaker: '???', text: '근데...' },
+            { speaker: '???', text: '지하철 타고 가다가 잠들었는데, 눈 뜨니까 이래.', voice: 'assets/audio/voice/4.mp3' },
+            { speaker: '???', text: '근데...', voice: 'assets/audio/voice/5.mp3' },
             { speaker: '', text: '그녀가 객차 창문을 가리킨다.' },
-            { speaker: '???', text: '밖을 봐. 역인 것 같은데... 뭔가 이상하지 않아?' },
+            { speaker: '???', text: '밖을 봐. 역인 것 같은데... 뭔가 이상하지 않아?', voice: 'assets/audio/voice/6.mp3' },
             { speaker: '', text: '창 너머로 보이는 플랫폼. 익숙한 것 같으면서도, 미묘하게 어긋나 있다.' },
             { speaker: '', text: '역 이름 표지판의 글자가 흐릿하게 번져있다. 읽을 수 없다.' },
         ],
-        next: 'encounter_together_choice'
+        next: 'encounter_more_questions'
     },
 
     // --- 안도 ---
@@ -219,7 +219,7 @@ const SCENES = {
             { speaker: '???', text: '공기. 여름인데 이상하게 춥고, 냄새도 달라.' },
             { speaker: '', text: '말을 듣고 보니 그렇다. 습하면서 차갑다. 지하철 안의 공기가 아니다.' },
         ],
-        next: 'encounter_together_choice'
+        next: 'encounter_more_questions'
     },
 
     // --- 경계 ---
@@ -234,6 +234,216 @@ const SCENES = {
             { speaker: '???', text: '...너도 그런 거 아냐? 지하철 타다가 잠들고...' },
             { speaker: '', text: '같은 상황이라는 건 확실해 보인다. 그녀도 똑같이 겁에 질려 있다.' },
         ],
+        next: 'encounter_more_questions'
+    },
+
+    // ==========================================
+    //  여자에 대해 더 알아보기
+    // ==========================================
+
+    encounter_more_questions: {
+        image: 'assets/images/prologue_subway_inside.png',
+        character: 'assets/images/character_protagonist_2.png',
+        dialogue: [
+            { speaker: '', text: '같은 처지인 것 같다. 하지만 모르는 사람이다.' },
+            { speaker: '', text: '좀 더 물어봐야 할 것 같다.' },
+        ],
+        choices: [
+            {
+                text: '"이름이 뭐예요?"',
+                statHint: '기본적인 것부터',
+                stats: { charm: 5, empathy: 3 },
+                next: 'encounter_ask_name'
+            },
+            {
+                text: '"여기 오기 전에 뭐 하고 있었어요?"',
+                statHint: '어떤 사람인지 알고 싶다',
+                stats: { insight: 5, wisdom: 3 },
+                next: 'encounter_ask_before'
+            },
+            {
+                text: '"...혹시 뭔가 숨기고 있는 거 아니에요?"',
+                statHint: '너무 침착하다',
+                stats: { courage: 5, will: 3 },
+                next: 'encounter_ask_suspect'
+            }
+        ]
+    },
+
+    // --- 이름 ---
+    encounter_ask_name: {
+        image: 'assets/images/prologue_subway_inside.png',
+        character: 'assets/images/character_protagonist_2.png',
+        dialogue: [
+            { speaker: '', text: '그녀가 잠깐 망설인다.' },
+            { speaker: '', text: '시선이 흔들린다. 말할지 말지 재고 있는 눈이다.' },
+        ],
+        choices: [
+            {
+                text: '"괜찮아요. 편하게 불러도 될 이름만 알려줘요."',
+                statHint: '부드럽게 다가간다',
+                stats: { empathy: 5, charm: 3 },
+                next: 'encounter_name_real'
+            },
+            {
+                text: '"이런 상황인데, 이름 정도는 알아야 하지 않아요?"',
+                statHint: '논리적으로 설득한다',
+                stats: { insight: 5, will: 3 },
+                next: 'encounter_name_fake'
+            },
+            {
+                text: '"...안 알려줘도 돼요."',
+                statHint: '강요하지 않는다',
+                stats: { composure: 5, empathy: 3 },
+                next: 'encounter_name_unknown'
+            }
+        ]
+    },
+
+    // --- 이름: 진짜 이름을 알려준다 ---
+    encounter_name_real: {
+        image: 'assets/images/prologue_subway_inside.png',
+        character: 'assets/images/character_protagonist_2.png',
+        dialogue: [
+            { speaker: '', text: '부드러운 말투에 그녀의 경계가 조금 풀린다.' },
+            { speaker: '???', text: '...하은. 서하은.' },
+            { speaker: '???', text: '너는?' },
+            { speaker: '', text: '이름을 알려준다.' },
+            { speaker: '하은', text: '...그래. 알겠어.' },
+            { speaker: '', text: '이름을 알게 됐다고 해서 뭐가 달라지진 않는다.' },
+            { speaker: '', text: '하지만 이 적막 속에서, 이름을 부를 수 있는 상대가 있다는 건 조금 다르다.' },
+        ],
+        setFlags: { know_name: true },
+        next: 'encounter_second_question'
+    },
+
+    // --- 이름: 거짓 이름을 알려준다 ---
+    encounter_name_fake: {
+        image: 'assets/images/prologue_subway_inside.png',
+        character: 'assets/images/character_protagonist_2.png',
+        dialogue: [
+            { speaker: '', text: '논리적으로는 맞는 말이다. 하지만 그녀의 표정이 살짝 굳는다.' },
+            { speaker: '???', text: '...유진. 이유진.' },
+            { speaker: '', text: '너무 빨리 나온 대답이다. 준비해둔 것 같은.' },
+            { speaker: '', text: '진짜 이름인지는 알 수 없다. 하지만 지금 따질 상황은 아니다.' },
+            { speaker: '유진', text: '됐지? 너는?' },
+            { speaker: '', text: '이름을 알려준다.' },
+            { speaker: '', text: '그녀가 고개를 끄덕인다. 어딘가 어색한 미소.' },
+        ],
+        setFlags: { fake_name: true },
+        next: 'encounter_second_question'
+    },
+
+    // --- 이름: 알려주지 않는다 ---
+    encounter_name_unknown: {
+        image: 'assets/images/prologue_subway_inside.png',
+        character: 'assets/images/character_protagonist_2.png',
+        dialogue: [
+            { speaker: '', text: '그녀가 살짝 놀란 눈으로 나를 본다.' },
+            { speaker: '???', text: '...고마워. 그렇게 말해줘서.' },
+            { speaker: '', text: '잠깐 침묵이 흐른다.' },
+            { speaker: '???', text: '미안한데, 지금은 좀...' },
+            { speaker: '', text: '괜찮다고 했으니까 괜찮은 거다.' },
+            { speaker: '', text: '이름 대신 기억되는 건 — 주황빛 머리카락, 그리고 경계하는 눈.' },
+        ],
+        next: 'encounter_second_question'
+    },
+
+    // --- 이전 상황 ---
+    encounter_ask_before: {
+        image: 'assets/images/prologue_subway_inside.png',
+        character: 'assets/images/character_protagonist_2.png',
+        dialogue: [
+            { speaker: '???', text: '야근하고 집에 가는 길이었어. 막차 타고.' },
+            { speaker: '???', text: '평소에도 지하철에서 많이 졸거든. 근데 이번엔...' },
+            { speaker: '', text: '그녀가 말을 멈춘다.' },
+            { speaker: '???', text: '...잠들기 직전에 이상한 게 들렸던 것 같아.' },
+            { speaker: '???', text: '뭐라고 설명해야 하지. 종소리? 아닌데... 금속 긁는 소리 같은.' },
+            { speaker: '', text: '나도 잠들기 직전의 기억이 희미하다. 뭔가 있었던 것 같기도 하고.' },
+        ],
+        setFlags: { know_background: true },
+        next: 'encounter_second_question'
+    },
+
+    // --- 의심 ---
+    encounter_ask_suspect: {
+        image: 'assets/images/prologue_subway_inside.png',
+        character: 'assets/images/character_protagonist_2.png',
+        dialogue: [
+            { speaker: '', text: '그녀의 눈이 커진다.' },
+            { speaker: '???', text: '...뭘 숨겨? 나도 무서워 죽겠는데.' },
+            { speaker: '', text: '하지만 잘 보면 — 그녀의 손이 미세하게 떨리고 있다.' },
+            { speaker: '', text: '연기가 아니다. 진짜로 겁먹은 거다.' },
+            { speaker: '???', text: '솔직히 너도 의심스러워. 근데 지금은 서로 믿는 수밖에 없잖아.' },
+            { speaker: '', text: '틀린 말은 아니다.' },
+        ],
+        setFlags: { suspected_girl: true },
+        next: 'encounter_second_question'
+    },
+
+    // ==========================================
+    //  두 번째 질문
+    // ==========================================
+
+    encounter_second_question: {
+        image: 'assets/images/prologue_subway_inside.png',
+        character: 'assets/images/character_protagonist_2.png',
+        dialogue: [
+            { speaker: '', text: '...' },
+            { speaker: '', text: '아직 궁금한 게 있다.' },
+        ],
+        choices: [
+            {
+                text: '"혹시 다른 사람은 못 봤어요?"',
+                statHint: '우리만 있는 건가',
+                stats: { insight: 4, empathy: 3 },
+                next: 'encounter_ask_others'
+            },
+            {
+                text: '"아까 그 소리... 뭐였을까요?"',
+                statHint: '아까 들은 소리',
+                stats: { wisdom: 4, composure: 3 },
+                next: 'encounter_ask_sound'
+            },
+            {
+                text: '"됐어요. 이만 가보죠."',
+                statHint: '더 물을 게 없다',
+                stats: { courage: 4, will: 3 },
+                next: 'encounter_together_choice'
+            }
+        ]
+    },
+
+    // --- 다른 사람 ---
+    encounter_ask_others: {
+        image: 'assets/images/prologue_subway_inside.png',
+        character: 'assets/images/character_protagonist_2.png',
+        dialogue: [
+            { speaker: '???', text: '없어. 한 명도.' },
+            { speaker: '???', text: '나 여기서 몇 칸을 걸어다녔는데, 전부 비어있었어.' },
+            { speaker: '???', text: '근데... 이상한 건.' },
+            { speaker: '', text: '그녀가 좌석 위의 가방을 가리킨다.' },
+            { speaker: '???', text: '물건은 남아있어. 사람만 없어진 거야.' },
+            { speaker: '???', text: '마치... 순간적으로 증발한 것처럼.' },
+            { speaker: '', text: '가방, 우산, 커피. 주인 없는 물건들이 유령처럼 남아있다.' },
+        ],
+        next: 'encounter_together_choice'
+    },
+
+    // --- 소리 ---
+    encounter_ask_sound: {
+        image: 'assets/images/prologue_subway_inside.png',
+        character: 'assets/images/character_protagonist_2.png',
+        dialogue: [
+            { speaker: '???', text: '...나도 들었어.' },
+            { speaker: '', text: '그녀의 얼굴이 어두워진다.' },
+            { speaker: '???', text: '아까 혼자 있을 때. 어디선가 긁는 소리가 났어.' },
+            { speaker: '???', text: '벽을... 아니, 천장을. 뭔가가 기어가는 것 같은.' },
+            { speaker: '', text: '그녀가 무의식적으로 천장을 올려다본다.' },
+            { speaker: '', text: '형광등이 깜빡인다. 한 번. 두 번.' },
+            { speaker: '???', text: '...여기 오래 있으면 안 돼. 그건 확실해.' },
+        ],
+        setFlags: { heard_scratching: true },
         next: 'encounter_together_choice'
     },
 
@@ -276,34 +486,49 @@ const SCENES = {
 
     // --- 함께 ---
     prologue_end_together: {
-        image: 'assets/images/prologue_subway_inside.png',
-        character: 'assets/images/character_protagonist_2.png',
+        image: 'assets/images/character_haeun_back.png',
+        addCompanion: {
+            id: 'haeun',
+            name: '???',
+            portrait: 'assets/images/character_protagonist_2.png',
+            nameConditions: [
+                { flag: 'know_name', name: '하은' },
+                { flag: 'fake_name', name: '유진(?)' }
+            ]
+        },
         dialogue: [
             { speaker: '', text: '둘이서 지하철 문 앞에 선다.' },
             { speaker: '', text: '문에 손을 대자 — 쉬익.' },
             { speaker: '???', text: '...열린다? 아까는 분명히 안 열렸는데.' },
             { speaker: '', text: '열린 문 너머. 플랫폼이 보인다.' },
-            { speaker: '', text: '그런데 — 공기가 다르다. 차갑고, 무겁다.' },
-            { speaker: '', text: '플랫폼 벽에 무언가 적혀있다. 페인트가 아니다. 긁어서 쓴 것 같다.' },
-            { speaker: '', text: '"나가지 마"' },
-            { speaker: '', text: '그리고 멀리서 — 사람의 것이 아닌 울음소리가 들린다.' },
-            { speaker: '???', text: '...뭐야 저거.' },
+            { speaker: '', text: '공기가 다르다. 차갑고, 습하다. 지하철 안의 공기가 아니다.' },
+            { speaker: '', text: '나란히 플랫폼에 발을 내딛는다.' },
+            { speaker: '???', text: '...출구 찾자. 여기 오래 있고 싶지 않아.' },
+            { speaker: '', text: '출구 표지판을 찾는다. 글자는 번져있지만, 화살표는 읽을 수 있다.' },
         ],
         next: 'prologue_final'
     },
 
     // --- 조심하며 함께 ---
     prologue_end_careful: {
-        image: 'assets/images/prologue_subway_inside.png',
-        character: 'assets/images/character_protagonist_2.png',
+        image: 'assets/images/character_haeun_back.png',
+        addCompanion: {
+            id: 'haeun',
+            name: '???',
+            portrait: 'assets/images/character_protagonist_2.png',
+            nameConditions: [
+                { flag: 'know_name', name: '하은' },
+                { flag: 'fake_name', name: '유진(?)' }
+            ]
+        },
         dialogue: [
             { speaker: '', text: '문에 다가간다. 손을 대자 — 이번에는 열린다.' },
             { speaker: '???', text: '...왜 지금은 되는 거야?' },
-            { speaker: '', text: '한 발 내딛는 순간, 등 뒤에서 기척이 느껴진다.' },
-            { speaker: '', text: '돌아보니 — 아무것도 없다.' },
-            { speaker: '', text: '하지만 객차 안의 형광등이 끝쪽부터 하나씩 꺼지고 있다.' },
-            { speaker: '', text: '마치 무언가가 다가오는 것처럼.' },
-            { speaker: '???', text: '...뛰자. 지금 당장.' },
+            { speaker: '', text: '서로를 한 번 바라본다. 확인하듯.' },
+            { speaker: '', text: '같이 플랫폼으로 내려선다. 공기가 차갑다.' },
+            { speaker: '', text: '주위를 살피며 걷는다. 발소리가 텅 빈 역사에 울린다.' },
+            { speaker: '???', text: '...저기. 출구 표지판.' },
+            { speaker: '', text: '글자는 번져있지만, 화살표만은 선명하다. 위를 가리키고 있다.' },
         ],
         next: 'prologue_final'
     },
@@ -329,6 +554,7 @@ const SCENES = {
 
     prologue_run: {
         image: 'assets/images/prologue_subway_inside.png',
+        setFlags: { alone_ran: true },
         dialogue: [
             { speaker: '', text: '본능적으로 반대쪽으로 뛴다.' },
             { speaker: '', text: '칸을 지나고, 또 지나고. 전부 비어있다.' },
@@ -347,14 +573,12 @@ const SCENES = {
         dialogue: [
             { speaker: '', text: '좌석에 주저앉는다.' },
             { speaker: '', text: '...침착해야 한다. 생각하자.' },
-            { speaker: '', text: '그때, 객차의 불이 한 번 깜빡인다.' },
-            { speaker: '', text: '그리고 — 창문에 뭔가가 비친다.' },
-            { speaker: '', text: '내 뒤에, 아무것도 없어야 할 좌석 위에.' },
-            { speaker: '', text: '그림자가 있다. 형체 없는, 어둠보다 짙은 무언가.' },
-            { speaker: '', text: '— 어둑시니.' },
-            { speaker: '', text: '알 수 없는 단어가 머릿속을 스친다.' },
-            { speaker: '', text: '돌아보니 — 아무것도 없다.' },
-            { speaker: '', text: '하지만 불이 다시 깜빡일 때, 그것은 더 가까이 와 있었다.' },
+            { speaker: '', text: '객차의 불이 한 번 깜빡인다.' },
+            { speaker: '', text: '바깥 공기가 달라진 것 같다. 환기구에서 차가운 바람이 들어온다.' },
+            { speaker: '', text: '그때 — 쉬익.' },
+            { speaker: '', text: '아까 꿈쩍도 안 하던 문이 열린다.' },
+            { speaker: '', text: '왜 지금? 알 수 없다.' },
+            { speaker: '', text: '하지만 기회를 놓칠 수는 없다.' },
         ],
         next: 'prologue_end_alone_merge'
     },
@@ -364,13 +588,13 @@ const SCENES = {
     // ==========================================
 
     prologue_end_alone_merge: {
-        image: 'assets/images/prologue_subway_inside.png',
+        image: 'assets/images/prologue_station_exit.png',
         dialogue: [
-            { speaker: '', text: '혼자다. 이 텅 빈 지하철에, 완전히 혼자다.' },
-            { speaker: '', text: '형광등이 하나씩 꺼지기 시작한다.' },
-            { speaker: '', text: '어둠이 객차를 삼키고 있다.' },
-            { speaker: '', text: '...아니. 혼자가 아닌지도 모른다.' },
-            { speaker: '', text: '보이지 않는 무언가가 — 이 어둠 속에 있다.' },
+            { speaker: '', text: '플랫폼에 발을 내딛는다. 혼자.' },
+            { speaker: '', text: '등 뒤에서 문이 닫힌다. 지하철이 어둠 속으로 사라진다.' },
+            { speaker: '', text: '역사 안은 텅 비어있다. 형광등 하나가 끝에서 깜빡이고 있을 뿐.' },
+            { speaker: '', text: '출구 표지판이 보인다. 글자는 번져있지만, 화살표는 읽을 수 있다.' },
+            { speaker: '', text: '갈 곳은 하나뿐이다. 위로.' },
         ],
         next: 'prologue_final'
     },
@@ -380,15 +604,23 @@ const SCENES = {
     // ==========================================
 
     prologue_final: {
-        image: 'assets/images/prologue_subway_inside.png',
-        overlayColor: 'linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,20,0.8) 70%, rgba(0,0,0,1) 100%)',
+        imageIf: [
+            { flag: 'with_girl', image: 'assets/images/character_haeun_back.png' },
+            { flag: 'cautious_together', image: 'assets/images/character_haeun_back.png' }
+        ],
+        image: 'assets/images/prologue_station_exit.png',
         showFlowchart: 'prologue',
         dialogue: [
+            { speaker: '', text: '계단을 올라간다. 한 칸, 또 한 칸.' },
+            { speaker: '', text: '지상의 빛이 보일 줄 알았다. 하지만 —', image: 'assets/images/prologue_station_exit.png' },
+            { speaker: '', text: '출구 너머에 펼쳐진 건 밤이다. 달도 별도 없는 밤.' },
+            { speaker: '', text: '서울의 풍경이 보인다. 건물, 도로, 가로등.' },
+            { speaker: '', text: '전부 그대로인데 — 사람이 없다.' },
             { speaker: '', text: '여기가 어디인지 모른다.' },
-            { speaker: '', text: '무슨 일이 일어난 건지도 모른다.' },
             { speaker: '', text: '확실한 건 하나뿐이다.' },
             { speaker: '', text: '이곳은 내가 알던 서울이 아니다.' },
         ],
+        next: 'ch1_intro',
     },
 };
 
@@ -400,53 +632,63 @@ const FLOWCHARTS = {
     prologue: {
         episode: '프롤로그',
         title: '마지막 지하철',
-        nodes: [
-            {
-                type: 'story',
-                text: '텅 빈 지하철에서 눈을 뜨다',
+        // tree: 배열 = 순차 흐름. branch에 children이 있으면 별도 경로로 갈라짐.
+        // children이 없는 branch는 다음 노드로 합류.
+        tree: [
+            { type: 'story', text: '텅 빈 지하철에서 눈을 뜨다' },
+            { type: 'choice', label: '아무도 없는 객차에서', sceneId: 'prologue_01',
+              branches: [
+                  { text: '침착하게 둘러본다' },
+                  { text: '소리쳐 부른다' },
+                  { text: '바로 나간다' },
+              ]
             },
-            {
-                type: 'choice',
-                label: '아무도 없는 객차에서',
-                sceneId: 'prologue_01',
-                branches: [
-                    { text: '침착하게 둘러본다' },
-                    { text: '소리쳐 부른다' },
-                    { text: '바로 나간다' },
-                ],
+            { type: 'story', text: '정체불명의 소리' },
+            { type: 'choice', label: '플랫폼에 울린 소리', sceneId: 'prologue_sound',
+              branches: [
+                  { text: '소리 쪽으로 간다' },
+                  { text: '기다린다' },
+                  { text: '도망간다', children: [
+                      { type: 'story', text: '홀로 갇힌 객차' },
+                      { type: 'story', text: '혼자 밖으로' },
+                      { type: 'story', text: '프롤로그 — 끝' },
+                  ]},
+              ]
             },
-            {
-                type: 'story',
-                text: '정체불명의 소리',
+            { type: 'story', text: '소녀와의 조우' },
+            { type: 'choice', label: '첫 대화', sceneId: 'encounter_girl',
+              branches: [
+                  { text: '상황을 묻는다' },
+                  { text: '안도한다' },
+                  { text: '경계한다' },
+              ]
             },
-            {
-                type: 'choice',
-                label: '플랫폼에 울린 소리',
-                sceneId: 'prologue_sound',
-                branches: [
-                    { text: '소리 쪽으로 간다' },
-                    { text: '기다린다' },
-                    { text: '도망간다' },
-                ],
+            { type: 'choice', label: '그녀에 대해', sceneId: 'encounter_more_questions',
+              branches: [
+                  { text: '이름을 묻는다' },
+                  { text: '이전 상황을 묻는다' },
+                  { text: '의심한다' },
+              ]
             },
-            {
-                type: 'story',
-                text: '소녀와의 조우 / 홀로 객차',
+            { type: 'choice', label: '두 번째 질문', sceneId: 'encounter_second_question',
+              branches: [
+                  { text: '다른 사람은?' },
+                  { text: '아까 그 소리' },
+                  { text: '이만 가보죠' },
+              ]
             },
-            {
-                type: 'choice',
-                label: '함께할 것인가',
-                sceneId: 'encounter_together_choice',
-                branches: [
-                    { text: '따라간다' },
-                    { text: '경계하며 동행' },
-                    { text: '혼자 간다' },
-                ],
+            { type: 'choice', label: '함께할 것인가', sceneId: 'encounter_together_choice',
+              branches: [
+                  { text: '함께 간다' },
+                  { text: '조심하며 동행' },
+                  { text: '혼자 간다', children: [
+                      { type: 'story', text: '거절 후 혼자' },
+                      { type: 'story', text: '프롤로그 — 끝' },
+                  ]},
+              ]
             },
-            {
-                type: 'story',
-                text: '프롤로그 — 끝',
-            },
+            { type: 'story', text: '함께 밖으로' },
+            { type: 'story', text: '프롤로그 — 끝' },
         ],
     },
 };
