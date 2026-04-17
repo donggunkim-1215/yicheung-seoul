@@ -47,10 +47,10 @@ const SCENES_CH1 = {
             { speaker: '', text: '가로등이 깜빡인다. 규칙 없이, 제멋대로.' },
             { speaker: '', text: '아스팔트가 젖어 있다. 비가 온 것 같은데, 하늘은 맑다.' },
             // 동행
-            { speaker: '하은', text: '...진짜 아무도 없어.', condition: { flag: 'with_girl' } },
-            { speaker: '하은', text: '지하에서도 그랬지만... 밖도 똑같네.', condition: { flag: 'with_girl' } },
-            { speaker: '하은', text: '...위도 마찬가지구나.', condition: { flag: 'cautious_together' } },
-            { speaker: '하은', text: '(주위를 경계하며) 일단 움직이자. 여기 서 있으면 안 돼.', condition: { flag: 'cautious_together' } },
+            { speaker: '???', text: '...진짜 아무도 없어.', condition: { flag: 'with_girl' } },
+            { speaker: '???', text: '지하에서도 그랬지만... 밖도 똑같네.', condition: { flag: 'with_girl' } },
+            { speaker: '???', text: '...위도 마찬가지구나.', condition: { flag: 'cautious_together' } },
+            { speaker: '???', text: '(주위를 경계하며) 일단 움직이자. 여기 서 있으면 안 돼.', condition: { flag: 'cautious_together' } },
             // 혼자
             { speaker: '', text: '혼자다.', condition: { flag: 'is_alone' } },
             { speaker: '', text: '이 넓은 서울에 나 혼자라는 사실이 — 천천히 실감된다.', condition: { flag: 'is_alone' } },
@@ -67,7 +67,7 @@ const SCENES_CH1 = {
         characters: {
             left: { src: 'assets/images/character_protagonist_2.png', name: '하은',
                     condition: { flag: 'has_companion' } },
-            right: { src: 'assets/images/character_student.png', name: '서연' },
+            right: { src: 'assets/images/character_student.png', name: '서연', scale: 0.95 },
         },
         dialogue: [
             { speaker: '', text: '버스 정류장 벤치.' },
@@ -76,8 +76,8 @@ const SCENES_CH1 = {
             { speaker: '', text: '가로등 불빛 아래 — 안경 너머의 눈이 진지하다.' },
             { speaker: '', text: '이 텅 빈 서울에서, 사람이다.' },
             // 동행
-            { speaker: '하은', text: '(속삭이며) ...저기, 사람 있어.', condition: { flag: 'has_companion' } },
-            { speaker: '하은', text: '살아있는 거 맞지...?', condition: { flag: 'has_companion' } },
+            { speaker: '???', text: '(속삭이며) ...저기, 사람 있어.', condition: { flag: 'has_companion' } },
+            { speaker: '???', text: '살아있는 거 맞지...?', condition: { flag: 'has_companion' } },
             // 혼자
             { speaker: '', text: '나 말고 다른 사람이 — 있다.', condition: { flag: 'is_alone' } },
         ],
@@ -102,7 +102,7 @@ const SCENES_CH1 = {
         characters: {
             left: { src: 'assets/images/character_protagonist_2.png', name: '하은',
                     condition: { flag: 'has_companion' } },
-            right: { src: 'assets/images/character_student.png', name: '서연' },
+            right: { src: 'assets/images/character_student.png', name: '서연', scale: 0.95 },
         },
         dialogue: [
             { speaker: '', text: '다가간다. 발소리를 내며, 천천히.' },
@@ -114,7 +114,7 @@ const SCENES_CH1 = {
             { speaker: '서연', text: '(노트를 보여주며) 지하철은 정차 상태, 전기는 살아있고, 통신은 불통.' },
             { speaker: '서연', text: '기록하고 있었어요. 혼자서라도 파악은 해야 하니까.' },
             // 동행
-            { speaker: '하은', text: '...너 혼자 여기 있었어?', condition: { flag: 'has_companion' } },
+            { speaker: '???', text: '...너 혼자 여기 있었어?', condition: { flag: 'has_companion' } },
             { speaker: '서연', text: '학원에 있었어요. 야자 중이었는데, 정신 차려보니 혼자였죠.', condition: { flag: 'has_companion' } },
             // 혼자
             { speaker: '서연', text: '당신은 어디에서 왔어요?', condition: { flag: 'is_alone' } },
@@ -129,7 +129,7 @@ const SCENES_CH1 = {
         characters: {
             left: { src: 'assets/images/character_protagonist_2.png', name: '하은',
                     condition: { flag: 'has_companion' } },
-            right: { src: 'assets/images/character_student.png', name: '서연' },
+            right: { src: 'assets/images/character_student.png', name: '서연', scale: 0.95 },
         },
         dialogue: [
             { speaker: '', text: '멈춘다. 거리를 둔다.' },
@@ -151,14 +151,14 @@ const SCENES_CH1 = {
         characters: {
             left: { src: 'assets/images/character_protagonist_2.png', name: '하은',
                     condition: { flag: 'has_companion' } },
-            right: { src: 'assets/images/character_student.png', name: '서연' },
+            right: { src: 'assets/images/character_student.png', name: '서연', scale: 0.95 },
         },
         dialogue: [
             { speaker: '서연', text: '저는 이서연. 근처 학원에 다니는... 다녔던 고등학생이에요.' },
             { speaker: '서연', text: '(노트를 닫으며) 혼자 돌아다니는 건 비효율적이에요.' },
             { speaker: '서연', text: '같이 움직이는 게 합리적이라고 생각해요.' },
             // 동행
-            { speaker: '하은', text: '...어떡해? 같이 가자고 할까?', condition: { flag: 'has_companion' } },
+            { speaker: '???', text: '...어떡해? 같이 가자고 할까?', condition: { flag: 'has_companion' } },
             // 혼자
             { speaker: '', text: '차분한 눈이 나를 본다. 기다리고 있다.', condition: { flag: 'is_alone' } },
         ],
@@ -167,6 +167,7 @@ const SCENES_CH1 = {
                 text: '같이 가자',
                 statHint: '인원이 많을수록 안전하다',
                 stats: { empathy: 6, trust: 5 },
+                affinity: { haeun: 3 },
                 setFlags: { student_companion: true },
                 next: 'ch1_student_join'
             },
@@ -174,6 +175,7 @@ const SCENES_CH1 = {
                 text: '미안하지만, 각자 가는 게 나을 것 같아',
                 statHint: '부담을 지고 싶지 않다',
                 stats: { composure: 4, will: 3, trust: -2 },
+                affinity: { haeun: -2 },
                 setFlags: { student_refused: true },
                 next: 'ch1_student_refuse'
             }
@@ -185,7 +187,7 @@ const SCENES_CH1 = {
         characters: {
             left: { src: 'assets/images/character_protagonist_2.png', name: '하은',
                     condition: { flag: 'has_companion' } },
-            right: { src: 'assets/images/character_student.png', name: '서연' },
+            right: { src: 'assets/images/character_student.png', name: '서연', scale: 0.95 },
         },
         addCompanion: {
             id: 'student',
@@ -193,13 +195,13 @@ const SCENES_CH1 = {
             portrait: 'assets/images/character_student.png',
         },
         dialogue: [
-            { speaker: '서연', text: '(작게 고개를 숙이며) ...고마워요.' },
+            { speaker: '서연', text: '(작게 고개를 숙이며) ...고마워요.', affinity: { student: 3 } },
             { speaker: '서연', text: '이서연이에요. 서연이라고 불러주세요.' },
             { speaker: '', text: '가방을 메고 일어선다. 노트를 소중하게 넣는 모습이 보인다.' },
             // 동행
-            { speaker: '하은', text: '나는 하은이야. 반가워, 서연.', condition: { flag: 'has_companion' } },
+            { speaker: '???', text: '나는 하은이야. 반가워, 서연.', condition: { flag: 'has_companion' }, setFlags: { know_name: true } },
             { speaker: '서연', text: '(고개를 끄덕이며) 하은 씨. 반갑습니다.', condition: { flag: 'has_companion' } },
-            { speaker: '하은', text: '씨는 좀... 말 편하게 해도 돼.', condition: { flag: 'has_companion' } },
+            { speaker: '???', text: '씨는 좀... 말 편하게 해도 돼.', condition: { flag: 'has_companion' } },
             { speaker: '서연', text: '...노력해볼게요.', condition: { flag: 'has_companion' } },
             // 혼자
             { speaker: '', text: '혼자가 아니게 됐다.', condition: { flag: 'is_alone' } },
@@ -216,7 +218,7 @@ const SCENES_CH1 = {
         characters: {
             left: { src: 'assets/images/character_protagonist_2.png', name: '하은',
                     condition: { flag: 'has_companion' } },
-            right: { src: 'assets/images/character_student.png', name: '서연' },
+            right: { src: 'assets/images/character_student.png', name: '서연', scale: 0.95 },
         },
         dialogue: [
             { speaker: '서연', text: '...' },
@@ -227,7 +229,7 @@ const SCENES_CH1 = {
             { speaker: '서연', text: '...조심하세요.', speakerPosition: 'right' },
             { speaker: '', text: '돌아선다. 뒤에서 펜 소리가 들린다.' },
             // 동행
-            { speaker: '하은', text: '(속삭이며) ...괜찮을까, 저 아이.', condition: { flag: 'has_companion' } },
+            { speaker: '???', text: '(속삭이며) ...괜찮을까, 저 아이.', condition: { flag: 'has_companion' } },
             { speaker: '', text: '대답하지 않는다.' },
             // 공통
             { speaker: '', text: '주위를 둘러본다. 어디로 가야 할까.' },
@@ -308,7 +310,7 @@ const SCENES_CH1 = {
         image: 'assets/images/ch1_convstore_exterior.png',
         characters: {
             left: { src: 'assets/images/character_protagonist_2.png', name: '하은', condition: { flag: 'has_companion' } },
-            right: { src: 'assets/images/character_student.png', name: '서연', condition: { flag: 'student_companion' } },
+            right: { src: 'assets/images/character_student.png', name: '서연', scale: 0.95, condition: { flag: 'student_companion' } },
         },
         dialogue: [
             { speaker: '', text: '편의점. 간판이 환하게 빛나고 있다.' },
@@ -325,7 +327,7 @@ const SCENES_CH1 = {
         image: 'assets/images/ch1_convstore_interior.png',
         characters: {
             left: { src: 'assets/images/character_protagonist_2.png', name: '하은', condition: { flag: 'has_companion' } },
-            right: { src: 'assets/images/character_student.png', name: '서연', condition: { flag: 'student_companion' } },
+            right: { src: 'assets/images/character_student.png', name: '서연', scale: 0.95, condition: { flag: 'student_companion' } },
         },
         dialogue: [
             { speaker: '', text: '안으로 들어선다.' },
@@ -345,7 +347,7 @@ const SCENES_CH1 = {
         image: 'assets/images/ch1_convstore_interior.png',
         characters: {
             left: { src: 'assets/images/character_protagonist_2.png', name: '하은', condition: { flag: 'has_companion' } },
-            right: { src: 'assets/images/character_student.png', name: '서연', condition: { flag: 'student_companion' } },
+            right: { src: 'assets/images/character_student.png', name: '서연', scale: 0.95, condition: { flag: 'student_companion' } },
         },
         dialogue: [
             { speaker: '', text: '안을 둘러본다.' },
@@ -420,18 +422,18 @@ const SCENES_CH1 = {
         image: 'assets/images/ch1_convstore_interior.png',
         characters: {
             left: { src: 'assets/images/character_protagonist_2.png', name: '하은', condition: { flag: 'has_companion' } },
-            right: { src: 'assets/images/character_student.png', name: '서연', condition: { flag: 'student_companion' } },
+            right: { src: 'assets/images/character_student.png', name: '서연', scale: 0.95, condition: { flag: 'student_companion' } },
         },
         dialogue: [
             // 동행: 생존물품
-            { speaker: '???', text: '잘 골랐어. 어둠 속에선 빛이 전부야.', condition: { flag: 'took_survival' } },
+            { speaker: '???', text: '잘 골랐어. 어둠 속에선 빛이 전부야.', condition: { flag: 'took_survival' }, affinity: { haeun: 2 } },
             // 동행: 음식 (신뢰)
-            { speaker: '???', text: '...나도 하나 줘. 배고파.', condition: { flag: 'took_food' } },
+            { speaker: '???', text: '...나도 하나 줘. 배고파.', condition: { flag: 'took_food' }, affinity: { haeun: 3 } },
             // 동행: 탐욕 (신뢰)
-            { speaker: '???', text: '...진짜로? 지금 그걸 챙겨?', condition: { flag: 'took_greed' } },
+            { speaker: '???', text: '...진짜로? 지금 그걸 챙겨?', condition: { flag: 'took_greed' }, affinity: { haeun: -5 } },
             { speaker: '', text: '그녀의 시선이 차갑다.', condition: { flag: 'took_greed' } },
             // 서연 반응 (동료일 때만)
-            { speaker: '서연', text: '합리적인 선택이에요.', condition: { flag: 'student_companion' } },
+            { speaker: '서연', text: '합리적인 선택이에���.', condition: { flag: 'student_companion' }, affinity: { student: 2 } },
             // 혼자: 간결하게
             { speaker: '', text: '가방을 메고 한숨을 돌린다.', condition: { flag: 'is_alone' } },
         ],
@@ -442,7 +444,7 @@ const SCENES_CH1 = {
         image: 'assets/images/ch1_convstore_interior.png',
         characters: {
             left: { src: 'assets/images/character_protagonist_2.png', name: '하은', condition: { flag: 'has_companion' } },
-            right: { src: 'assets/images/character_student.png', name: '서연', condition: { flag: 'student_companion' } },
+            right: { src: 'assets/images/character_student.png', name: '서연', scale: 0.95, condition: { flag: 'student_companion' } },
         },
         dialogue: [
             { speaker: '', text: '카운터에 기대앉는다. 잠깐이라도 숨을 고르자.' },
@@ -500,7 +502,7 @@ const SCENES_CH1 = {
 
     ch1_shadow_appear: {
         image: 'assets/images/ch1_convstore_dark.png',
-        characters: { center: 'assets/images/ch1_eoduksini_appear.png' },
+        characters: { center: 'assets/images/ch1_eoduksini.png' },
         bgm: 'ch1-battle',
         dialogue: [
             { speaker: '', text: '눈이 어둠에 적응하기 시작한다.' },
@@ -519,7 +521,7 @@ const SCENES_CH1 = {
 
     ch1_shadow_describe: {
         image: 'assets/images/ch1_convstore_dark.png',
-        characters: { center: 'assets/images/ch1_eoduksini_appear.png' },
+        characters: { center: 'assets/images/ch1_eoduksini.png' },
         choiceTimer: 10,
         dialogue: [
             { speaker: '', text: '숨을 참는다.' },
@@ -565,7 +567,7 @@ const SCENES_CH1 = {
 
     ch1_r1_light: {
         image: 'assets/images/ch1_convstore_dark.png',
-        characters: { center: 'assets/images/ch1_eoduksini_appear.png' },
+        characters: { center: 'assets/images/ch1_eoduksini.png' },
         dialogue: [
             { speaker: '', text: '손전등을 켠다.' },
             { speaker: '', text: '찰칵 —' },
@@ -582,7 +584,7 @@ const SCENES_CH1 = {
 
     ch1_r1_distract: {
         image: 'assets/images/ch1_convstore_dark.png',
-        characters: { center: 'assets/images/ch1_eoduksini_appear.png' },
+        characters: { center: 'assets/images/ch1_eoduksini.png' },
         dialogue: [
             { speaker: '', text: '가방에서 물병을 꺼내 반대쪽으로 던진다.' },
             { speaker: '', text: '쿵 — 물병이 바닥에 굴러간다.' },
@@ -597,7 +599,7 @@ const SCENES_CH1 = {
 
     ch1_r1_panic: {
         image: 'assets/images/ch1_convstore_dark.png',
-        characters: { center: 'assets/images/ch1_eoduksini_appear.png' },
+        characters: { center: 'assets/images/ch1_eoduksini.png' },
         dialogue: [
             { speaker: '', text: '뒤로 물러난다. 등이 진열대에 부딪힌다.' },
             { speaker: '', text: '과자 봉지들이 우수수 떨어진다.' },
@@ -617,7 +619,7 @@ const SCENES_CH1 = {
 
     ch1_combat_r2_adv: {
         image: 'assets/images/ch1_convstore_dark.png',
-        characters: { center: 'assets/images/ch1_eoduksini_appear.png' },
+        characters: { center: 'assets/images/ch1_eoduksini.png' },
         choiceTimer: 10,
         dialogue: [
             { speaker: '', text: '그림자가 불안정해진 틈 — 지금이다.' },
@@ -642,6 +644,7 @@ const SCENES_CH1 = {
                 statHint: '둘이라면 할 수 있다',
                 condition: { flag: 'has_companion' },
                 stats: { trust: 10, empathy: 5, courage: 5 },
+                affinity: { haeun: 5 },
                 setFlags: { teamwork_success: true },
                 next: 'ch1_r2_team_adv'
             },
@@ -649,6 +652,7 @@ const SCENES_CH1 = {
                 text: '정면으로 맞선다',
                 statHint: '물러서지 않는다',
                 stats: { courage: 10, will: 8 },
+                affinity: { haeun: 2 },
                 setFlags: { stood_ground: true },
                 next: 'ch1_r2_stand_adv'
             },
@@ -656,6 +660,7 @@ const SCENES_CH1 = {
                 text: '입구를 향해 뛴다',
                 statHint: '이길 수 있는 상대가 아니다',
                 stats: { composure: 5, courage: -3 },
+                affinity: { haeun: -3 },
                 setFlags: { tried_to_run: true },
                 next: 'ch1_r2_run_adv'
             }
@@ -664,7 +669,7 @@ const SCENES_CH1 = {
 
     ch1_r2_team_adv: {
         image: 'assets/images/ch1_convstore_dark.png',
-        characters: { center: 'assets/images/ch1_eoduksini_appear.png' },
+        characters: { center: 'assets/images/ch1_eoduksini.png' },
         dialogue: [
             { speaker: '', text: '그녀를 본다. 그녀도 나를 본다.' },
             { speaker: '', text: '말이 필요 없다.' },
@@ -681,7 +686,7 @@ const SCENES_CH1 = {
 
     ch1_r2_stand_adv: {
         image: 'assets/images/ch1_convstore_dark.png',
-        characters: { center: 'assets/images/ch1_eoduksini_appear.png' },
+        characters: { center: 'assets/images/ch1_eoduksini.png' },
         dialogue: [
             { speaker: '', text: '도망치지 않는다.' },
             { speaker: '', text: '손전등을 들어올린다.', condition: { flag: 'used_light' } },
@@ -702,7 +707,7 @@ const SCENES_CH1 = {
 
     ch1_r2_run_adv: {
         image: 'assets/images/ch1_convstore_dark.png',
-        characters: { center: 'assets/images/ch1_eoduksini_appear.png' },
+        characters: { center: 'assets/images/ch1_eoduksini.png' },
         dialogue: [
             { speaker: '', text: '지금이다. 그림자가 흔들리는 사이에 —' },
             { speaker: '', text: '입구를 향해 뛴다.' },
@@ -721,7 +726,7 @@ const SCENES_CH1 = {
 
     ch1_combat_r2_desp: {
         image: 'assets/images/ch1_convstore_dark.png',
-        characters: { center: 'assets/images/ch1_eoduksini_appear.png' },
+        characters: { center: 'assets/images/ch1_eoduksini.png' },
         choiceTimer: 10,
         dialogue: [
             { speaker: '', text: '그림자가 다가온다. 한 발. 또 한 발.' },
@@ -738,6 +743,7 @@ const SCENES_CH1 = {
                 statHint: '겁에 맞서는 유일한 방법',
                 condition: { flag: 'has_companion' },
                 stats: { trust: 8, courage: 5, empathy: 5 },
+                affinity: { haeun: 5 },
                 setFlags: { teamwork_success: true },
                 next: 'ch1_r2_team_desp'
             },
@@ -745,6 +751,7 @@ const SCENES_CH1 = {
                 text: '이를 악물고 버틴다',
                 statHint: '여기서 쓰러지지 않는다',
                 stats: { will: 10, courage: 5 },
+                affinity: { haeun: 1 },
                 setFlags: { stood_ground: true },
                 next: 'ch1_r2_stand_desp'
             },
@@ -752,6 +759,7 @@ const SCENES_CH1 = {
                 text: '있는 힘껏 도망친다',
                 statHint: '살아야 한다',
                 stats: { composure: 3 },
+                affinity: { haeun: -4 },
                 setFlags: { tried_to_run: true },
                 next: 'ch1_r2_run_desp'
             }
@@ -760,7 +768,7 @@ const SCENES_CH1 = {
 
     ch1_r2_team_desp: {
         image: 'assets/images/ch1_convstore_dark.png',
-        characters: { center: 'assets/images/ch1_eoduksini_appear.png' },
+        characters: { center: 'assets/images/ch1_eoduksini.png' },
         dialogue: [
             { speaker: '', text: '그녀의 손을 잡는다.' },
             { speaker: '', text: '차갑다. 하지만 — 살아있는 온기가 있다.' },
@@ -777,7 +785,7 @@ const SCENES_CH1 = {
 
     ch1_r2_stand_desp: {
         image: 'assets/images/ch1_convstore_dark.png',
-        characters: { center: 'assets/images/ch1_eoduksini_appear.png' },
+        characters: { center: 'assets/images/ch1_eoduksini.png' },
         dialogue: [
             { speaker: '', text: '이를 악문다.' },
             { speaker: '', text: '주먹을 쥔다. 떨린다. 하지만 펴지 않는다.' },
@@ -797,7 +805,7 @@ const SCENES_CH1 = {
 
     ch1_r2_run_desp: {
         image: 'assets/images/ch1_convstore_dark.png',
-        characters: { center: 'assets/images/ch1_eoduksini_appear.png' },
+        characters: { center: 'assets/images/ch1_eoduksini.png' },
         dialogue: [
             { speaker: '', text: '달린다. 어디로든.' },
             { speaker: '', text: '진열대를 넘고, 쓰러지고, 다시 일어난다.' },
@@ -818,7 +826,7 @@ const SCENES_CH1 = {
 
     ch1_negotiate_eoduksini: {
         image: 'assets/images/ch1_convstore_dark.png',
-        characters: { center: 'assets/images/ch1_eoduksini_appear.png' },
+        characters: { center: 'assets/images/ch1_eoduksini.png' },
         dialogue: [
             { speaker: '', text: '손전등을 낮춘다.' },
             { speaker: '', text: '직접 비추지 않는다. 바닥을 향해 — 간접적으로.' },
@@ -828,23 +836,24 @@ const SCENES_CH1 = {
             { speaker: '', text: '...' },
             { speaker: '', text: '그림자의 윤곽이 — 변한다.' },
             { speaker: '', text: '짙은 어둠이 옅어지면서, 그 안에 형체가 드러난다.' },
-            { speaker: '', text: '사람이다. 사람의 형상.' },
-            { speaker: '', text: '길고 검은 머리카락. 창백한 얼굴. 눈이 — 있다.' },
-            { speaker: '', text: '텅 빈 눈이 나를 본다.' },
+            { speaker: '', text: '사람이다. 사람의 형상. 하지만 — 얼굴이 없다.' },
+            { speaker: '', text: '매끈한 검은 표면. 눈도, 코도, 입도 없다.' },
+            { speaker: '', text: '옷에 새겨진 문양들이 — 눈처럼 보인다. 수십 개의 눈이 나를 본다.' },
         ],
         next: 'ch1_negotiate_2'
     },
 
     ch1_negotiate_2: {
         image: 'assets/images/ch1_convstore_dark.png',
-        characters: { center: 'assets/images/ch1_eoduksini_appear.png' },
+        characters: { center: 'assets/images/ch1_eoduksini.png' },
+        choiceTimer: 10,
         dialogue: [
-            { speaker: '', text: '입이 움직인다. 소리는 나지 않는다.' },
-            { speaker: '', text: '하지만 — 머릿속에 무언가가 울린다.' },
-            { speaker: '???', text: '...추워.' },
-            { speaker: '', text: '말이 아니다. 감각이다. 냉기가 전하는 감정.' },
-            { speaker: '???', text: '...오래됐어. 여기.' },
-            { speaker: '', text: '외로움. 차가움. 오래된 어둠 속의 고립.' },
+            { speaker: '', text: '그것은 꼼짝도 하지 않는다. 입도 없다.' },
+            { speaker: '', text: '하지만 — 머릿속에 무언가가 울린다. 소리가 아니라, 감각이.' },
+            { speaker: '', text: '...추위. 뼈를 파고드는 추위가 밀려온다.' },
+            { speaker: '', text: '말이 아니다. 냉기가 전하는 감정이다.' },
+            { speaker: '', text: '...고립. 오래된 어둠. 끝없이 혼자였던 시간.' },
+            { speaker: '', text: '외로움이 피부를 타고 스며든다.' },
             { speaker: '', text: '이것은 — 괴물이 아니다.' },
             { speaker: '', text: '이것도 이 도시에 갇힌 존재다.' },
             // 동행
@@ -856,6 +865,7 @@ const SCENES_CH1 = {
                 text: '손을 내민다',
                 statHint: '두려움을 넘어서',
                 stats: { empathy: 15, trust: 10, courage: 8 },
+                affinity: { haeun: -2, eoduksini: 10 },
                 setFlags: { reached_out_eoduksini: true },
                 next: 'ch1_eoduksini_accept'
             },
@@ -863,6 +873,7 @@ const SCENES_CH1 = {
                 text: '...아직은 못 믿겠다. 물러난다.',
                 statHint: '조심하는 것이 낫다',
                 stats: { composure: 8, wisdom: 5 },
+                affinity: { haeun: 3 },
                 next: 'ch1_eoduksini_refuse'
             }
         ]
@@ -870,12 +881,12 @@ const SCENES_CH1 = {
 
     ch1_eoduksini_accept: {
         image: 'assets/images/ch1_convstore_dark.png',
-        characters: { center: 'assets/images/ch1_eoduksini_appear.png' },
+        characters: { center: 'assets/images/ch1_eoduksini.png' },
         setFlags: { clean_victory: true, eoduksini_companion: true },
         addCompanion: {
             id: 'eoduksini',
             name: '어둑시니',
-            portrait: 'assets/images/ch1_eoduksini_appear.png',
+            portrait: 'assets/images/ch1_eoduksini.png',
         },
         dialogue: [
             { speaker: '', text: '손을 뻗는다.' },
@@ -883,17 +894,17 @@ const SCENES_CH1 = {
             { speaker: '', text: '그림자의 손이 — 내 손에 닿는다.' },
             { speaker: '', text: '...닿는다는 표현이 맞는지 모르겠다.' },
             { speaker: '', text: '차가운 바람 같은 것이 손바닥을 스친다.' },
-            { speaker: '', text: '텅 빈 눈에 — 무언가가 스친다. 놀라움? 안도?' },
-            { speaker: '???', text: '...따뜻해.' },
+            { speaker: '', text: '얼굴 없는 머리가 — 아주 천천히 기울어진다.' },
+            { speaker: '', text: '...온기. 손끝에서 희미한 온기가 전해져 온다.', affinity: { eoduksini: 5 } },
             { speaker: '', text: '그림자의 형체가 옅어진다. 공격적이었던 냉기가 수그러든다.' },
             { speaker: '', text: '사라지는 게 아니다. 변하는 것이다.' },
             { speaker: '', text: '편의점의 형광등이 깜빡이며 돌아온다.' },
             { speaker: '', text: '그 빛 아래 — 그림자가 서 있다.' },
-            { speaker: '', text: '여전히 창백하고, 여전히 차갑지만.' },
+            { speaker: '', text: '여전히 검고, 여전히 차갑지만.' },
             { speaker: '', text: '적의는 없다.' },
             // 동행 반응
-            { speaker: '???', text: '...진짜로 대화가 된 거야? 저거랑?', condition: { flag: 'has_companion' } },
-            { speaker: '', text: '어둑시니가 고개를 돌린다. 그녀를 본다.', condition: { flag: 'has_companion' } },
+            { speaker: '???', text: '...진짜로 대화가 된 거야? 저거랑?', condition: { flag: 'has_companion' }, affinity: { haeun: -1 } },
+            { speaker: '', text: '어둑시니가 고개를 돌린다. 옷의 문양들이 — 그녀 쪽을 향한다.', condition: { flag: 'has_companion' } },
             { speaker: '???', text: '(한 발 물러서며) ...보지 마...', condition: { flag: 'has_companion' } },
             // 혼자
             { speaker: '', text: '이 도시에서 처음으로 — 누군가를 만났다.', condition: { flag: 'is_alone' } },
@@ -905,14 +916,14 @@ const SCENES_CH1 = {
 
     ch1_eoduksini_refuse: {
         image: 'assets/images/ch1_convstore_dark.png',
-        characters: { center: 'assets/images/ch1_eoduksini_appear.png' },
+        characters: { center: 'assets/images/ch1_eoduksini.png' },
         setFlags: { clean_victory: true },
         dialogue: [
             { speaker: '', text: '손을 거둔다.' },
             { speaker: '', text: '...아직 모르겠다. 이것이 무엇인지.' },
             { speaker: '', text: '그림자가 — 한 발 물러난다.' },
-            { speaker: '', text: '공격하지 않는다. 다만 — 눈에서 무언가가 사라진다.' },
-            { speaker: '', text: '기대? 아니면 희망?' },
+            { speaker: '', text: '공격하지 않는다. 다만 — 옷의 문양들이 천천히 감긴다.' },
+            { speaker: '', text: '닫히는 눈들. 기대? 아니면 희망?' },
             { speaker: '', text: '그림자가 천천히 옅어진다. 벽 속으로, 바닥 속으로.' },
             { speaker: '', text: '편의점의 형광등이 돌아온다.' },
             { speaker: '', text: '...사라졌다.' },
@@ -938,7 +949,7 @@ const SCENES_CH1 = {
             { speaker: '', text: '바닥에 아무것도 남지 않았다. 흔적조차.' },
             { speaker: '', text: '마치 처음부터 없었던 것처럼.' },
             // 동행
-            { speaker: '???', text: '...이긴 거야?', condition: { flag: 'has_companion' } },
+            { speaker: '???', text: '...이긴 거야?', condition: { flag: 'has_companion' }, affinity: { haeun: 3 } },
             { speaker: '', text: '아무도 대답하지 않는다. 하지만 — 끝났다는 건 안다.' },
             // 혼자
             { speaker: '', text: '무릎이 풀린다. 주저앉는다.', condition: { flag: 'is_alone' } },
@@ -959,7 +970,7 @@ const SCENES_CH1 = {
             { speaker: '', text: '...갔나?' },
             { speaker: '', text: '팔이 저리다. 냉기에 스친 곳의 감각이 돌아오지 않는다.' },
             // 동행
-            { speaker: '???', text: '괜찮아?', condition: { flag: 'has_companion' } },
+            { speaker: '???', text: '괜찮아?', condition: { flag: 'has_companion' }, affinity: { haeun: 2 } },
             { speaker: '', text: '...모르겠어. 근데 살아있어.', condition: { flag: 'has_companion' } },
             // 혼자
             { speaker: '', text: '팔을 주무른다. 천천히 감각이 돌아온다.', condition: { flag: 'is_alone' } },
@@ -978,7 +989,7 @@ const SCENES_CH1 = {
             { speaker: '', text: '...쫓아오지는 않는다. 밖으로는 나오지 못하는 걸까.' },
             { speaker: '', text: '하지만 — 진 것이다. 도망친 것이다.' },
             // 동행
-            { speaker: '???', text: '팔... 괜찮아?', condition: { flag: 'has_companion' } },
+            { speaker: '???', text: '팔... 괜찮아?', condition: { flag: 'has_companion' }, affinity: { haeun: 1 } },
             { speaker: '', text: '...아직 모르겠어.', condition: { flag: 'has_companion' } },
             // 혼자
             { speaker: '', text: '팔을 끌어안는다. 차갑다. 남의 팔 같다.', condition: { flag: 'is_alone' } },

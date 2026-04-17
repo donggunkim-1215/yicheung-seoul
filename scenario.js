@@ -503,7 +503,7 @@ const SCENES = {
             { speaker: '', text: '열린 문 너머. 플랫폼이 보인다.' },
             { speaker: '', text: '공기가 다르다. 차갑고, 습하다. 지하철 안의 공기가 아니다.' },
             { speaker: '', text: '나란히 플랫폼에 발을 내딛는다.' },
-            { speaker: '???', text: '...출구 찾자. 여기 오래 있고 싶지 않아.' },
+            { speaker: '???', text: '...출구 찾자. 여기 오래 있고 싶지 않아.', affinity: { haeun: 3 } },
             { speaker: '', text: '출구 표지판을 찾는다. 글자는 번져있지만, 화살표는 읽을 수 있다.' },
         ],
         next: 'prologue_final'
@@ -527,7 +527,7 @@ const SCENES = {
             { speaker: '', text: '서로를 한 번 바라본다. 확인하듯.' },
             { speaker: '', text: '같이 플랫폼으로 내려선다. 공기가 차갑다.' },
             { speaker: '', text: '주위를 살피며 걷는다. 발소리가 텅 빈 역사에 울린다.' },
-            { speaker: '???', text: '...저기. 출구 표지판.' },
+            { speaker: '???', text: '...저기. 출구 표지판.', affinity: { haeun: 1 } },
             { speaker: '', text: '글자는 번져있지만, 화살표만은 선명하다. 위를 가리키고 있다.' },
         ],
         next: 'prologue_final'

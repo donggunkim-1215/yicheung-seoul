@@ -137,12 +137,21 @@ class GameEngine {
         // 이전 음성 즉시 정리
         this.stopVoice(true);
 
-        const voice = new Audio(src);
+        const voice = new Audio();
+        voice.preload = 'auto';
         voice.volume = 0.85;
-        voice.play().catch(() => {});
+        voice.src = src;
+
+        voice.addEventListener('canplaythrough', () => {
+            voice.play().catch(e => console.warn('[Voice] 재생 실패:', src, e.message));
+        }, { once: true });
+        voice.addEventListener('error', () => {
+            console.warn('[Voice] 로드 실패:', src);
+        });
         voice.addEventListener('ended', () => {
             if (this.currentVoice === voice) this.currentVoice = null;
         });
+        voice.load();
         this.currentVoice = voice;
     }
 
@@ -266,7 +275,7 @@ class GameEngine {
                     this.hideCharacterSlot(pos);
                     return;
                 }
-                this.showCharacterSlot(pos, cfg.src || cfg);
+                this.showCharacterSlot(pos, cfg.src || cfg, cfg.scale);
                 if (cfg.name) this._speakerPositionMap[cfg.name] = pos;
             });
         } else if (scene.character) {
@@ -440,10 +449,13 @@ class GameEngine {
         return this.el.characterRight;
     }
 
-    showCharacterSlot(position, src) {
+    showCharacterSlot(position, src, scale) {
         const el = this._getCharSlot(position);
         el.classList.remove('hidden', 'speaking', 'idle');
         el.classList.remove('visible');
+
+        // 캐릭터별 스케일 적용
+        el.style.height = scale ? `${75 * scale}%` : '75%';
 
         el.onload = () => {
             requestAnimationFrame(() => { el.classList.add('visible'); });
@@ -555,6 +567,30 @@ class GameEngine {
         }
     }
 
+    // ===== 호감도 변경 =====
+    applyAffinity(changes) {
+        for (const [id, value] of Object.entries(changes)) {
+            const comp = this.companions.find(c => c.id === id);
+            if (!comp) continue;
+
+            comp.affinity = Math.max(-100, Math.min(100, (comp.affinity || 0) + value));
+            this.updateCompanion(id, { affinity: comp.affinity });
+
+            // HUD 슬롯에 미니 알림
+            const slot = document.getElementById(`companion-slot-${id}`);
+            if (!slot) continue;
+
+            const old = slot.querySelector('.affinity-change-mini');
+            if (old) old.remove();
+
+            const mini = document.createElement('span');
+            mini.className = `affinity-change-mini ${value > 0 ? 'positive' : 'negative'}`;
+            mini.textContent = `${value > 0 ? '+' : ''}${value}`;
+            slot.appendChild(mini);
+            setTimeout(() => mini.remove(), 2200);
+        }
+    }
+
     // ===== 대화 시스템 =====
     showDialogue() {
         if (this.dialogueIndex >= this.dialogueQueue.length) {
@@ -606,6 +642,20 @@ class GameEngine {
         // 발화자 하이라이트 (speakerPosition 직접 지정 또는 이름 매핑)
         const speakerPos = line.speakerPosition || this._speakerPositionMap[line.speaker] || null;
         this.highlightSpeaker(speakerPos);
+
+        // 대사 라인에서 플래그 설정 (이름 공개 등)
+        if (line.setFlags) {
+            Object.assign(this.flags, line.setFlags);
+            // 이름 공개 시 동행자 HUD 이름 갱신
+            if (line.setFlags.know_name) {
+                this.updateCompanion('haeun', { name: '하은' });
+            }
+        }
+
+        // 대사 라인에서 호감도 변경
+        if (line.affinity) {
+            this.applyAffinity(line.affinity);
+        }
 
         this.el.dialogueContainer.classList.remove('hidden');
         this.el.speakerName.textContent = this._resolveSpeaker(line.speaker) || '';
@@ -731,7 +781,8 @@ class GameEngine {
     showChoices(choices) {
         this.el.dialogueContainer.classList.add('hidden');
         this.el.choicesContainer.classList.remove('hidden');
-        this.el.choicesContainer.innerHTML = '';
+        // 타이머는 보존하고 선택지 버튼만 제거
+        this.el.choicesContainer.querySelectorAll('.choice-btn').forEach(b => b.remove());
         this._visibleChoiceBtns = [];
 
         this.el.choicesContainer.classList.add('cooldown');
@@ -824,13 +875,15 @@ class GameEngine {
         barEl.style.transition = `width ${seconds}s linear`;
         barEl.style.width = '0%';
 
+        // 처음부터 떨림 적용
+        this.el.choicesContainer.classList.add('timer-shake');
+
         this._choiceTimerInterval = setInterval(() => {
             remaining--;
             textEl.textContent = remaining;
 
             if (remaining <= 3) {
                 timerEl.classList.add('urgent');
-                this.el.choicesContainer.classList.add('timer-shake');
             }
 
             if (remaining <= 0) {
@@ -860,6 +913,10 @@ class GameEngine {
 
         if (choice.stats) {
             this.applyStats(choice.stats);
+        }
+
+        if (choice.affinity) {
+            this.applyAffinity(choice.affinity);
         }
 
         if (choice.setFlags) {

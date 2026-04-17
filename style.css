@@ -598,7 +598,7 @@ body {
     filter: drop-shadow(-5px 5px 20px rgba(0, 0, 0, 0.6));
 }
 
-#character-left  { left: -5%; }
+#character-left  { left: -5%; transform: scaleX(-1); }
 #character-right { right: -5%; }
 #character-center {
     left: 50%;
@@ -669,7 +669,11 @@ body {
 #stat-composure .stat-icon { color: #a8b4c2; }
 
 .stat-label {
-    display: none;
+    display: inline;
+    font-size: 0.5rem;
+    color: rgba(255, 255, 255, 0.35);
+    font-weight: 400;
+    letter-spacing: 0.03em;
 }
 
 .stat-bar {
@@ -731,6 +735,7 @@ body {
 }
 
 .companion-slot {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 0;
@@ -749,14 +754,19 @@ body {
     border: 1.5px solid rgba(0, 200, 255, 0.3);
     border-left: none;
     background: rgba(0, 0, 0, 0.6);
+    flex-shrink: 0;
+    margin-right: -1px;
+    z-index: 1;
 }
 
 .companion-slot-info {
     display: flex;
     align-items: center;
     gap: 6px;
-    padding: 6px 14px 6px 8px;
+    padding: 6px 14px 6px 10px;
     background: linear-gradient(to right, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.3), transparent);
+    border-radius: 0 8px 8px 0;
+    min-height: 44px;
 }
 
 .companion-slot-affinity {
@@ -777,6 +787,21 @@ body {
     font-family: 'JetBrains Mono', monospace;
     line-height: 1;
 }
+
+/* 호감도 변경 미니 알림 */
+.affinity-change-mini {
+    position: absolute;
+    top: -6px;
+    right: -4px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    pointer-events: none;
+    z-index: 10;
+    animation: statMiniPop 0.4s ease forwards, statMiniFade 0.5s ease 1.5s forwards;
+}
+.affinity-change-mini.positive { color: #ff6b9d; text-shadow: 0 0 8px rgba(255, 107, 157, 0.6); }
+.affinity-change-mini.negative { color: #868e96; text-shadow: 0 0 8px rgba(134, 142, 150, 0.4); }
 
 .companion-slot-name {
     font-size: 0.6rem;
@@ -1108,15 +1133,17 @@ body {
 
 /* ===== 전투 타이머 ===== */
 #choice-timer {
-    position: absolute;
-    bottom: 260px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 20;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 4px;
+    margin-bottom: 12px;
+    animation: timerPulse 1s ease-in-out infinite;
+}
+
+@keyframes timerPulse {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.6; }
 }
 
 #choice-timer-text {
@@ -1723,10 +1750,8 @@ body {
 /* 큰 화면에서 스탯 라벨 표시 */
 @media (min-width: 500px) {
     .stat-label {
-        display: inline;
         font-size: 0.6rem;
         color: rgba(255, 255, 255, 0.4);
-        font-weight: 400;
         letter-spacing: 0.05em;
     }
     .stat { gap: 5px; }
