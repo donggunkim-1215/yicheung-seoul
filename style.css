@@ -803,7 +803,7 @@ body {
     z-index: 10;
     display: flex;
     flex-direction: column;
-    gap: 0;
+    gap: 10px;       /* 슬롯끼리 간격 — 붙지 않게 */
 }
 
 #companion-hud.hidden {
@@ -850,37 +850,43 @@ body {
     min-height: 44px;
 }
 
-/* 하트 + 안의 숫자 컨테이너 */
+/* 하트 + 안의 숫자 컨테이너 — 두 자식이 같은 자리에 겹쳐서 정렬 */
 .companion-slot-affinity {
     position: relative;
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 32px;
+    height: 32px;
     flex-shrink: 0;
 }
 
 .companion-slot-affinity-icon {
-    font-size: 1.6rem;        /* 하트 크게 */
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;            /* 컨테이너 크기 = 하트 크기 */
     color: #ff5577;
     line-height: 1;
     text-shadow: 0 0 6px rgba(255, 80, 120, 0.5);
     user-select: none;
+    pointer-events: none;
 }
 
 .companion-slot-affinity-value {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -38%);  /* 하트 모양 보정 (위쪽 살짝) */
-    font-size: 0.62rem;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 3px;           /* 하트는 뾰족한 아래쪽 때문에 시각 중심이 위쪽. 보정 */
+    font-size: 11px;
     color: #fff;
     font-family: 'JetBrains Mono', monospace;
-    font-weight: 700;
+    font-weight: 800;
     line-height: 1;
-    text-shadow: 0 0 3px rgba(0, 0, 0, 0.9), 0 0 1px rgba(0, 0, 0, 1);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9), 0 0 1px rgba(0, 0, 0, 1);
     pointer-events: none;
+    z-index: 2;
 }
 
 /* 호감도 변경 미니 알림 */
