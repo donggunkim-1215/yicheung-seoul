@@ -590,20 +590,22 @@ body {
     bottom: 0;
     height: 75%;
     width: auto;
+    max-width: 55%;            /* 2명 동시 표시 시 겹침 방지 */
     object-fit: contain;
     z-index: 2;
     pointer-events: none;
     opacity: 0;
-    transition: opacity 0.7s ease, filter 0.4s ease;
+    transition: opacity 0.35s ease, filter 0.4s ease;  /* 페이드 단축 */
     filter: drop-shadow(-5px 5px 20px rgba(0, 0, 0, 0.6));
 }
 
-#character-left  { left: -5%; transform: scaleX(-1); }
-#character-right { right: -5%; }
+#character-left  { left: -8%; transform: scaleX(-1); }
+#character-right { right: -8%; }
 #character-center {
     left: 50%;
     transform: translateX(-50%);
     height: 85%;
+    max-width: 80%;            /* 단독 등장 시는 더 크게 */
     z-index: 3;
 }
 

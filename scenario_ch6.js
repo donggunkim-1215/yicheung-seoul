@@ -39,8 +39,7 @@ const SCENES_CH6 = {
         image: 'assets/images/ch6_circle.png',
         characters: {
             left:  { char: 'haeun',     condition: { flag: 'ch6_haeun_in' } },
-            center: { char: 'jeonwoochi', emotion: 'serious' },
-            right: { char: 'seoyeon',   condition: { flag: 'ch6_seoyeon_in' } },
+            right: { char: 'jeonwoochi', emotion: 'serious' },
         },
         dialogue: [
             { speaker: '', text: '낮은 — 둥근 — 상.' },
@@ -169,8 +168,7 @@ const SCENES_CH6 = {
         image: 'assets/images/ch6_circle.png',
         characters: {
             left:  { char: 'haeun',     condition: { flag: 'ch6_haeun_in' }, emotion: 'worried' },
-            center: { char: 'jeonwoochi' },
-            right: { char: 'seoyeon',   condition: { flag: 'ch6_seoyeon_in' } },
+            right: { char: 'jeonwoochi' },
         },
         dialogue: [
             { speaker: '전우치', text: '...어. (씩 웃으며)', emotion: 'surprised' },
@@ -306,8 +304,7 @@ const SCENES_CH6 = {
         bgm: 'ch6',
         characters: {
             left:  { char: 'haeun',     condition: { flag: 'ch6_haeun_in' } },
-            center: { char: 'jeonwoochi' },
-            right: { char: 'seoyeon',   condition: { flag: 'ch6_seoyeon_in' } },
+            right: { char: 'jeonwoochi' },
         },
         dialogue: [
             { speaker: '', text: '차를, 마저, 다 마신다.' },

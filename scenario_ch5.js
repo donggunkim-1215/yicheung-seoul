@@ -305,8 +305,7 @@ const SCENES_CH5 = {
         image: 'assets/images/ch5_hideout_inside.png',
         characters: {
             left:  { char: 'haeun',     condition: { flag: 'ch5_haeun_in' } },
-            center: { char: 'jeonwoochi' },
-            right: { char: 'seoyeon',   condition: { flag: 'ch5_seoyeon_in' } },
+            right: { char: 'jeonwoochi' },
         },
         dialogue: [
             { speaker: '', text: '안.' },

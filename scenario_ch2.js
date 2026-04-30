@@ -104,6 +104,9 @@ const SCENES_CH2 = {
     ch2_follow_cat: {
         image: 'assets/images/ch2_meeting_cat.png',
         imageEffect: 'ken-burns',
+        characters: {
+            center: { char: 'datnyangi' },
+        },
         dialogue: [
             { speaker: '', text: '소리를 따라간다.' },
             { speaker: '', text: '골목 끝 — 작은 화단 옆.' },
@@ -261,8 +264,7 @@ const SCENES_CH2 = {
         image: 'assets/images/ch2_meeting_cat.png',
         characters: {
             left:  { char: 'haeun',     condition: { flag: 'ch2_haeun_in' } },
-            center: { char: 'datnyangi' },
-            right: { char: 'seoyeon',   condition: { flag: 'ch2_seoyeon_in' } },
+            right: { char: 'datnyangi' },
         },
         dialogue: [
             { speaker: '하은', text: '닷냥아, 잠깐만 와볼래?', condition: { flag: 'ch2_haeun_in' }, emotion: 'smile' },
@@ -292,6 +294,9 @@ const SCENES_CH2 = {
     ch2_follow_dog: {
         image: 'assets/images/ch2_meeting_dog.png',
         imageEffect: 'ken-burns',
+        characters: {
+            center: { char: 'hwangdokgu' },
+        },
         dialogue: [
             { speaker: '', text: '소리를 따라간다.' },
             { speaker: '', text: '골목을 두 번 꺾는다. 좁은 길.' },
@@ -385,8 +390,7 @@ const SCENES_CH2 = {
         image: 'assets/images/ch2_meeting_dog.png',
         characters: {
             left:  { char: 'haeun',      condition: { flag: 'ch2_haeun_in' } },
-            center: { char: 'hwangdokgu' },
-            right: { char: 'seoyeon',    condition: { flag: 'ch2_seoyeon_in' } },
+            right: { char: 'hwangdokgu' },
         },
         dialogue: [
             { speaker: '하은', text: '덕구야! 이리 와!', condition: { flag: 'ch2_haeun_in' }, emotion: 'smile' },
