@@ -1554,11 +1554,13 @@ class GameEngine {
         };
 
         // ===== 세로 레이아웃 상수 =====
-        const STORY_H = 34, CARD_H = 34, CARD_X_GAP = 10;
-        const LABEL_H = 26, Y_GAP = 50, LABEL_Y_GAP = 18;
+        const STORY_H = 38, CARD_H = 38, CARD_X_GAP = 28;
+        const LABEL_H = 28, Y_GAP = 56, LABEL_Y_GAP = 20;
         // 썸네일 라벨 (디트로이트 결): 선택지 scene에 image가 있고 방문한 경우 적용
         const LABEL_THUMB_H = 88, LABEL_THUMB_W = 150;
-        const DIVERGE_X_GAP = 28;
+        // 스큐(-6deg) 시각 오버플로우 보정 — 박스가 좌우로 ~12px씩 더 차지
+        const SKEW_OVERFLOW = 14;
+        const DIVERGE_X_GAP = 60;
 
         const allNodes = [];
         const allEdges = [];
@@ -1652,10 +1654,21 @@ class GameEngine {
                         return pos;
                     });
 
-                    // ── 갈라지는 카드: 합류 카드 오른쪽에 여백 두고 배치 ──
-                    let divX = centerX + mTotalW / 2 + DIVERGE_X_GAP;
+                    // ── 갈라지는 카드 위치 ──
+                    // merging 있으면: 그 오른쪽에 DIVERGE_X_GAP 띄고 배치
+                    // merging 없으면: 모두 갈라지는 거니까 centerX 기준으로 가운데 정렬
+                    const dWidths = diverging.map((_, di) => cardWidths[merging.length + di]);
+                    const dTotalW = dWidths.reduce((a, b) => a + b, 0)
+                        + Math.max(0, diverging.length - 1) * CARD_X_GAP;
+                    let divX;
+                    if (merging.length === 0) {
+                        // 모두 diverging — centerX 가운데 정렬
+                        divX = centerX - dTotalW / 2;
+                    } else {
+                        divX = centerX + mTotalW / 2 + DIVERGE_X_GAP;
+                    }
                     const dPos = diverging.map(({ b, i }, di) => {
-                        const w = cardWidths[merging.length + di];
+                        const w = dWidths[di];
                         const pos = { x: divX, y, cx: divX + w / 2, w,
                             origIdx: i, branch: b };
                         divX += w + CARD_X_GAP;
@@ -1721,14 +1734,16 @@ class GameEngine {
         // ===== 바운딩 박스 → 캔버스 =====
         let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
         for (const n of allNodes) {
-            minX = Math.min(minX, n.x);
-            maxX = Math.max(maxX, n.x + n.w);
+            // 스큐 오버플로우 보정 — 박스가 좌우로 ~14px씩 더 차지
+            const skewPad = (n.type === 'branch' || n.type === 'story') ? SKEW_OVERFLOW : 0;
+            minX = Math.min(minX, n.x - skewPad);
+            maxX = Math.max(maxX, n.x + n.w + skewPad);
             minY = Math.min(minY, n.y);
             maxY = Math.max(maxY, n.y + n.h);
         }
         if (!isFinite(minX)) { minX = 0; maxX = 400; minY = 0; maxY = 200; }
 
-        const PAD = 40;
+        const PAD = 70;  // 양옆 여백 (라인 잘림 방지)
         const offsetX = -minX + PAD;
         const offsetY = -minY + PAD;
         const canvasW = maxX - minX + PAD * 2;
