@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>이층 : 서울, 0시 — 리소스 체크리스트</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    background: #0e1218; color: #d8dee9;
+    padding: 40px 20px; line-height: 1.6;
+}
+.wrapper { max-width: 1100px; margin: 0 auto; }
+h1 { font-size: 1.8rem; color: #88c0d0; letter-spacing: 0.1em; margin-bottom: 8px; }
+.lead { color: #81a1c1; font-size: 0.92rem; margin-bottom: 32px; }
+.summary {
+    background: #1a2030; border-left: 3px solid #88c0d0;
+    padding: 16px 22px; margin-bottom: 36px; border-radius: 4px;
+    font-size: 0.92rem;
+}
+.summary strong { color: #ebcb8b; }
+h2 {
+    font-size: 1.2rem; color: #a3be8c; margin: 32px 0 12px;
+    padding-bottom: 6px; border-bottom: 1px solid #2e3440;
+    letter-spacing: 0.06em;
+}
+h3 {
+    font-size: 0.95rem; color: #d08770; margin: 20px 0 6px;
+    letter-spacing: 0.04em;
+}
+.note {
+    background: #2a2630; padding: 8px 14px; border-radius: 4px;
+    font-size: 0.82rem; color: #d8dee9; margin: 8px 0 12px;
+    border-left: 2px solid #b48ead;
+}
+table { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
+th, td {
+    padding: 6px 10px; text-align: left; border-bottom: 1px solid #2e3440;
+    font-size: 0.85rem; vertical-align: top;
+}
+th { background: #1a2030; color: #88c0d0; font-weight: 500; }
+td.path { font-family: "SF Mono", Consolas, monospace; color: #a3be8c; word-break: break-all; }
+td.desc { color: #b8c2d0; }
+input[type=checkbox] { width: 16px; height: 16px; cursor: pointer; }
+.tag {
+    display: inline-block; padding: 1px 8px; border-radius: 3px;
+    font-size: 0.7rem; margin-right: 4px;
+}
+.tag-bg { background: #4c566a; color: #eceff4; }
+.tag-bgm { background: #5e81ac; color: #eceff4; }
+.tag-portrait { background: #b48ead; color: #2e3440; }
+.tag-affinity { background: #bf616a; color: #eceff4; }
+.tag-voice { background: #d08770; color: #2e3440; }
+.tag-misc { background: #ebcb8b; color: #2e3440; }
+.dimensions { color: #6c7a8c; font-size: 0.75rem; }
+.cat-summary {
+    color: #6c7a8c; font-size: 0.78rem; margin: 4px 0 8px;
+}
+details { margin-bottom: 18px; }
+details summary {
+    cursor: pointer; padding: 8px 12px; background: #1a2030;
+    border-radius: 4px; font-weight: 500; color: #d08770;
+}
+details[open] summary { background: #252b3a; }
+.folder {
+    font-family: "SF Mono", Consolas, monospace;
+    background: #0a0e16; padding: 12px 16px; border-radius: 4px;
+    color: #88c0d0; font-size: 0.82rem; white-space: pre;
+    margin: 12px 0;
+}
+.toc {
+    background: #1a2030; padding: 16px 20px; border-radius: 4px;
+    margin-bottom: 32px; font-size: 0.88rem;
+}
+.toc a { color: #88c0d0; text-decoration: none; margin-right: 16px; }
+.toc a:hover { text-decoration: underline; }
+@media print {
+    body { background: white; color: black; }
+    .summary, .note, th, details summary { background: #f0f0f0; color: black; }
+    td.path { color: #006600; }
+}
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+<h1>이층 : 서울, 0시 — 리소스 체크리스트</h1>
+<p class="lead">코드에서 자동 추출한 전체 리소스 목록. 체크박스로 진행 표시 가능.</p>
+
+<div class="summary">
+<strong>합계</strong>:
+배경 <strong>122</strong>장 · 호감도 이벤트 <strong>11</strong>장 · 캐릭터 포트레이트 <strong>~70</strong>장 ·
+BGM <strong>30</strong>곡 · 음성 <strong>샘플 6</strong>개 · 타이틀/UI <strong>2</strong>장
+<br>→ 이미지 약 <strong>205장</strong>, 오디오 약 <strong>36개</strong>
+<br><br>
+<strong style="color:#a3be8c;">현재 진행</strong>: <strong>25 / 241</strong> (약 10%) — 타이틀·프롤로그·1장 일부 + BGM 4곡 + 음성 샘플 6개 + 하은/서연/어둑시니 기본 포트레이트 완료
+</div>
+
+<div class="toc">
+<a href="#folders">📁 폴더 구조</a>
+<a href="#title">🎬 타이틀</a>
+<a href="#bgm">🎵 BGM</a>
+<a href="#portraits">👤 포트레이트</a>
+<a href="#affinity">💗 호감도 이벤트</a>
+<a href="#prologue">📖 프롤로그</a>
+<a href="#ch1">1장</a>
+<a href="#ch2">2장</a>
+<a href="#ch3">3장</a>
+<a href="#ch4">4장</a>
+<a href="#ch5">5장</a>
+<a href="#ch6">6장</a>
+<a href="#ch7">7장</a>
+<a href="#ch8">8장</a>
+<a href="#ch9">9장</a>
+<a href="#ch10">10장</a>
+<a href="#ch11">11장</a>
+<a href="#ch12">12장</a>
+<a href="#ch13">13장</a>
+<a href="#voice">🎤 음성</a>
+</div>
+
+<h2 id="folders">📁 권장 폴더 구조</h2>
+<div class="folder">assets/
+├── images/
+│   ├── title_bg.png                  ← 타이틀 배경
+│   ├── prologue_*.png                ← 프롤로그
+│   ├── ch{1~13}_*.png                ← 각 장 배경
+│   ├── character_*.png               ← 특수 포트레이트 (기존)
+│   ├── portraits/
+│   │   ├── haeun_neutral.png         ← 캐릭터 포트레이트 (감정별)
+│   │   ├── haeun_smile.png
+│   │   ├── ...
+│   └── affinity/
+│       ├── haeun_20.png              ← 호감도 이벤트 일러스트
+│       └── ...
+├── audio/
+│   ├── title_bgm.mp3
+│   ├── prologue_bgm.mp3
+│   ├── ch{1~13}_*_bgm.mp3
+│   └── voice/                        ← 음성 (선택, 일부 샘플만)
+│       └── 1.mp3 ~ 6.mp3
+└── fonts/
+    └── NanumMyeongjo-YetHangul.otf   ← 이미 있음</div>
+
+<div class="note">
+📌 <strong>이미지 권장 사이즈</strong> — 배경: <strong>1080×1920</strong> (9:16 세로 비율) ·
+포트레이트: <strong>800×1200</strong> 정도 (PNG, 투명 배경) ·
+호감도 이벤트: <strong>1080×1920</strong> (CG풍)
+<br>📌 <strong>오디오 포맷</strong> — MP3, 128~192kbps. BGM은 루프 가능하게 깔끔하게 잘려 있어야 함.
+</div>
+
+<!-- ============================================
+     타이틀 / 인트로
+     ============================================ -->
+<h2 id="title">🎬 타이틀 / 인트로</h2>
+<table>
+<thead><tr><th width="40">✓</th><th>파일 경로</th><th>설명</th><th width="120">사이즈</th></tr></thead>
+<tbody>
+<tr><td><input type="checkbox" checked></td><td class="path">assets/images/title_bg.png</td><td class="desc"><span class="tag tag-bg">BG</span>타이틀 화면 배경. 어두운 서울 야경 / 영적 분위기</td><td class="dimensions">1080×1920</td></tr>
+</tbody>
+</table>
+
+<!-- ============================================
+     BGM
+     ============================================ -->
+<h2 id="bgm">🎵 BGM (배경음악)</h2>
+<p class="cat-summary">총 30곡. MP3 형식. 자연스럽게 루프 가능하도록 잘려 있어야 함.</p>
+<table>
+<thead><tr><th width="40">✓</th><th>파일 경로</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><input type="checkbox" checked></td><td class="path">assets/audio/title_bgm.mp3</td><td class="desc">타이틀 화면 — 미스테리, 신비로운 동양 톤</td></tr>
+<tr><td><input type="checkbox" checked></td><td class="path">assets/audio/prologue_bgm.mp3</td><td class="desc">프롤로그 — 서울, 0시. 텅 빈 도시의 적막</td></tr>
+<tr><td><input type="checkbox" checked></td><td class="path">assets/audio/ch1_bgm.mp3</td><td class="desc">1장 일반 — 어둠 속 탐색</td></tr>
+<tr><td><input type="checkbox" checked></td><td class="path">assets/audio/ch1_battle_bgm.mp3</td><td class="desc">1장 전투 — 어둑시니 등장·전투. 긴박감</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/audio/ch2_bgm.mp3</td><td class="desc">2장 — 새벽의 골목, 동물과의 만남</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/audio/ch3_bgm.mp3</td><td class="desc">3장 — 종로, 보신각. 신비롭고 우아한 톤</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/audio/ch3_tense_bgm.mp3</td><td class="desc">3장 긴장 — 종이 울리는 자정 직전</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/audio/ch4_bgm.mp3</td><td class="desc">4장 — 카페, 이무기와 대화. 우아·위협적</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/audio/ch4_combat_bgm.mp3</td><td class="desc">4장 전투 — 이무기 압도적 도술</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/audio/ch4_hero_bgm.mp3</td><td class="desc">4장 영웅 — 전우치 등장. 호쾌한 영웅 테마</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/audio/ch5_bgm.mp3</td><td class="desc">5장 — 전우치의 길, 도시의 결</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/audio/ch5_calm_bgm.mp3</td><td class="desc">5장 차분 — 은신처. 잠시 안식</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/audio/ch6_bgm.mp3</td><td class="desc">6장 — 천 년의 이야기. 서사적, 묵직</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/audio/ch7_bgm.mp3</td><td class="desc">7장 — 인왕산, 장산범. 산속의 신비</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/audio/ch8_bgm.mp3</td><td class="desc">8장 — 종묘 약방. 옛 한국적 정서</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/audio/ch8_tense_bgm.mp3</td><td class="desc">8장 긴장 — 그슨대 등장</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/audio/ch8_combat_bgm.mp3</td><td class="desc">8장 전투 — 그슨대 정면 돌파</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/audio/ch9_bgm.mp3</td><td class="desc">9장 — 구미호 재회. 슬픔, 갈등</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/audio/ch10_bgm.mp3</td><td class="desc">10장 — 사신을 모으는 여정</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/audio/ch10_solemn_bgm.mp3</td><td class="desc">10장 엄숙 — 한강. 현무 각성. 천 년의 무게</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/audio/ch11_bgm.mp3</td><td class="desc">11장 — 마지막 길</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/audio/ch11_combat_bgm.mp3</td><td class="desc">11장 전투 — 강철이</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/audio/ch11_awakening_bgm.mp3</td><td class="desc">11장 각성 — 주인공 = 전우치 폭로. 장엄한 청풍천검</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/audio/ch12_bgm.mp3</td><td class="desc">12장 — 한강 어귀. 결판 직전</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/audio/ch12_ritual_bgm.mp3</td><td class="desc">12장 의식 — 이무기의 의식 진행. 어둡고 거대</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/audio/ch12_battle_bgm.mp3</td><td class="desc">12장 전투 — 보스 결판. 절정</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/audio/ch12_song_bgm.mp3</td><td class="desc">12장 노래 — 사신의 노래. 정화의 합창</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/audio/ch13_bgm.mp3</td><td class="desc">13장 — 새벽. 결말의 여운</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/audio/ch13_true_bgm.mp3</td><td class="desc">13장 진엔딩 — 승리. 따뜻한 영웅 마무리</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/audio/ch13_credits_bgm.mp3</td><td class="desc">13장 크레딧 — 엔딩 크레딧 음악</td></tr>
+</tbody>
+</table>
+
+<!-- ============================================
+     포트레이트
+     ============================================ -->
+<h2 id="portraits">👤 캐릭터 포트레이트</h2>
+<p class="cat-summary">감정별 표정 변형. 명명 규칙: <code>{charKey}_{emotion}.png</code>. 감정: <code>neutral</code> / <code>smile</code> / <code>sad</code> / <code>surprised</code> / <code>worried</code>.</p>
+<div class="note">
+🔄 <strong>"진지(serious)"는 더 이상 별도 파일 안 만듭니다.</strong> 엔진이 자동으로 <code>{char}_neutral_2.png</code>로 매핑해요.
+<br>→ 기본(<code>_neutral.png</code>)을 여러 개 변형으로 주고 싶을 때만 <code>_neutral_2.png</code> 추가. 없으면 <strong>자동으로 _neutral.png로 폴백</strong>.
+<br>→ 다른 emotion(smile, sad 등)도 누락되면 똑같이 _neutral.png로 자동 폴백 — 부분만 만들어도 게임은 정상 작동.
+</div>
+
+<details open>
+<summary>주요 캐릭터 — 6감정 풀세트 (메인)</summary>
+<h3>하은 (haeun) — 동행자, 주인공의 친구</h3>
+<div class="note">💡 <code>character_protagonist_2.png</code>를 <code>portraits/haeun_neutral.png</code>로 복사하면 기본 표정 즉시 적용</div>
+<table><tbody>
+<tr><td><input type="checkbox" checked></td><td class="path">assets/images/portraits/haeun_neutral.png</td><td class="desc">기본 표정 <strong>(완료 — 복사됨)</strong></td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/haeun_smile.png</td><td class="desc">웃음</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/haeun_neutral_2.png</td><td class="desc">기본 변형 2 <span style="color:#a3be8c;">(선택사항)</span></td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/haeun_sad.png</td><td class="desc">슬픔</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/haeun_surprised.png</td><td class="desc">놀람</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/haeun_worried.png</td><td class="desc">걱정</td></tr>
+</tbody></table>
+
+<h3>구미호 (gumiho) — 천 년의 짐승, 메인 히로인</h3>
+<table><tbody>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/gumiho_neutral.png</td><td class="desc">기본</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/gumiho_smile.png</td><td class="desc">미소 (마키마식 위태로운)</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/gumiho_neutral_2.png</td><td class="desc">기본 변형 2 <span style="color:#a3be8c;">(선택사항)</span></td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/gumiho_sad.png</td><td class="desc">슬픔 (가장 자주 사용)</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/gumiho_surprised.png</td><td class="desc">놀람 (백 년 거짓 무너질 때)</td></tr>
+</tbody></table>
+
+<h3>이무기 (imugi) — 보스, 실눈 젠틀 빌런</h3>
+<table><tbody>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/imugi_neutral.png</td><td class="desc">기본</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/imugi_smile.png</td><td class="desc">실눈 미소 (디폴트)</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/imugi_neutral_2.png</td><td class="desc">기본 변형 2 <span style="color:#a3be8c;">(선택사항)</span></td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/imugi_sad.png</td><td class="desc">패배·슬픔</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/imugi_surprised.png</td><td class="desc">놀람 (트위스트 발견 순간)</td></tr>
+</tbody></table>
+
+<h3>전우치 (jeonwoochi) — 도사 청년, 고죠 사토루 결</h3>
+<table><tbody>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/jeonwoochi_neutral.png</td><td class="desc">기본</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/jeonwoochi_smile.png</td><td class="desc">씩 웃음 (디폴트)</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/jeonwoochi_neutral_2.png</td><td class="desc">기본 변형 2 (도술 시전 시) <span style="color:#a3be8c;">(선택사항)</span></td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/jeonwoochi_sad.png</td><td class="desc">슬픔 (천 년의 무게)</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/jeonwoochi_surprised.png</td><td class="desc">놀람</td></tr>
+</tbody></table>
+</details>
+
+<details open>
+<summary>조연 — 부분 감정만</summary>
+<h3>서연 (seoyeon) — 안경 노트 분석가 ※ 동료 ID는 <code>student</code></h3>
+<div class="note">💡 <code>character_student.png</code>를 <code>portraits/seoyeon_neutral.png</code>로 복사하면 기본 표정 즉시 적용</div>
+<table><tbody>
+<tr><td><input type="checkbox" checked></td><td class="path">assets/images/portraits/seoyeon_neutral.png</td><td class="desc">기본 <strong>(완료 — 복사됨)</strong></td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/seoyeon_smile.png</td><td class="desc">미소</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/seoyeon_neutral_2.png</td><td class="desc">기본 변형 2 (분석 모드) <span style="color:#a3be8c;">(선택사항)</span></td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/seoyeon_surprised.png</td><td class="desc">놀람</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/seoyeon_worried.png</td><td class="desc">걱정</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/seoyeon_sad.png</td><td class="desc">슬픔</td></tr>
+</tbody></table>
+
+<h3>어둑시니 (eoduksini) — 어둠의 친구</h3>
+<div class="note">💡 <code>ch1_eoduksini.png</code>를 <code>portraits/eoduksini_neutral.png</code>로 복사하면 기본 표정 즉시 적용</div>
+<table><tbody>
+<tr><td><input type="checkbox" checked></td><td class="path">assets/images/portraits/eoduksini_neutral.png</td><td class="desc">기본 (어둠 형상) <strong>(완료 — 복사됨)</strong></td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/eoduksini_smile.png</td><td class="desc">자조적 미소</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/eoduksini_neutral_2.png</td><td class="desc">기본 변형 2 <span style="color:#a3be8c;">(선택사항)</span></td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/eoduksini_sad.png</td><td class="desc">슬픔</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/eoduksini_surprised.png</td><td class="desc">놀람</td></tr>
+</tbody></table>
+
+<h3>장산범 (jangsanbeom) — 산속 정보상</h3>
+<table><tbody>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/jangsanbeom_neutral.png</td><td class="desc">기본</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/jangsanbeom_smile.png</td><td class="desc">음흉한 미소</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/jangsanbeom_neutral_2.png</td><td class="desc">기본 변형 2 <span style="color:#a3be8c;">(선택사항)</span></td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/jangsanbeom_sad.png</td><td class="desc">슬픔 (구미호 사연 말할 때)</td></tr>
+</tbody></table>
+
+<h3>그슨대 (geuseundae) — 5미터 키다리, 외로운 거인</h3>
+<table><tbody>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/geuseundae_neutral.png</td><td class="desc">기본</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/geuseundae_neutral_2.png</td><td class="desc">기본 변형 2 <span style="color:#a3be8c;">(선택사항)</span></td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/geuseundae_sad.png</td><td class="desc">슬픔 (거짓 깨달음)</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/geuseundae_surprised.png</td><td class="desc">놀람</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/geuseundae_smile.png</td><td class="desc">웃음</td></tr>
+</tbody></table>
+
+<h3>강철이 (gangcheoli) — 가뭄을 부르는 짐승</h3>
+<table><tbody>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/gangcheoli_neutral_2.png</td><td class="desc">진지 (디폴트)</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/gangcheoli_smile.png</td><td class="desc">살벌한 미소</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/gangcheoli_sad.png</td><td class="desc">패배 직전</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/gangcheoli_surprised.png</td><td class="desc">놀람</td></tr>
+</tbody></table>
+</details>
+
+<details open>
+<summary>사신 (영물 4)</summary>
+<h3>청룡 (cheongryong) — 동, 학자</h3>
+<table><tbody>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/cheongryong_neutral.png</td><td class="desc">기본</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/cheongryong_smile.png</td><td class="desc">미소</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/cheongryong_neutral_2.png</td><td class="desc">진지 (시험)</td></tr>
+</tbody></table>
+
+<h3>백호 (baekho) — 서, 검객</h3>
+<table><tbody>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/baekho_neutral.png</td><td class="desc">기본</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/baekho_smile.png</td><td class="desc">웃음 (인정)</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/baekho_neutral_2.png</td><td class="desc">기본 변형 2 (검 시험 자세) <span style="color:#a3be8c;">(선택사항)</span></td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/baekho_surprised.png</td><td class="desc">놀람</td></tr>
+</tbody></table>
+
+<h3>주작 (jujak) — 남, 무당</h3>
+<table><tbody>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/jujak_neutral.png</td><td class="desc">기본</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/jujak_smile.png</td><td class="desc">미소</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/jujak_sad.png</td><td class="desc">슬픔 (마음을 볼 때)</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/jujak_neutral_2.png</td><td class="desc">기본 변형 2 (정화 노래) <span style="color:#a3be8c;">(선택사항)</span></td></tr>
+</tbody></table>
+
+<h3>현무 (hyeonmu) — 북, 하은의 각성 형태</h3>
+<table><tbody>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/hyeonmu_neutral.png</td><td class="desc">각성 (10장 1회만 등장. 하은의 등 뒤로 거대한 거북·뱀 그림자. 단 1장만 만들면 됨)</td></tr>
+</tbody></table>
+</details>
+
+<details open>
+<summary>동물 사령</summary>
+<h3>닷냥이 (datnyangi) — 고양이 사령</h3>
+<table><tbody>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/datnyangi_neutral.png</td><td class="desc">기본</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/datnyangi_smile.png</td><td class="desc">행복</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/datnyangi_neutral_2.png</td><td class="desc">기본 변형 2 (경계 자세) <span style="color:#a3be8c;">(선택사항)</span></td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/datnyangi_surprised.png</td><td class="desc">놀람</td></tr>
+</tbody></table>
+
+<h3>황덕구 (hwangdokgu) — 강아지 사령</h3>
+<table><tbody>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/hwangdokgu_neutral.png</td><td class="desc">기본</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/hwangdokgu_smile.png</td><td class="desc">행복 (꼬리 흔듦)</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/portraits/hwangdokgu_neutral_2.png</td><td class="desc">기본 변형 2 (경계 자세) <span style="color:#a3be8c;">(선택사항)</span></td></tr>
+</tbody></table>
+</details>
+
+<details>
+<summary>특수 캐릭터 이미지 (구버전 — 직접 경로로 사용)</summary>
+<table><tbody>
+<tr><td><input type="checkbox" checked></td><td class="path">assets/images/character_protagonist_2.png</td><td class="desc"><span class="tag tag-portrait">PORTRAIT</span>하은의 1장 초기 모습 (이름 공개 전, ??? 상태)</td></tr>
+<tr><td><input type="checkbox" checked></td><td class="path">assets/images/character_student.png</td><td class="desc"><span class="tag tag-portrait">PORTRAIT</span>서연의 1장 초기 모습</td></tr>
+</tbody></table>
+</details>
+
+<!-- ============================================
+     호감도 이벤트
+     ============================================ -->
+<h2 id="affinity">💗 호감도 이벤트 일러스트</h2>
+<p class="cat-summary">호감도 임계 도달 시 발동하는 짧은 서브 시퀀스의 일러스트 (CG풍, 각 1장).</p>
+<table>
+<thead><tr><th width="40">✓</th><th>파일 경로</th><th>설명</th><th width="80">임계</th></tr></thead>
+<tbody>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/affinity/haeun_20.png</td><td class="desc"><span class="tag tag-affinity">하은</span>"첫 흔들림" — 옷자락을 살짝 잡는 순간</td><td>20</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/affinity/haeun_80.png</td><td class="desc"><span class="tag tag-affinity">하은</span>"새벽의 약속" — 어깨에 머리를 기댐</td><td>80</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/affinity/student_20.png</td><td class="desc"><span class="tag tag-affinity">서연</span>"노트의 한 페이지" — 두 사람 그림이 그려진 노트</td><td>20</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/affinity/eoduksini_20.png</td><td class="desc"><span class="tag tag-affinity">어둑시니</span>"그림자의 온도" — 그림자 안에 따뜻함</td><td>20</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/affinity/gumiho_20.png</td><td class="desc"><span class="tag tag-affinity">구미호</span>"천 년의 결" — 머리를 귀 뒤로 넘기는 순간</td><td>20</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/affinity/gumiho_80.png</td><td class="desc"><span class="tag tag-affinity">구미호</span>"옆에 있고 싶었어요" — 천 년의 진심. <strong>가장 임팩트 있는 컷</strong></td><td>80</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/affinity/datnyangi_20.png</td><td class="desc"><span class="tag tag-affinity">닷냥이</span>고양이 쓰담는 장면</td><td>20</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/affinity/hwangdokgu_20.png</td><td class="desc"><span class="tag tag-affinity">황덕구</span>강아지 쓰담는 장면</td><td>20</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/affinity/cheongryong_20.png</td><td class="desc"><span class="tag tag-affinity">청룡</span>"차의 두 번째 잔" — 카페에서 차 따르는 모습</td><td>20</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/affinity/baekho_20.png</td><td class="desc"><span class="tag tag-affinity">백호</span>"검의 끝" — 검을 함께 닦는 모습</td><td>20</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/affinity/jujak_20.png</td><td class="desc"><span class="tag tag-affinity">주작</span>"손의 온기" — 손을 잡는 순간</td><td>20</td></tr>
+</tbody>
+</table>
+
+<!-- ============================================
+     프롤로그
+     ============================================ -->
+<h2 id="prologue">📖 프롤로그 — 서울, 0시</h2>
+<table>
+<thead><tr><th width="40">✓</th><th>파일 경로</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><input type="checkbox" checked></td><td class="path">assets/images/prologue_subway_inside.png</td><td class="desc"><span class="tag tag-bg">BG</span>멈춰선 지하철 내부, 텅 비어있음</td></tr>
+<tr><td><input type="checkbox" checked></td><td class="path">assets/images/prologue_station_exit.png</td><td class="desc"><span class="tag tag-bg">BG</span>지하철 역 출구. 밖으로 나가는 길</td></tr>
+<tr><td><input type="checkbox" checked></td><td class="path">assets/images/character_haeun_back.png</td><td class="desc"><span class="tag tag-bg">BG</span>하은과 함께 출구를 본 장면 — 카메라 시점에서 그녀의 뒷모습 (1인칭 컷)</td></tr>
+</tbody>
+</table>
+
+<!-- ============================================
+     1장
+     ============================================ -->
+<h2 id="ch1">📖 1장 — 어둑시니</h2>
+<table>
+<thead><tr><th width="40">✓</th><th>파일 경로</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><input type="checkbox" checked></td><td class="path">assets/images/ch1_empty_street.png</td><td class="desc">텅 빈 서울 거리</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch1_convstore_exterior.png</td><td class="desc">편의점 외관</td></tr>
+<tr><td><input type="checkbox" checked></td><td class="path">assets/images/ch1_convstore_interior.png</td><td class="desc">편의점 내부</td></tr>
+<tr><td><input type="checkbox" checked></td><td class="path">assets/images/ch1_convstore_dark.png</td><td class="desc">불 꺼진 편의점 (어둑시니 등장)</td></tr>
+<tr><td><input type="checkbox" checked></td><td class="path">assets/images/ch1_aftermath_dawn.png</td><td class="desc">전투 후 새벽</td></tr>
+<tr><td><input type="checkbox" checked></td><td class="path">assets/images/ch1_eoduksini.png</td><td class="desc"><span class="tag tag-portrait">PORTRAIT</span>어둑시니 캐릭터 (1장 전용 — 신 portrait 시스템 대신 직접 경로 사용 중)</td></tr>
+</tbody>
+</table>
+
+<div class="note">
+✨ <strong>폴더에 있지만 시나리오에서 미사용</strong>: <code>ch1_eoduksini_appear.png</code>, <code>character_guard.jpg</code>, <code>character_protagonist.jpg</code> — 레거시 / 예비 자산. 사용처 없으면 삭제해도 무방.
+</div>
+
+<!-- ============================================
+     2장
+     ============================================ -->
+<h2 id="ch2">📖 2장 — 닷냥이/황덕구</h2>
+<table>
+<thead><tr><th width="40">✓</th><th>파일 경로</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch2_dawn_alley.png</td><td class="desc">새벽의 골목</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch2_meeting_cat.png</td><td class="desc">고양이와의 만남</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch2_meeting_dog.png</td><td class="desc">강아지와의 만남</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch2_safe_room.png</td><td class="desc">안전한 휴식 공간</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch2_clue.png</td><td class="desc">"이층" 첫 단서 발견</td></tr>
+</tbody>
+</table>
+
+<!-- ============================================
+     3장
+     ============================================ -->
+<h2 id="ch3">📖 3장 — 구미호 첫 등장</h2>
+<table>
+<thead><tr><th width="40">✓</th><th>파일 경로</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch3_jongno_night.png</td><td class="desc">밤의 종로 거리</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch3_bosingak.png</td><td class="desc">보신각 — 구미호 첫 조우 장소</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch3_alley_to_bell.png</td><td class="desc">종으로 가는 골목</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch3_bell_shadow.png</td><td class="desc">종 안 그림자</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch3_bell_resonance.png</td><td class="desc">종이 울리는 자정</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch3_jongno_dawn.png</td><td class="desc">새벽의 종로</td></tr>
+</tbody>
+</table>
+
+<!-- ============================================
+     4장
+     ============================================ -->
+<h2 id="ch4">📖 4장 — 베일의 정체 (이무기)</h2>
+<table>
+<thead><tr><th width="40">✓</th><th>파일 경로</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch4_cafe_map.png</td><td class="desc">카페로 향하는 길</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch4_cafe_inside.png</td><td class="desc">카페 내부 (이무기와 마주 앉음)</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch4_imugi_seated.png</td><td class="desc">이무기 앉아있는 컷 (기본)</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch4_imugi_standing.png</td><td class="desc">이무기가 일어선 컷</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch4_imugi_combat.png</td><td class="desc">이무기 도술 시전 (압도적)</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch4_jeonwoochi_arrival.png</td><td class="desc">전우치 등장 — 천장이 깨지며 푸른 빛으로 떨어짐</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch4_dawn_shelter.png</td><td class="desc">은신처로 가는 새벽</td></tr>
+</tbody>
+</table>
+
+<!-- ============================================
+     5장
+     ============================================ -->
+<h2 id="ch5">📖 5장 — 전우치 등장</h2>
+<table>
+<thead><tr><th width="40">✓</th><th>파일 경로</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch5_face_off.png</td><td class="desc">전우치 vs 이무기 대치</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch5_jeonwoochi_back.png</td><td class="desc">전우치 뒷모습 (얼굴 가린 첫 등장)</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch5_jeonwoochi_face.png</td><td class="desc">전우치 얼굴 첫 공개</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch5_alley_journey.png</td><td class="desc">은신처로 가는 골목</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch5_hideout.png</td><td class="desc">한옥 은신처 외관</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch5_hideout_inside.png</td><td class="desc">은신처 내부 — 부적, 약초, 그림</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch5_painting_closeup.png</td><td class="desc">벽의 도사 그림 클로즈업 (트위스트 떡밥)</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch5_hideout_dawn.png</td><td class="desc">은신처 새벽</td></tr>
+</tbody>
+</table>
+
+<!-- ============================================
+     6장
+     ============================================ -->
+<h2 id="ch6">📖 6장 — 천 년의 이야기</h2>
+<table>
+<thead><tr><th width="40">✓</th><th>파일 경로</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch6_circle.png</td><td class="desc">차를 둘러싸고 앉은 모임</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch6_old_hangang.png</td><td class="desc">천 년 전 한강 어귀 (회상)</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch6_seal_break.png</td><td class="desc">봉인이 깨지는 순간</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch6_ihyung_diagram.png</td><td class="desc">"이층" 도해 (개념도)</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch6_sashin_diagram.png</td><td class="desc">사신(四神) 도해</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch6_hideout_morning.png</td><td class="desc">은신처 아침. 출발 직전</td></tr>
+</tbody>
+</table>
+
+<!-- ============================================
+     7장
+     ============================================ -->
+<h2 id="ch7">📖 7장 — 장산범</h2>
+<table>
+<thead><tr><th width="40">✓</th><th>파일 경로</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch7_inwangsan_path.png</td><td class="desc">인왕산 산길</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch7_forest_dim.png</td><td class="desc">어두운 숲 — 목소리가 들리는 자리</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch7_jangsan_appear.png</td><td class="desc">장산범 등장 (사람 형상)</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch7_inwangsan_descent.png</td><td class="desc">산 내려오는 길</td></tr>
+</tbody>
+</table>
+
+<!-- ============================================
+     8장
+     ============================================ -->
+<h2 id="ch8">📖 8장 — 그슨대 / 자료벽</h2>
+<table>
+<thead><tr><th width="40">✓</th><th>파일 경로</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch8_seoul_old_road.png</td><td class="desc">옛 서울 길</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch8_geuseundae_appear.png</td><td class="desc">그슨대 등장 (5미터 키다리)</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch8_combat.png</td><td class="desc">그슨대 전투</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch8_seoul_alley.png</td><td class="desc">종묘 가는 골목</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch8_yakbang_outside.png</td><td class="desc">향(香) 약방 외관</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch8_yakbang_inside.png</td><td class="desc">약방 내부 — 이향 할머님</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch8_seoul_dusk.png</td><td class="desc">노을의 서울 (장 끝)</td></tr>
+</tbody>
+</table>
+
+<!-- ============================================
+     9장
+     ============================================ -->
+<h2 id="ch9">📖 9장 — 구미호 재회</h2>
+<table>
+<thead><tr><th width="40">✓</th><th>파일 경로</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch9_dusk_park.png</td><td class="desc">노을의 공원</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch9_pavilion.png</td><td class="desc">정자 (잠시 쉼)</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch9_gumiho_visit.png</td><td class="desc">구미호 재회 — 정자에서</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch9_gumiho_breaking.png</td><td class="desc">구미호 무너지는 순간 — 백 년의 거짓이 깨짐</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch9_pavilion_night.png</td><td class="desc">밤의 정자 (장 끝)</td></tr>
+</tbody>
+</table>
+
+<!-- ============================================
+     10장
+     ============================================ -->
+<h2 id="ch10">📖 10장 — 네 마리의 짐승 (사신)</h2>
+<table>
+<thead><tr><th width="40">✓</th><th>파일 경로</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch10_haeun_water.png</td><td class="desc">하은이 한강에 발을 담그는 순간</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch10_haeun_awakening.png</td><td class="desc">현무 각성 — 하은 등 뒤의 거대한 거북·뱀 그림자</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch10_seoul_dawn.png</td><td class="desc">새벽의 서울 (출발)</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch10_gangnam_cafe.png</td><td class="desc">강남 카페 — 청룡의 자리</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch10_dojang.png</td><td class="desc">한강 어귀 검도장 — 백호의 자리</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch10_dojang_combat.png</td><td class="desc">백호 검 시험</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch10_mudang.png</td><td class="desc">명동 무당집 — 주작의 자리</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch10_seoul_noon.png</td><td class="desc">정오의 서울 (사신 모은 후)</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch10_seoul_dusk.png</td><td class="desc">노을 — 한강 어귀로 향함</td></tr>
+</tbody>
+</table>
+
+<!-- ============================================
+     11장
+     ============================================ -->
+<h2 id="ch11">📖 11장 — 강철이 / 진실</h2>
+<table>
+<thead><tr><th width="40">✓</th><th>파일 경로</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch11_dry_road.png</td><td class="desc">갈라진 가뭄의 길</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch11_road_to_river.png</td><td class="desc">한강으로 가는 길</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch11_gangcheoli.png</td><td class="desc">강철이 등장 — 뱀머리 사람몸</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch11_combat_start.png</td><td class="desc">전투 시작 — 전우치 청풍검</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch11_combat_struggle.png</td><td class="desc">전우치 무릎 꿇음 — 도술 흡수당함</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch11_protagonist_awaken.png</td><td class="desc">주인공 각성 — 9할의 도술 터짐</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch11_blue_burst.png</td><td class="desc">청풍천검 발현 — 천 자루의 푸른 검</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch11_gangcheoli_dying.png</td><td class="desc">강철이 무너지는 순간</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch11_jeonwoochi_smile.png</td><td class="desc">전우치 진실 폭로 미소</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch11_two_jeonwoochi.png</td><td class="desc">두 명의 전우치 (1할 + 9할 = 주인공)</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch11_protagonist_full.png</td><td class="desc">주인공 진실 받아들임 — 천 년 도술 가득</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch11_protagonist_partial.png</td><td class="desc">주인공 망설임 — 절반 각성</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch11_protagonist_human.png</td><td class="desc">주인공 거부 — 평범한 사람으로 남음</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch11_river_distant.png</td><td class="desc">멀리 보이는 한강 (장 끝)</td></tr>
+</tbody>
+</table>
+
+<!-- ============================================
+     12장
+     ============================================ -->
+<h2 id="ch12">📖 12장 — 이무기와의 결판</h2>
+<table>
+<thead><tr><th width="40">✓</th><th>파일 경로</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch12_hangang_eve.png</td><td class="desc">한강 어귀 자정 직전</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch12_imugi_ritual.png</td><td class="desc">이무기 의식 — 거대한 뱀 형상</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch12_gumiho_ours.png</td><td class="desc">구미호가 우리 편에 합류</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch12_gumiho_choice.png</td><td class="desc">구미호 결정 못한 자리 — 두 사이</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch12_battle_prep.png</td><td class="desc">전투 준비</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch12_battle_chaos.png</td><td class="desc">전투 시작 — 카오스</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch12_sashin_circle.png</td><td class="desc">사신 노래 합창 — 원진</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch12_blue_torrent.png</td><td class="desc">주인공 청풍천검 발사</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch12_imugi_weakened.png</td><td class="desc">이무기 약화 — 결판 직전</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch12_perfect_strike.png</td><td class="desc">완벽한 일격 (사신4 + 도술각성)</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch12_great_strike.png</td><td class="desc">강한 일격 (사신3)</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch12_partial_strike.png</td><td class="desc">부분 일격 (사신2)</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch12_failed_strike.png</td><td class="desc">실패 — 사신 부족</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch12_seal_circle.png</td><td class="desc">봉인의 매듭</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch12_self_seal.png</td><td class="desc">자기 봉인 — 주인공 함께 잠듦</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch12_together_path.png</td><td class="desc">함께 이층으로 가는 길</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch12_purify_path.png</td><td class="desc">정화의 길 — 가장 어려운 진엔딩</td></tr>
+</tbody>
+</table>
+
+<!-- ============================================
+     13장 — 엔딩
+     ============================================ -->
+<h2 id="ch13">📖 13장 — 엔딩 (8개)</h2>
+<table>
+<thead><tr><th width="40">✓</th><th>파일 경로</th><th>설명</th><th width="80">엔딩</th></tr></thead>
+<tbody>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch13_dawn.png</td><td class="desc">새벽 (공통)</td><td>—</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch13_after_battle.png</td><td class="desc">전투 후 (격파 진엔딩)</td><td>真</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch13_companions_smile.png</td><td class="desc">동료들 미소 (진엔딩)</td><td>真</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch13_seoul_dawn.png</td><td class="desc">서울의 새벽</td><td>真/眞/靜</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch13_purified_sky.png</td><td class="desc">정화된 하늘 (정화엔딩)</td><td>眞</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch13_seoul_revival.png</td><td class="desc">서울의 부활</td><td>眞</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch13_save_path.png</td><td class="desc">구원 — 구미호와 같이 이층으로</td><td>救</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch13_ihyung_calm.png</td><td class="desc">이층의 평온 (구원엔딩)</td><td>救</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch13_self_seal.png</td><td class="desc">자기 봉인 — 강 깊은 곳</td><td>昇</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch13_companions_searching.png</td><td class="desc">동료들이 찾는 모습</td><td>昇</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch13_ihyung_seoul.png</td><td class="desc">이층 서울 — 함께</td><td>共</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch13_ihyung_dawn.png</td><td class="desc">이층의 새벽</td><td>共</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch13_partial_dawn.png</td><td class="desc">부분 정화 (정엔딩)</td><td>靜</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch13_companions_quiet.png</td><td class="desc">조용한 동료들 (정엔딩)</td><td>靜</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch13_imugi_ascends.png</td><td class="desc">이무기 승천 (실패엔딩)</td><td>失</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch13_dark_seoul.png</td><td class="desc">어두운 서울 — 이층 잠식</td><td>失</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch13_forgotten.png</td><td class="desc">평범한 카페 (망각엔딩)</td><td>忘</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch13_seoul_normal.png</td><td class="desc">평범한 서울 (망각엔딩)</td><td>忘</td></tr>
+<tr><td><input type="checkbox"></td><td class="path">assets/images/ch13_final_screen.png</td><td class="desc">최종 화면 (엔딩 후)</td><td>—</td></tr>
+</tbody>
+</table>
+
+<!-- ============================================
+     음성 (옵션)
+     ============================================ -->
+<h2 id="voice">🎤 음성 (선택)</h2>
+<div class="note">
+🔉 현재 시나리오에 음성 트리거가 박혀있는 라인은 <strong>6개 샘플뿐</strong>이에요. 전체 풀더빙은 분량 때문에 비현실적이고, <strong>핵심 라인 일부만 더빙</strong>하는 게 일반적입니다 (예: 보스 등장, 진엔딩 결정타, 호감도 80 이벤트). 일단 현재 코드가 참조하는 6개:
+</div>
+<table>
+<thead><tr><th width="40">✓</th><th>파일 경로</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><input type="checkbox" checked></td><td class="path">assets/audio/voice/1.mp3</td><td class="desc">샘플 음성 1</td></tr>
+<tr><td><input type="checkbox" checked></td><td class="path">assets/audio/voice/2.mp3</td><td class="desc">샘플 음성 2</td></tr>
+<tr><td><input type="checkbox" checked></td><td class="path">assets/audio/voice/3.mp3</td><td class="desc">샘플 음성 3</td></tr>
+<tr><td><input type="checkbox" checked></td><td class="path">assets/audio/voice/4.mp3</td><td class="desc">샘플 음성 4</td></tr>
+<tr><td><input type="checkbox" checked></td><td class="path">assets/audio/voice/5.mp3</td><td class="desc">샘플 음성 5</td></tr>
+<tr><td><input type="checkbox" checked></td><td class="path">assets/audio/voice/6.mp3</td><td class="desc">샘플 음성 6</td></tr>
+</tbody>
+</table>
+
+<h2>📝 메모</h2>
+<ul style="padding-left:20px;">
+<li>이미지 사이즈: 배경 1080×1920 (9:16) · 포트레이트 800×1200 PNG · 호감도 이벤트 1080×1920</li>
+<li>오디오 사이즈: BGM 128~192kbps MP3, 1~3MB 권장</li>
+<li>지금 폴더에 파일 없어도 게임 동작은 함 (텍스트만 나옴) — 채워가면서 점진적으로 풍성해짐</li>
+<li>중요도 우선순위: <strong>BGM</strong> → <strong>주요 캐릭터 포트레이트 (하은·구미호·이무기·전우치)</strong> → <strong>주요 장면 배경</strong> → <strong>호감도 이벤트</strong> → 영물·기타</li>
+</ul>
+
+</div>
+</body>
+</html>

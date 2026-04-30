@@ -620,6 +620,87 @@ body {
 
 .character-slot.hidden { display: none; }
 
+/* ============================================
+   포트레이트 감정 이펙트 (line.effect 로 트리거)
+   개별 transform(translate/rotate/scale)을 사용해서 기존 transform: scaleX(-1) 등을 안 깨뜨림
+   ============================================ */
+
+/* shake — 놀람·충격 (좌우 흔들) */
+.character-slot.fx-shake { animation: fx-shake 0.42s cubic-bezier(0.36, 0.07, 0.19, 0.97); }
+@keyframes fx-shake {
+    0%   { translate: 0 0; }
+    18%  { translate: -5px 0; }
+    35%  { translate: 5px 0; }
+    52%  { translate: -4px 0; }
+    68%  { translate: 4px 0; }
+    85%  { translate: -2px 0; }
+    100% { translate: 0 0; }
+}
+
+/* jump — 기쁨·신남 (위로 톡 → 살짝 바운스) */
+.character-slot.fx-jump { animation: fx-jump 0.6s ease-out; }
+@keyframes fx-jump {
+    0%, 100% { translate: 0 0; }
+    28%      { translate: 0 -12px; }
+    55%      { translate: 0 0; }
+    72%      { translate: 0 -4px; }
+}
+
+/* pulse — 강조·진심 (살짝 커졌다) */
+.character-slot.fx-pulse { animation: fx-pulse 0.4s ease; }
+@keyframes fx-pulse {
+    0%, 100% { scale: 1; }
+    50%      { scale: 1.05; }
+}
+
+/* flinch — 움찔·당황 (살짝 뒤로) */
+.character-slot.fx-flinch { animation: fx-flinch 0.35s ease-out; }
+@keyframes fx-flinch {
+    0%   { translate: 0 0; }
+    35%  { translate: 0 5px; rotate: -1deg; }
+    100% { translate: 0 0; rotate: 0deg; }
+}
+
+/* nod — 동의·끄덕 (위로 살짝 → 아래로) */
+.character-slot.fx-nod { animation: fx-nod 0.5s ease; }
+@keyframes fx-nod {
+    0%, 100% { rotate: 0deg; }
+    30%      { rotate: -3deg; }
+    70%      { rotate: 3deg; }
+}
+
+/* tremble — 두려움·긴장 (오랫동안 미세하게 떨림) */
+.character-slot.fx-tremble { animation: fx-tremble 1.6s ease; }
+@keyframes fx-tremble {
+    0%, 100% { translate: 0 0; }
+    8%   { translate: -1.5px 0; }
+    16%  { translate: 1.5px 0; }
+    24%  { translate: -1.5px 0; }
+    32%  { translate: 1.5px 0; }
+    40%  { translate: -1.5px 0; }
+    48%  { translate: 1.5px 0; }
+    56%  { translate: -1.5px 0; }
+    64%  { translate: 1.5px 0; }
+    72%  { translate: -1.5px 0; }
+    80%  { translate: 1.5px 0; }
+    88%  { translate: -1px 0; }
+}
+
+/* zoom — 결정적 순간·임팩트 (확 커졌다) */
+.character-slot.fx-zoom { animation: fx-zoom 0.45s cubic-bezier(0.34, 1.56, 0.64, 1); }
+@keyframes fx-zoom {
+    0%, 100% { scale: 1; }
+    50%      { scale: 1.1; }
+}
+
+/* sway — 흔들리는 마음·고민 (좌우로 살짝 기울임) */
+.character-slot.fx-sway { animation: fx-sway 0.7s ease; }
+@keyframes fx-sway {
+    0%, 100% { rotate: 0deg; }
+    30%      { rotate: -2.5deg; }
+    70%      { rotate: 2.5deg; }
+}
+
 /* ===== 스탯 바 — 8개 2줄 배치 ===== */
 #stats-bar {
     position: absolute;
@@ -652,21 +733,18 @@ body {
 }
 
 .stat-icon {
-    font-family: 'NanumMyeongjo-YetHangul', serif;
-    font-size: 0.6rem;
-    font-weight: 700;
+    font-family: -apple-system, 'Segoe UI Symbol', 'Apple Color Emoji', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    line-height: 1;
     text-shadow: 0 0 6px currentColor;
 }
 
-/* 한자 아이콘 색상 — 각 스탯 고유색 */
-#stat-courage .stat-icon  { color: #ff6b6b; }
-#stat-empathy .stat-icon  { color: #51cf66; }
-#stat-insight .stat-icon  { color: #339af0; }
-#stat-trust .stat-icon    { color: #ffd43b; }
-#stat-will .stat-icon     { color: #b197fc; }
-#stat-wisdom .stat-icon   { color: #38d9a9; }
-#stat-charm .stat-icon    { color: #f783ac; }
-#stat-composure .stat-icon { color: #a8b4c2; }
+/* 4감정 아이콘 색상 */
+#stat-love    .stat-icon { color: #f783ac; }  /* ♥ 사랑 */
+#stat-courage .stat-icon { color: #ff6b6b; }  /* ▲ 용기 */
+#stat-wisdom  .stat-icon { color: #339af0; }  /* ◆ 지혜 */
+#stat-calm    .stat-icon { color: #a8b4c2; }  /* ● 평정 */
 
 .stat-label {
     display: inline;
@@ -691,14 +769,10 @@ body {
     transition: width 1.2s cubic-bezier(0.25, 0, 0, 1);
 }
 
-.stat-fill[data-stat="courage"]   { background: #ff6b6b; }
-.stat-fill[data-stat="empathy"]   { background: #51cf66; }
-.stat-fill[data-stat="insight"]   { background: #339af0; }
-.stat-fill[data-stat="trust"]     { background: #ffd43b; }
-.stat-fill[data-stat="will"]      { background: #b197fc; }
-.stat-fill[data-stat="wisdom"]    { background: #38d9a9; }
-.stat-fill[data-stat="charm"]     { background: #f783ac; }
-.stat-fill[data-stat="composure"] { background: #a8b4c2; }
+.stat-fill[data-stat="love"]    { background: #f783ac; }
+.stat-fill[data-stat="courage"] { background: #ff6b6b; }
+.stat-fill[data-stat="wisdom"]  { background: #339af0; }
+.stat-fill[data-stat="calm"]    { background: #a8b4c2; }
 
 .stat-value {
     font-size: 0.6rem;
@@ -740,6 +814,13 @@ body {
     align-items: center;
     gap: 0;
     padding: 0;
+    /* 통합 배경 — 포트레이트와 info 영역을 하나의 음영으로 */
+    background: linear-gradient(to right,
+        rgba(0, 0, 0, 0.85) 0%,
+        rgba(0, 0, 0, 0.65) 44px,
+        rgba(0, 0, 0, 0.35) 100px,
+        transparent 100%);
+    border-radius: 0 28px 28px 0;
     opacity: 0;
     transform: translateX(-30px);
     animation: companionSlideIn 0.6s cubic-bezier(0.25, 0, 0, 1) forwards;
@@ -753,39 +834,51 @@ body {
     object-position: top;
     border: 1.5px solid rgba(0, 200, 255, 0.3);
     border-left: none;
-    background: rgba(0, 0, 0, 0.6);
+    background: transparent;  /* 슬롯 배경 사용 */
     flex-shrink: 0;
-    margin-right: -1px;
     z-index: 1;
 }
 
 .companion-slot-info {
     display: flex;
     align-items: center;
-    gap: 6px;
-    padding: 6px 14px 6px 10px;
-    background: linear-gradient(to right, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.3), transparent);
-    border-radius: 0 8px 8px 0;
+    gap: 8px;
+    padding: 6px 16px 6px 10px;
+    background: transparent;  /* 슬롯 배경 사용 */
     min-height: 44px;
 }
 
+/* 하트 + 안의 숫자 컨테이너 */
 .companion-slot-affinity {
+    position: relative;
+    width: 28px;
+    height: 28px;
     display: flex;
     align-items: center;
-    gap: 2px;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
 .companion-slot-affinity-icon {
-    font-size: 0.7rem;
-    color: rgba(255, 80, 100, 0.85);
+    font-size: 1.6rem;        /* 하트 크게 */
+    color: #ff5577;
     line-height: 1;
+    text-shadow: 0 0 6px rgba(255, 80, 120, 0.5);
+    user-select: none;
 }
 
 .companion-slot-affinity-value {
-    font-size: 0.55rem;
-    color: rgba(255, 80, 100, 0.85);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -38%);  /* 하트 모양 보정 (위쪽 살짝) */
+    font-size: 0.62rem;
+    color: #fff;
     font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
     line-height: 1;
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.9), 0 0 1px rgba(0, 0, 0, 1);
+    pointer-events: none;
 }
 
 /* 호감도 변경 미니 알림 */
@@ -1360,11 +1453,17 @@ body {
    분기 플로우차트 — Detroit: Become Human 스타일
    ============================================ */
 #flowchart-screen {
-    background: linear-gradient(160deg, #0c1018 0%, #0a0e16 40%, #0d1220 100%);
+    /* 크림 → 슬레이트 그라디언트 (디트로이트 결) */
+    background: linear-gradient(170deg,
+        #e8e0d2 0%,
+        #d8d4ca 25%,
+        #b9bcbf 55%,
+        #7e8a96 100%);
     flex-direction: column;
     z-index: 60;
 }
 
+/* 패싯(다이아몬드) 오버레이 — 큰 다각형들이 겹쳐 보이는 결 */
 #flowchart-screen::before {
     content: '';
     position: absolute;
@@ -1373,12 +1472,18 @@ body {
     width: 100%;
     height: 100%;
     background:
-        radial-gradient(ellipse at 30% 20%, rgba(0, 100, 180, 0.06) 0%, transparent 50%),
-        radial-gradient(ellipse at 70% 80%, rgba(0, 80, 160, 0.04) 0%, transparent 50%);
+        /* 큰 패싯 다이아몬드 (어두운 면) */
+        linear-gradient(135deg, transparent 49.6%, rgba(80, 95, 110, 0.10) 49.7%, rgba(80, 95, 110, 0.10) 50.3%, transparent 50.4%),
+        linear-gradient(45deg, transparent 49.6%, rgba(80, 95, 110, 0.08) 49.7%, rgba(80, 95, 110, 0.08) 50.3%, transparent 50.4%),
+        /* 큰 면 (밝은 면) */
+        linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, transparent 50%),
+        linear-gradient(225deg, rgba(120, 135, 150, 0.08) 0%, transparent 60%);
+    background-size: 600px 600px, 800px 800px, 100% 100%, 100% 100%;
+    background-position: -100px -50px, 200px 100px, 0 0, 0 0;
     pointer-events: none;
 }
 
-/* 미세한 그리드 패턴 */
+/* 패싯 오버레이 2 — SVG로 큰 삼각형 면 추가 */
 #flowchart-screen::after {
     content: '';
     position: absolute;
@@ -1386,11 +1491,11 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image:
-        linear-gradient(rgba(0, 150, 255, 0.015) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 150, 255, 0.015) 1px, transparent 1px);
-    background-size: 40px 40px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 700' preserveAspectRatio='none'><polygon points='0,0 220,0 80,200' fill='rgba(255,255,255,0.08)'/><polygon points='220,0 400,0 400,180 280,140' fill='rgba(140,155,170,0.10)'/><polygon points='400,180 400,420 260,300' fill='rgba(255,255,255,0.06)'/><polygon points='0,200 0,500 180,360' fill='rgba(120,135,150,0.10)'/><polygon points='100,500 280,420 320,640 60,700' fill='rgba(160,175,190,0.10)'/><polygon points='280,420 400,440 400,700 320,640' fill='rgba(90,105,120,0.10)'/></svg>");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
     pointer-events: none;
+    opacity: 0.95;
 }
 
 .flowchart-wrapper {
@@ -1414,7 +1519,7 @@ body {
 
 .flowchart-episode {
     font-size: 0.65rem;
-    color: rgba(0, 180, 255, 0.5);
+    color: rgba(40, 60, 90, 0.55);
     letter-spacing: 0.6em;
     text-indent: 0.6em;
     font-weight: 300;
@@ -1426,7 +1531,7 @@ body {
     font-family: 'NanumMyeongjo-YetHangul', serif;
     font-size: 1.5rem;
     font-weight: 700;
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(20, 35, 55, 0.92);
     letter-spacing: 0.15em;
     text-indent: 0.15em;
 }
@@ -1437,7 +1542,7 @@ body {
     display: block;
     width: 40px;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(0, 180, 255, 0.3), transparent);
+    background: linear-gradient(90deg, transparent, rgba(40, 70, 110, 0.5), transparent);
     margin: 16px auto 0;
 }
 
@@ -1489,22 +1594,23 @@ body {
 
 .fc-edge {
     fill: none;
-    stroke: rgba(255, 255, 255, 0.06);
-    stroke-width: 2;
+    stroke: rgba(60, 80, 110, 0.22);
+    stroke-width: 1.5;
 }
 
 .fc-edge.active {
-    stroke: rgba(0, 180, 255, 0.4);
-    filter: drop-shadow(0 0 4px rgba(0, 150, 255, 0.2));
+    stroke: rgba(20, 100, 180, 0.85);
+    stroke-width: 2;
+    filter: drop-shadow(0 0 3px rgba(20, 130, 220, 0.35));
 }
 
 .fc-edge-dot {
-    fill: rgba(255, 255, 255, 0.06);
+    fill: rgba(60, 80, 110, 0.22);
 }
 
 .fc-edge-dot.active {
-    fill: rgba(0, 180, 255, 0.6);
-    filter: drop-shadow(0 0 4px rgba(0, 150, 255, 0.3));
+    fill: rgba(20, 100, 180, 0.95);
+    filter: drop-shadow(0 0 4px rgba(20, 130, 220, 0.45));
 }
 
 /* ---- 노드 공통 ---- */
@@ -1516,91 +1622,142 @@ body {
     animation: fcNodeAppear 0.5s ease forwards;
 }
 
-/* ---- 스토리 노드 ---- */
+/* ---- 스토리 노드 — 디트로이트식 살짝 비스듬한 패널 ---- */
 .fc-story-node {
-    padding: 10px 20px;
-    background: rgba(15, 25, 40, 0.8);
-    border: 1px solid rgba(0, 150, 255, 0.12);
-    border-radius: 6px;
-    backdrop-filter: blur(5px);
+    padding: 10px 22px;
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(60, 90, 130, 0.2);
+    border-left: 2px solid rgba(60, 90, 130, 0.3);
+    transform: skewX(-6deg);
+    backdrop-filter: blur(2px);
     transition: all 0.3s ease;
     white-space: nowrap;
+    box-shadow: 0 1px 3px rgba(40, 60, 90, 0.08);
 }
 
 .fc-story-node.active {
-    border-color: rgba(0, 180, 255, 0.4);
-    background: rgba(0, 40, 80, 0.4);
+    border-color: rgba(20, 100, 180, 0.65);
+    border-left: 2px solid rgba(20, 100, 180, 0.95);
+    background: rgba(255, 255, 255, 0.92);
     box-shadow:
-        0 0 20px rgba(0, 150, 255, 0.08),
-        inset 0 0 15px rgba(0, 150, 255, 0.03);
+        0 2px 12px rgba(20, 100, 180, 0.18),
+        0 0 0 1px rgba(20, 100, 180, 0.1) inset;
 }
 
+/* skewX 한 부모를 보정 — 텍스트는 똑바로 */
 .fc-story-text {
-    font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.35);
+    display: inline-block;
+    transform: skewX(6deg);
+    font-size: 0.72rem;
+    color: rgba(60, 80, 110, 0.55);
     letter-spacing: 0.08em;
     font-weight: 400;
 }
 
 .fc-story-node.active .fc-story-text {
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(15, 35, 60, 0.95);
     font-weight: 700;
 }
 
 /* ---- 선택 라벨 노드 ---- */
 .fc-label-node {
     padding: 6px 14px;
-    background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.3);
+    border: 1px dashed rgba(60, 90, 130, 0.25);
     border-radius: 4px;
     white-space: nowrap;
 }
 
 .fc-label-text {
     font-size: 0.6rem;
-    color: rgba(255, 255, 255, 0.2);
+    color: rgba(40, 60, 90, 0.55);
     letter-spacing: 0.15em;
 }
 
-/* ---- 분기 카드 ---- */
+/* 썸네일 라벨 — 디트로이트식 평행사변형 카드 + 배경 이미지 */
+.fc-label-node.fc-label-thumb {
+    padding: 0;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(40, 80, 130, 0.35);
+    border-radius: 0;
+    transform: skewX(-6deg);
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 8px rgba(20, 50, 90, 0.18);
+}
+
+.fc-label-thumb-img {
+    flex: 1;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    transform: skewX(6deg) scale(1.18);
+    transform-origin: center;
+    filter: saturate(0.85) brightness(0.92);
+}
+
+.fc-label-thumb .fc-label-text {
+    display: block;
+    padding: 5px 8px 6px;
+    background: rgba(255, 255, 255, 0.96);
+    color: rgba(15, 35, 60, 0.95);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-align: center;
+    transform: skewX(6deg);
+    border-top: 1px solid rgba(40, 80, 130, 0.25);
+}
+
+/* ---- 분기 카드 — 살짝 비스듬한 평행사변형 ---- */
 .fc-branch-node {
-    --branch-color: #00b4ff;
-    padding: 8px 14px;
-    border-radius: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    background: rgba(10, 15, 25, 0.6);
+    --branch-color: #1a78c8;
+    padding: 8px 16px;
+    transform: skewX(-6deg);
+    border: 1px solid rgba(60, 90, 130, 0.2);
+    border-left: 2px solid rgba(60, 90, 130, 0.3);
+    background: rgba(255, 255, 255, 0.5);
     transition: all 0.4s ease;
     position: relative;
     overflow: hidden;
     white-space: nowrap;
     text-align: left;
+    box-shadow: 0 1px 2px rgba(40, 60, 90, 0.06);
 }
 
 .fc-branch-node .fc-indicator {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, 0.1);
+    border: 1.5px solid rgba(60, 90, 130, 0.35);
     background: transparent;
     display: inline-block;
     margin-right: 6px;
     vertical-align: middle;
+    transform: skewX(6deg);
 }
 
 .fc-branch-text {
+    display: inline-block;
+    transform: skewX(6deg);
     font-size: 0.65rem;
     line-height: 1.5;
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(60, 80, 110, 0.7);
     letter-spacing: 0.02em;
     vertical-align: middle;
 }
 
-/* 선택됨 — 스탯 색상 반영 */
+/* 선택됨 — 디트로이트식 강조 (배경 흰색 + 좌측 컬러바 + 그림자) */
 .fc-branch-node.chosen {
-    border-color: color-mix(in srgb, var(--branch-color) 50%, transparent);
-    background: color-mix(in srgb, var(--branch-color) 12%, rgba(10, 15, 25, 0.6));
-    box-shadow: 0 0 15px color-mix(in srgb, var(--branch-color) 15%, transparent),
-                0 0 30px color-mix(in srgb, var(--branch-color) 6%, transparent);
+    border-color: color-mix(in srgb, var(--branch-color) 60%, transparent);
+    border-left: 3px solid var(--branch-color);
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow:
+        0 3px 14px color-mix(in srgb, var(--branch-color) 25%, transparent),
+        0 1px 4px rgba(40, 60, 90, 0.12);
 }
 
 .fc-branch-node.chosen::before {
@@ -1614,42 +1771,84 @@ body {
 .fc-branch-node.chosen .fc-indicator {
     border-color: var(--branch-color);
     background: var(--branch-color);
-    box-shadow: 0 0 8px color-mix(in srgb, var(--branch-color) 60%, transparent);
+    box-shadow: 0 0 8px color-mix(in srgb, var(--branch-color) 50%, transparent);
 }
 
 .fc-branch-node.chosen .fc-branch-text {
-    color: color-mix(in srgb, var(--branch-color) 85%, white);
+    color: color-mix(in srgb, var(--branch-color) 85%, #0a1830);
     font-weight: 700;
 }
 
-/* 미선택 — 스탯 색상 은은하게 */
+/* 미선택 — 흐리게 */
 .fc-branch-node.unchosen {
-    border-color: color-mix(in srgb, var(--branch-color) 8%, transparent);
-    background: rgba(10, 15, 25, 0.3);
-    opacity: 0.45;
+    border-color: rgba(60, 90, 130, 0.1);
+    background: rgba(255, 255, 255, 0.25);
+    opacity: 0.55;
 }
 
 .fc-branch-node.unchosen .fc-indicator {
-    border-color: color-mix(in srgb, var(--branch-color) 25%, transparent);
+    border-color: rgba(60, 90, 130, 0.2);
 }
 
 .fc-branch-node.unchosen .fc-branch-text {
-    color: color-mix(in srgb, var(--branch-color) 35%, rgba(255, 255, 255, 0.3));
+    color: rgba(60, 80, 110, 0.45);
 }
 
 /* 잠금 */
 .fc-branch-node.locked {
-    border-color: rgba(255, 255, 255, 0.03);
-    background: rgba(10, 15, 25, 0.2);
-    opacity: 0.2;
+    border-color: rgba(60, 90, 130, 0.06);
+    background: rgba(255, 255, 255, 0.12);
+    opacity: 0.3;
 }
 
 .fc-branch-node.locked .fc-indicator {
-    border-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(60, 90, 130, 0.12);
 }
 
 .fc-branch-node.locked .fc-branch-text {
-    color: rgba(255, 255, 255, 0.1);
+    color: rgba(60, 80, 110, 0.25);
+}
+
+/* ---- 전 세계 선택 통계 — % 바 ---- */
+.fc-branch-percent {
+    display: block;
+    position: relative;
+    height: 4px;
+    margin-top: 5px;
+    background: rgba(60, 90, 130, 0.12);
+    border-radius: 2px;
+    overflow: hidden;
+    transform: skewX(6deg);  /* 부모 -6도 보정 */
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+.fc-branch-percent.visible { opacity: 1; }
+
+.fc-branch-percent .fc-pct-fill {
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%;
+    background: rgba(40, 100, 170, 0.55);
+    transition: width 0.8s cubic-bezier(0.25, 0, 0, 1);
+}
+
+.fc-branch-percent .fc-pct-label {
+    position: absolute;
+    top: -16px;
+    right: 0;
+    font-size: 0.55rem;
+    color: rgba(40, 70, 110, 0.75);
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+
+/* 선택된 분기는 % 바 색상도 강조 */
+.fc-branch-node.chosen .fc-branch-percent .fc-pct-fill {
+    background: var(--branch-color, #1a78c8);
+    box-shadow: 0 0 4px color-mix(in srgb, var(--branch-color, #1a78c8) 50%, transparent);
+}
+.fc-branch-node.chosen .fc-branch-percent .fc-pct-label {
+    color: color-mix(in srgb, var(--branch-color, #1a78c8) 80%, #0a1830);
 }
 
 /* ---- 닫기 버튼 ---- */
@@ -1659,11 +1858,11 @@ body {
     font-size: 0.8rem;
     font-family: 'NanumMyeongjo-YetHangul', serif;
     font-weight: 300;
-    color: rgba(0, 200, 255, 0.6);
-    background: transparent;
+    color: rgba(20, 60, 110, 0.85);
+    background: rgba(255, 255, 255, 0.45);
     border: none;
-    border-top: 1px solid rgba(0, 200, 255, 0.15);
-    border-bottom: 1px solid rgba(0, 200, 255, 0.15);
+    border-top: 1px solid rgba(40, 80, 130, 0.35);
+    border-bottom: 1px solid rgba(40, 80, 130, 0.35);
     cursor: pointer;
     letter-spacing: 0.4em;
     transition: all 0.6s cubic-bezier(0.25, 0, 0, 1);
@@ -1682,18 +1881,18 @@ body {
     transform: translateX(-50%);
     width: 0;
     height: 1px;
-    background: rgba(0, 200, 255, 0.4);
+    background: rgba(20, 100, 180, 0.65);
     transition: width 0.6s cubic-bezier(0.25, 0, 0, 1);
 }
 .flowchart-close-btn::before { top: -1px; }
 .flowchart-close-btn::after { bottom: -1px; }
 
 .flowchart-close-btn:hover {
-    color: rgba(0, 220, 255, 0.95);
+    color: rgba(10, 30, 60, 1);
+    background: rgba(255, 255, 255, 0.85);
     border-color: transparent;
     letter-spacing: 0.6em;
-    text-shadow: 0 0 12px rgba(0, 200, 255, 0.4);
-    background: transparent;
+    box-shadow: 0 4px 18px rgba(20, 100, 180, 0.18);
 }
 
 .flowchart-close-btn:hover::before,
@@ -1705,14 +1904,14 @@ body {
     margin-top: 16px;
     font-family: 'NanumMyeongjo-YetHangul', serif;
     font-size: 0.7rem;
-    color: rgba(0, 200, 255, 0);
+    color: rgba(40, 70, 110, 0);
     letter-spacing: 0.15em;
     text-align: center;
     transition: color 1.2s ease;
 }
 
 .flowchart-end-msg.visible {
-    color: rgba(0, 200, 255, 0.5);
+    color: rgba(40, 70, 110, 0.65);
 }
 
 /* ---- 순차 등장 ---- */
@@ -1756,4 +1955,85 @@ body {
     }
     .stat { gap: 5px; }
     .stat-bar { width: 40px; }
+}
+
+/* ============================================
+   타이틀 — 이어하기 / 챕터 선택 / 엔딩 카운터
+   ============================================ */
+.title-btn.hidden { display: none; }
+
+.title-btn-secondary {
+    margin-top: 0.8rem;
+    padding: 0.55rem 2rem;
+    font-size: 0.7rem;
+    color: rgba(0, 200, 255, 0.45);
+    border-top-color: rgba(0, 200, 255, 0.1);
+    border-bottom-color: rgba(0, 200, 255, 0.1);
+    letter-spacing: 0.35em;
+}
+
+#btn-continue { margin-bottom: 0.5rem; }
+
+.title-endings-counter {
+    margin-top: 1.4rem;
+    font-size: 0.65rem;
+    color: rgba(0, 200, 255, 0.4);
+    letter-spacing: 0.4em;
+    font-family: 'NanumMyeongjo-YetHangul', serif;
+}
+.title-endings-counter.hidden { display: none; }
+
+
+/* ============================================
+   호감도 이벤트 오버레이
+   ============================================ */
+#affinity-event-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    background: radial-gradient(circle at center, rgba(255, 100, 150, 0.18) 0%, rgba(0, 0, 0, 0.85) 70%);
+    z-index: 30;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s ease;
+}
+#affinity-event-overlay.hidden { display: none; }
+#affinity-event-overlay.active { opacity: 1; }
+
+#affinity-event-overlay .affinity-event-icon {
+    font-size: 2.5rem;
+    color: rgba(255, 130, 180, 0.95);
+    text-shadow: 0 0 24px rgba(255, 100, 160, 0.7);
+    animation: affinityHeartbeat 1.4s ease-in-out infinite;
+}
+
+#affinity-event-overlay .affinity-event-label {
+    color: rgba(255, 220, 235, 0.9);
+    font-family: 'NanumMyeongjo-YetHangul', serif;
+    font-size: 1.05rem;
+    letter-spacing: 0.45em;
+    text-shadow: 0 0 16px rgba(255, 150, 180, 0.55);
+}
+
+#affinity-event-overlay #affinity-event-name {
+    color: rgba(255, 240, 245, 1);
+    font-family: 'NanumMyeongjo-YetHangul', serif;
+    font-size: 1.55rem;
+    letter-spacing: 0.35em;
+    margin-top: 0.4rem;
+    text-shadow: 0 0 20px rgba(255, 130, 170, 0.7);
+}
+
+@keyframes affinityHeartbeat {
+    0%, 100% { transform: scale(1); }
+    25% { transform: scale(1.18); }
+    40% { transform: scale(1); }
+    60% { transform: scale(1.1); }
 }

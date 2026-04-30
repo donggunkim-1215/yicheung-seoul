@@ -1,0 +1,4 @@
+
+# Claude 메모리 백업 (로컬 전용)
+_claude_memory_backup/
+.claude/settings.local.json

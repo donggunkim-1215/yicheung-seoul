@@ -85,13 +85,13 @@ const SCENES_CH1 = {
             {
                 text: '다가가서 말을 건다',
                 statHint: '혼자가 아닐 수도 있다',
-                stats: { empathy: 5, courage: 3 },
+                stats: { love: 5, courage: 3 },
                 next: 'ch1_student_approach'
             },
             {
                 text: '거리를 두고 관찰한다',
                 statHint: '함부로 다가가면 안 된다',
-                stats: { insight: 4, composure: 3 },
+                stats: { wisdom: 4, calm: 3 },
                 next: 'ch1_student_observe'
             }
         ]
@@ -166,7 +166,7 @@ const SCENES_CH1 = {
             {
                 text: '같이 가자',
                 statHint: '인원이 많을수록 안전하다',
-                stats: { empathy: 6, trust: 5 },
+                stats: { love: 11 },
                 affinity: { haeun: 3 },
                 setFlags: { student_companion: true },
                 next: 'ch1_student_join'
@@ -174,7 +174,7 @@ const SCENES_CH1 = {
             {
                 text: '미안하지만, 각자 가는 게 나을 것 같아',
                 statHint: '부담을 지고 싶지 않다',
-                stats: { composure: 4, will: 3, trust: -2 },
+                stats: { calm: 4, courage: 3, love: -2 },
                 affinity: { haeun: -2 },
                 setFlags: { student_refused: true },
                 next: 'ch1_student_refuse'
@@ -189,6 +189,7 @@ const SCENES_CH1 = {
                     condition: { flag: 'has_companion' } },
             right: { src: 'assets/images/character_student.png', name: '서연', scale: 0.95 },
         },
+        setFlags: { with_seoyeon: true },
         addCompanion: {
             id: 'student',
             name: '서연',
@@ -251,19 +252,19 @@ const SCENES_CH1 = {
             {
                 text: '불이 켜진 편의점으로 간다',
                 statHint: '빛이 있는 곳이 안전하다',
-                stats: { wisdom: 5, composure: 3 },
+                stats: { wisdom: 5, calm: 3 },
                 next: 'ch1_convstore_approach'
             },
             {
                 text: '가까운 건물 안으로 들어간다',
                 statHint: '벽이라도 있어야 한다',
-                stats: { courage: 4, will: 3 },
+                stats: { courage: 7 },
                 next: 'ch1_building_locked'
             },
             {
                 text: '큰길을 따라 걸어본다',
                 statHint: '사람이 있을지도 모른다',
-                stats: { courage: 5, empathy: 3 },
+                stats: { courage: 5, love: 3 },
                 next: 'ch1_walk_further'
             }
         ]
@@ -364,21 +365,21 @@ const SCENES_CH1 = {
             {
                 text: '손전등과 라이터를 챙긴다',
                 statHint: '어둠에 대비한다',
-                stats: { wisdom: 8, composure: 5 },
+                stats: { wisdom: 8, calm: 5 },
                 setFlags: { took_survival: true },
                 next: 'ch1_store_survival'
             },
             {
                 text: '물과 음식을 챙긴다',
                 statHint: '살아남으려면 먹어야 한다',
-                stats: { empathy: 6, will: 5 },
+                stats: { love: 6, courage: 5 },
                 setFlags: { took_food: true },
                 next: 'ch1_store_food'
             },
             {
                 text: '현금과 양주를 챙긴다',
                 statHint: '어차피 주인도 없는데',
-                stats: { courage: 5, charm: 3, trust: -3 },
+                stats: { courage: 5, love: 0 },
                 setFlags: { took_greed: true },
                 next: 'ch1_store_greed'
             }
@@ -539,7 +540,7 @@ const SCENES_CH1 = {
                 text: '손전등을 꺼내 켠다',
                 statHint: '빛으로 맞선다',
                 condition: { flag: 'took_survival' },
-                stats: { insight: 8, courage: 6 },
+                stats: { wisdom: 8, courage: 6 },
                 setFlags: { used_light: true },
                 next: 'ch1_r1_light'
             },
@@ -547,14 +548,14 @@ const SCENES_CH1 = {
                 text: '가방에서 뭔가를 꺼내 던진다',
                 statHint: '주의를 끈다',
                 condition: { flag: 'took_food' },
-                stats: { wisdom: 6, composure: 5 },
+                stats: { wisdom: 6, calm: 5 },
                 setFlags: { distracted_shadow: true },
                 next: 'ch1_r1_distract'
             },
             {
                 text: '뒤로 물러난다',
                 statHint: '본능적 반응',
-                stats: { will: 3 },
+                stats: { courage: 3 },
                 setFlags: { panicked: true },
                 next: 'ch1_r1_panic'
             }
@@ -633,9 +634,8 @@ const SCENES_CH1 = {
                 text: '빛으로 소통을 시도한다',
                 statHint: '이것은 적이 아닐 수도 있다',
                 condition: { flag: 'used_light' },
-                requires: { insight: 15, empathy: 10 },
-                lockedText: '통찰 15 / 공감 10 필요',
-                stats: { insight: 12, empathy: 10, wisdom: 8 },
+                requires: { wisdom: 15, love: 10 },
+                stats: { wisdom: 20, love: 10 },
                 setFlags: { negotiated_eoduksini: true },
                 next: 'ch1_negotiate_eoduksini'
             },
@@ -643,7 +643,7 @@ const SCENES_CH1 = {
                 text: '같이 맞선다',
                 statHint: '둘이라면 할 수 있다',
                 condition: { flag: 'has_companion' },
-                stats: { trust: 10, empathy: 5, courage: 5 },
+                stats: { love: 15, courage: 5 },
                 affinity: { haeun: 5 },
                 setFlags: { teamwork_success: true },
                 next: 'ch1_r2_team_adv'
@@ -651,7 +651,7 @@ const SCENES_CH1 = {
             {
                 text: '정면으로 맞선다',
                 statHint: '물러서지 않는다',
-                stats: { courage: 10, will: 8 },
+                stats: { courage: 18 },
                 affinity: { haeun: 2 },
                 setFlags: { stood_ground: true },
                 next: 'ch1_r2_stand_adv'
@@ -659,7 +659,7 @@ const SCENES_CH1 = {
             {
                 text: '입구를 향해 뛴다',
                 statHint: '이길 수 있는 상대가 아니다',
-                stats: { composure: 5, courage: -3 },
+                stats: { calm: 5, courage: -3 },
                 affinity: { haeun: -3 },
                 setFlags: { tried_to_run: true },
                 next: 'ch1_r2_run_adv'
@@ -742,7 +742,7 @@ const SCENES_CH1 = {
                 text: '같이 소리를 지른다',
                 statHint: '겁에 맞서는 유일한 방법',
                 condition: { flag: 'has_companion' },
-                stats: { trust: 8, courage: 5, empathy: 5 },
+                stats: { love: 13, courage: 5 },
                 affinity: { haeun: 5 },
                 setFlags: { teamwork_success: true },
                 next: 'ch1_r2_team_desp'
@@ -750,7 +750,7 @@ const SCENES_CH1 = {
             {
                 text: '이를 악물고 버틴다',
                 statHint: '여기서 쓰러지지 않는다',
-                stats: { will: 10, courage: 5 },
+                stats: { courage: 15 },
                 affinity: { haeun: 1 },
                 setFlags: { stood_ground: true },
                 next: 'ch1_r2_stand_desp'
@@ -758,7 +758,7 @@ const SCENES_CH1 = {
             {
                 text: '있는 힘껏 도망친다',
                 statHint: '살아야 한다',
-                stats: { composure: 3 },
+                stats: { calm: 3 },
                 affinity: { haeun: -4 },
                 setFlags: { tried_to_run: true },
                 next: 'ch1_r2_run_desp'
@@ -864,7 +864,7 @@ const SCENES_CH1 = {
             {
                 text: '손을 내민다',
                 statHint: '두려움을 넘어서',
-                stats: { empathy: 15, trust: 10, courage: 8 },
+                stats: { love: 25, courage: 8 },
                 affinity: { haeun: -2, eoduksini: 10 },
                 setFlags: { reached_out_eoduksini: true },
                 next: 'ch1_eoduksini_accept'
@@ -872,7 +872,7 @@ const SCENES_CH1 = {
             {
                 text: '...아직은 못 믿겠다. 물러난다.',
                 statHint: '조심하는 것이 낫다',
-                stats: { composure: 8, wisdom: 5 },
+                stats: { calm: 8, wisdom: 5 },
                 affinity: { haeun: 3 },
                 next: 'ch1_eoduksini_refuse'
             }
@@ -1037,6 +1037,7 @@ const SCENES_CH1 = {
         image: 'assets/images/ch1_aftermath_dawn.png',
         showFlowchart: 'ch1',
         dialogue: [],
+        next: 'ch2_intro',
     },
 };
 
@@ -1099,16 +1100,20 @@ const FLOWCHARTS_CH1 = {
                         ]
                       },
                   ]},
-                  { text: '함께 맞선다' },
-                  { text: '정면으로 버틴다' },
+                  { text: '함께 맞선다', children: [
+                      { type: 'story', text: '어둑시니를 물리치다' },
+                      { type: 'story', text: '제1장 — 끝' },
+                  ]},
+                  { text: '정면으로 버틴다', children: [
+                      { type: 'story', text: '어둑시니를 물리치다' },
+                      { type: 'story', text: '제1장 — 끝' },
+                  ]},
                   { text: '도망친다', children: [
                       { type: 'story', text: '겨우 탈출' },
                       { type: 'story', text: '제1장 — 끝' },
                   ]},
               ]
             },
-            { type: 'story', text: '어둑시니를 물리치다' },
-            { type: 'story', text: '제1장 — 끝' },
         ],
     },
 };

@@ -22,6 +22,84 @@
             <audio id="bgm-ch1-battle" loop preload="auto">
                 <source src="assets/audio/ch1_battle_bgm.mp3" type="audio/mpeg">
             </audio>
+            <audio id="bgm-ch2" loop preload="auto">
+                <source src="assets/audio/ch2_bgm.mp3" type="audio/mpeg">
+            </audio>
+            <audio id="bgm-ch3" loop preload="auto">
+                <source src="assets/audio/ch3_bgm.mp3" type="audio/mpeg">
+            </audio>
+            <audio id="bgm-ch3-tense" loop preload="auto">
+                <source src="assets/audio/ch3_tense_bgm.mp3" type="audio/mpeg">
+            </audio>
+            <audio id="bgm-ch4" loop preload="auto">
+                <source src="assets/audio/ch4_bgm.mp3" type="audio/mpeg">
+            </audio>
+            <audio id="bgm-ch4-combat" loop preload="auto">
+                <source src="assets/audio/ch4_combat_bgm.mp3" type="audio/mpeg">
+            </audio>
+            <audio id="bgm-ch4-hero" loop preload="auto">
+                <source src="assets/audio/ch4_hero_bgm.mp3" type="audio/mpeg">
+            </audio>
+            <audio id="bgm-ch5" loop preload="auto">
+                <source src="assets/audio/ch5_bgm.mp3" type="audio/mpeg">
+            </audio>
+            <audio id="bgm-ch5-calm" loop preload="auto">
+                <source src="assets/audio/ch5_calm_bgm.mp3" type="audio/mpeg">
+            </audio>
+            <audio id="bgm-ch6" loop preload="auto">
+                <source src="assets/audio/ch6_bgm.mp3" type="audio/mpeg">
+            </audio>
+            <audio id="bgm-ch7" loop preload="auto">
+                <source src="assets/audio/ch7_bgm.mp3" type="audio/mpeg">
+            </audio>
+            <audio id="bgm-ch8" loop preload="auto">
+                <source src="assets/audio/ch8_bgm.mp3" type="audio/mpeg">
+            </audio>
+            <audio id="bgm-ch8-tense" loop preload="auto">
+                <source src="assets/audio/ch8_tense_bgm.mp3" type="audio/mpeg">
+            </audio>
+            <audio id="bgm-ch8-combat" loop preload="auto">
+                <source src="assets/audio/ch8_combat_bgm.mp3" type="audio/mpeg">
+            </audio>
+            <audio id="bgm-ch9" loop preload="auto">
+                <source src="assets/audio/ch9_bgm.mp3" type="audio/mpeg">
+            </audio>
+            <audio id="bgm-ch10" loop preload="auto">
+                <source src="assets/audio/ch10_bgm.mp3" type="audio/mpeg">
+            </audio>
+            <audio id="bgm-ch10-solemn" loop preload="auto">
+                <source src="assets/audio/ch10_solemn_bgm.mp3" type="audio/mpeg">
+            </audio>
+            <audio id="bgm-ch11" loop preload="auto">
+                <source src="assets/audio/ch11_bgm.mp3" type="audio/mpeg">
+            </audio>
+            <audio id="bgm-ch11-combat" loop preload="auto">
+                <source src="assets/audio/ch11_combat_bgm.mp3" type="audio/mpeg">
+            </audio>
+            <audio id="bgm-ch11-awakening" loop preload="auto">
+                <source src="assets/audio/ch11_awakening_bgm.mp3" type="audio/mpeg">
+            </audio>
+            <audio id="bgm-ch12" loop preload="auto">
+                <source src="assets/audio/ch12_bgm.mp3" type="audio/mpeg">
+            </audio>
+            <audio id="bgm-ch12-ritual" loop preload="auto">
+                <source src="assets/audio/ch12_ritual_bgm.mp3" type="audio/mpeg">
+            </audio>
+            <audio id="bgm-ch12-battle" loop preload="auto">
+                <source src="assets/audio/ch12_battle_bgm.mp3" type="audio/mpeg">
+            </audio>
+            <audio id="bgm-ch12-song" loop preload="auto">
+                <source src="assets/audio/ch12_song_bgm.mp3" type="audio/mpeg">
+            </audio>
+            <audio id="bgm-ch13" loop preload="auto">
+                <source src="assets/audio/ch13_bgm.mp3" type="audio/mpeg">
+            </audio>
+            <audio id="bgm-ch13-true" loop preload="auto">
+                <source src="assets/audio/ch13_true_bgm.mp3" type="audio/mpeg">
+            </audio>
+            <audio id="bgm-ch13-credits" loop preload="auto">
+                <source src="assets/audio/ch13_credits_bgm.mp3" type="audio/mpeg">
+            </audio>
 
             <!-- 인트로 화면 -->
             <div id="intro-screen" class="screen active">
@@ -48,11 +126,13 @@
                     </div>
                     <p class="title-sub">서울, 0시</p>
                     <p class="title-tagline">아무도 없는 서울에서, 당신의 선택이 시작된다</p>
+                    <button id="btn-continue" class="title-btn title-btn-secondary hidden">이어하기</button>
                     <button id="btn-start" class="title-btn">
                         <span class="btn-line left"></span>
                         시작하기
                         <span class="btn-line right"></span>
                     </button>
+                    <p id="title-endings-counter" class="title-endings-counter hidden"></p>
                     <div class="title-bottom-line"></div>
                 </div>
                 <!-- 떠다니는 한자 파티클 -->
@@ -79,53 +159,29 @@
                 </div>
 
                 <div id="stats-bar">
+                    <div class="stat" id="stat-love">
+                        <span class="stat-icon">♥</span>
+                        <span class="stat-label">사랑</span>
+                        <div class="stat-bar"><div class="stat-fill" data-stat="love"></div></div>
+                        <span class="stat-value" data-stat="love">0</span>
+                    </div>
                     <div class="stat" id="stat-courage">
-                        <span class="stat-icon">勇</span>
+                        <span class="stat-icon">▲</span>
                         <span class="stat-label">용기</span>
                         <div class="stat-bar"><div class="stat-fill" data-stat="courage"></div></div>
                         <span class="stat-value" data-stat="courage">0</span>
                     </div>
-                    <div class="stat" id="stat-empathy">
-                        <span class="stat-icon">感</span>
-                        <span class="stat-label">공감</span>
-                        <div class="stat-bar"><div class="stat-fill" data-stat="empathy"></div></div>
-                        <span class="stat-value" data-stat="empathy">0</span>
-                    </div>
-                    <div class="stat" id="stat-insight">
-                        <span class="stat-icon">察</span>
-                        <span class="stat-label">통찰</span>
-                        <div class="stat-bar"><div class="stat-fill" data-stat="insight"></div></div>
-                        <span class="stat-value" data-stat="insight">0</span>
-                    </div>
-                    <div class="stat" id="stat-trust">
-                        <span class="stat-icon">信</span>
-                        <span class="stat-label">신뢰</span>
-                        <div class="stat-bar"><div class="stat-fill" data-stat="trust"></div></div>
-                        <span class="stat-value" data-stat="trust">0</span>
-                    </div>
-                    <div class="stat" id="stat-will">
-                        <span class="stat-icon">志</span>
-                        <span class="stat-label">의지</span>
-                        <div class="stat-bar"><div class="stat-fill" data-stat="will"></div></div>
-                        <span class="stat-value" data-stat="will">0</span>
-                    </div>
                     <div class="stat" id="stat-wisdom">
-                        <span class="stat-icon">智</span>
+                        <span class="stat-icon">◆</span>
                         <span class="stat-label">지혜</span>
                         <div class="stat-bar"><div class="stat-fill" data-stat="wisdom"></div></div>
                         <span class="stat-value" data-stat="wisdom">0</span>
                     </div>
-                    <div class="stat" id="stat-charm">
-                        <span class="stat-icon">魅</span>
-                        <span class="stat-label">매력</span>
-                        <div class="stat-bar"><div class="stat-fill" data-stat="charm"></div></div>
-                        <span class="stat-value" data-stat="charm">0</span>
-                    </div>
-                    <div class="stat" id="stat-composure">
-                        <span class="stat-icon">定</span>
-                        <span class="stat-label">침착</span>
-                        <div class="stat-bar"><div class="stat-fill" data-stat="composure"></div></div>
-                        <span class="stat-value" data-stat="composure">0</span>
+                    <div class="stat" id="stat-calm">
+                        <span class="stat-icon">●</span>
+                        <span class="stat-label">평정</span>
+                        <div class="stat-bar"><div class="stat-fill" data-stat="calm"></div></div>
+                        <span class="stat-value" data-stat="calm">0</span>
                     </div>
                 </div>
 
@@ -161,6 +217,13 @@
                 </div>
                 <div id="hotspot-container"></div>
                 <div id="stat-notification" class="hidden"></div>
+
+                <!-- 호감도 이벤트 오버레이 -->
+                <div id="affinity-event-overlay" class="hidden">
+                    <span class="affinity-event-icon">♥</span>
+                    <span class="affinity-event-label">호감도 이벤트</span>
+                    <span id="affinity-event-name"></span>
+                </div>
             </div>
 
             <!-- 챕터 전환 -->
@@ -190,6 +253,20 @@
     <script src="engine.js"></script>
     <script src="scenario.js"></script>
     <script src="scenario_ch1.js"></script>
+    <script src="scenario_ch2.js"></script>
+    <script src="scenario_ch3.js"></script>
+    <script src="scenario_ch4.js"></script>
+    <script src="scenario_ch5.js"></script>
+    <script src="scenario_ch6.js"></script>
+    <script src="scenario_ch7.js"></script>
+    <script src="scenario_ch8.js"></script>
+    <script src="scenario_ch9.js"></script>
+    <script src="scenario_ch10.js"></script>
+    <script src="scenario_ch11.js"></script>
+    <script src="scenario_ch12.js"></script>
+    <script src="scenario_ch13.js"></script>
+    <script src="scenario_affinity.js"></script>
+    <script type="module" src="stats.js"></script>
     <script src="main.js"></script>
 </body>
 </html>

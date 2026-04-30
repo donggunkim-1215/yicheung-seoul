@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이층(裏層) — 시나리오 분기도</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Pretendard', -apple-system, 'Segoe UI', sans-serif;
+    background: #08080e;
+    color: #c8c8d0;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ===== 헤더 ===== */
+header {
+    padding: 14px 24px;
+    background: #0c0c14;
+    border-bottom: 1px solid #1a1a28;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+    z-index: 100;
+}
+header h1 { font-size: 15px; font-weight: 600; color: #e0e0e8; letter-spacing: -0.5px; }
+.scene-count { font-size: 12px; color: #555; }
+.zoom-controls {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.zoom-controls button, .zoom-controls .zoom-label {
+    padding: 4px 10px;
+    border: 1px solid #222;
+    border-radius: 4px;
+    background: #111;
+    color: #888;
+    font-size: 11px;
+    cursor: pointer;
+}
+.zoom-controls button:hover { background: #1a1a28; color: #ccc; }
+.zoom-label { cursor: default !important; min-width: 44px; text-align: center; }
+.legend {
+    display: flex;
+    gap: 12px;
+    font-size: 11px;
+    color: #666;
+    margin-left: 20px;
+}
+.legend-item { display: flex; align-items: center; gap: 4px; }
+.legend-dot { width: 8px; height: 8px; border-radius: 2px; }
+
+/* ===== 뷰포트 ===== */
+#viewport {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    cursor: grab;
+}
+#viewport.dragging { cursor: grabbing; }
+#graph {
+    position: absolute;
+    transform-origin: 0 0;
+}
+
+/* ===== SVG 엣지 레이어 ===== */
+#edges-layer {
+    position: absolute;
+    top: 0; left: 0;
+    pointer-events: none;
+    overflow: visible;
+}
+.edge-path {
+    fill: none;
+    stroke-width: 1.5;
+    transition: stroke 0.2s, stroke-width 0.2s;
+    pointer-events: stroke;
+    cursor: pointer;
+}
+.edge-path:hover {
+    stroke-width: 2.5;
+}
+.edge-dot {
+    transition: r 0.2s;
+}
+.edge-label {
+    font-size: 10px;
+    pointer-events: none;
+    text-anchor: middle;
+}
+
+/* ===== 노드 ===== */
+.node {
+    position: absolute;
+    width: 210px;
+    border: 1px solid #1e1e30;
+    border-radius: 8px;
+    background: #101018;
+    cursor: pointer;
+    display: flex;
+    overflow: hidden;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+.node:hover {
+    border-color: #3a3a5a;
+    box-shadow: 0 0 20px rgba(80, 80, 160, 0.15);
+    transform: scale(1.03);
+    z-index: 10;
+}
+.node.active {
+    border-color: #5577cc;
+    box-shadow: 0 0 24px rgba(80, 120, 220, 0.25);
+    z-index: 20;
+}
+.node.dim { opacity: 0.3; }
+.node-bar {
+    width: 4px;
+    flex-shrink: 0;
+}
+.node-body {
+    padding: 9px 10px;
+    overflow: hidden;
+    flex: 1;
+    min-width: 0;
+}
+.node-id {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 11px;
+    color: #8ab4f8;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.node-preview {
+    font-size: 10px;
+    color: #555;
+    margin-top: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.node-badges {
+    display: flex;
+    gap: 3px;
+    margin-top: 4px;
+}
+.nbadge {
+    font-size: 8px;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: monospace;
+    white-space: nowrap;
+}
+.nbadge-flag { background: #122212; color: #5a5; }
+.nbadge-companion { background: #221222; color: #a5a; }
+.nbadge-choices { background: #222212; color: #aa5; }
+
+/* ===== 디테일 패널 ===== */
+#detail-panel {
+    position: fixed;
+    top: 0; right: 0;
+    width: 380px;
+    height: 100vh;
+    background: #0c0c14;
+    border-left: 1px solid #1a1a28;
+    z-index: 200;
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.25, 0, 0, 1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+#detail-panel.open { transform: translateX(0); }
+
+.panel-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid #1a1a28;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+.panel-type-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+.panel-id {
+    font-family: monospace;
+    font-size: 14px;
+    color: #8ab4f8;
+    flex: 1;
+}
+.close-btn {
+    width: 28px; height: 28px;
+    border: 1px solid #222;
+    border-radius: 6px;
+    background: transparent;
+    color: #666;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.close-btn:hover { background: #1a1a28; color: #ccc; }
+
+.panel-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 20px;
+}
+.panel-section { margin-bottom: 18px; }
+.panel-label {
+    font-size: 10px;
+    color: #444;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+.dlg-line { font-size: 12px; line-height: 1.8; color: #888; }
+.dlg-speaker { color: #8ab4f8; font-weight: 500; }
+
+.choice-card {
+    padding: 8px 10px;
+    margin: 4px 0;
+    border-radius: 6px;
+    background: #0e0e1a;
+    border: 1px solid #1a1a28;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+.choice-card:hover { border-color: #3a3a5a; }
+.choice-card-head {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+}
+.choice-num { color: #f0a030; font-weight: 700; font-size: 12px; }
+.choice-text { font-size: 12px; color: #bbb; flex: 1; }
+.choice-hint { font-size: 10px; color: #555; font-style: italic; margin-top: 2px; }
+.choice-meta {
+    display: flex;
+    gap: 4px;
+    margin-top: 4px;
+    flex-wrap: wrap;
+}
+.stat-pill {
+    font-size: 9px;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: monospace;
+}
+.stat-pos { background: #122212; color: #5a5; }
+.stat-neg { background: #221212; color: #a55; }
+.flag-pill { background: #122222; color: #5aa; font-size: 9px; padding: 1px 5px; border-radius: 3px; font-family: monospace; }
+.choice-next-link {
+    font-family: monospace;
+    font-size: 10px;
+    color: #6688bb;
+    cursor: pointer;
+    margin-top: 3px;
+    display: inline-block;
+}
+.choice-next-link:hover { color: #8ab4f8; text-decoration: underline; }
+
+.panel-next-link {
+    font-family: monospace;
+    font-size: 12px;
+    color: #6688bb;
+    cursor: pointer;
+}
+.panel-next-link:hover { color: #8ab4f8; text-decoration: underline; }
+
+.companion-info {
+    font-size: 12px;
+    line-height: 1.8;
+    color: #a5a;
+}
+
+/* ===== 엣지 툴팁 ===== */
+#edge-tooltip {
+    position: fixed;
+    padding: 6px 10px;
+    background: #1a1a28;
+    border: 1px solid #2a2a40;
+    border-radius: 6px;
+    font-size: 11px;
+    color: #ccc;
+    pointer-events: none;
+    z-index: 300;
+    max-width: 260px;
+    display: none;
+    line-height: 1.5;
+}
+
+/* ===== 스크롤바 ===== */
+.panel-body::-webkit-scrollbar { width: 4px; }
+.panel-body::-webkit-scrollbar-track { background: transparent; }
+.panel-body::-webkit-scrollbar-thumb { background: #222; border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>이층(裏層) 시나리오 분기도</h1>
+    <span class="scene-count" id="sceneCount"></span>
+    <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#4a9eff"></div>시작</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#f0a030"></div>선택지</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#666"></div>이야기</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#8b5cf6"></div>합류</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#ef4444"></div>종료</div>
+    </div>
+    <div class="zoom-controls">
+        <button onclick="zoomBy(-0.15)">−</button>
+        <span class="zoom-label" id="zoomLabel">100%</span>
+        <button onclick="zoomBy(0.15)">+</button>
+        <button onclick="zoomToFit()">맞춤</button>
+    </div>
+</header>
+
+<div id="viewport">
+    <div id="graph"></div>
+</div>
+
+<div id="detail-panel">
+    <div class="panel-header">
+        <div class="panel-type-dot" id="panelDot"></div>
+        <span class="panel-id" id="panelId"></span>
+        <button class="close-btn" onclick="closePanel()">&times;</button>
+    </div>
+    <div class="panel-body" id="panelBody"></div>
+</div>
+
+<div id="edge-tooltip"></div>
+
+<script src="../scenario.js"></script>
+<script>
+(() => {
+    // ===== 설정 =====
+    const NODE_W = 210, NODE_H = 56, H_GAP = 50, V_GAP = 74;
+    const PAD = 80;
+    const CHOICE_COLORS = ['#5b8def', '#4db87a', '#e09040'];
+    const TYPE_COLORS = { start: '#4a9eff', choice: '#f0a030', story: '#555', merge: '#8b5cf6', end: '#ef4444' };
+
+    const scenes = SCENES;
+    const ids = Object.keys(scenes);
+
+    // ===== 유틸 =====
+    function getNexts(scene) {
+        const r = [];
+        if (scene.next) r.push(scene.next);
+        if (scene.choices) scene.choices.forEach(c => { if (c.next && !r.includes(c.next)) r.push(c.next); });
+        return r;
+    }
+
+    function countIncoming(targetId) {
+        let n = 0;
+        for (const [id, s] of Object.entries(scenes)) {
+            if (s.next === targetId) n++;
+            if (s.choices) s.choices.forEach(c => { if (c.next === targetId) n++; });
+        }
+        return n;
+    }
+
+    function classifyScene(id) {
+        if (id === 'prologue_01') return 'start';
+        if (id === 'prologue_final') return 'end';
+        if (scenes[id].choices) return 'choice';
+        if (countIncoming(id) > 1) return 'merge';
+        return 'story';
+    }
+
+    function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+    // ===== 랭크 계산 (최장경로) =====
+    function computeRanks() {
+        const ranks = { prologue_01: 0 };
+        let changed = true;
+        while (changed) {
+            changed = false;
+            for (const [id, scene] of Object.entries(scenes)) {
+                if (ranks[id] === undefined) continue;
+                for (const next of getNexts(scene)) {
+                    const nr = ranks[id] + 1;
+                    if (ranks[next] === undefined || ranks[next] < nr) {
+                        ranks[next] = nr;
+                        changed = true;
+                    }
+                }
+            }
+        }
+        return ranks;
+    }
+
+    // ===== DFS 순서 =====
+    function computeDfsOrder() {
+        const order = {};
+        let c = 0;
+        const visited = new Set();
+        function dfs(id) {
+            if (!id || visited.has(id) || !scenes[id]) return;
+            visited.add(id);
+            order[id] = c++;
+            getNexts(scenes[id]).forEach(dfs);
+        }
+        dfs('prologue_01');
+        ids.forEach(id => { if (!visited.has(id)) order[id] = c++; });
+        return order;
+    }
+
+    // ===== 레이아웃 =====
+    const ranks = computeRanks();
+    const dfsOrder = computeDfsOrder();
+
+    // 랭크별 그룹핑
+    const groups = {};
+    for (const [id, rank] of Object.entries(ranks)) {
+        if (!groups[rank]) groups[rank] = [];
+        groups[rank].push(id);
+    }
+    for (const rank in groups) {
+        groups[rank].sort((a, b) => dfsOrder[a] - dfsOrder[b]);
+    }
+
+    // 위치 계산
+    const positions = {};
+    const maxRank = Math.max(...Object.values(ranks));
+    let graphW = 0;
+    for (const [rank, nodeIds] of Object.entries(groups)) {
+        const n = nodeIds.length;
+        const totalW = n * NODE_W + (n - 1) * H_GAP;
+        graphW = Math.max(graphW, totalW);
+    }
+    graphW += PAD * 2;
+
+    for (const [rank, nodeIds] of Object.entries(groups)) {
+        const n = nodeIds.length;
+        const totalW = n * NODE_W + (n - 1) * H_GAP;
+        const startX = (graphW - totalW) / 2;
+        nodeIds.forEach((id, i) => {
+            positions[id] = {
+                x: startX + i * (NODE_W + H_GAP),
+                y: PAD + parseInt(rank) * (NODE_H + V_GAP)
+            };
+        });
+    }
+    const graphH = PAD * 2 + (maxRank + 1) * (NODE_H + V_GAP);
+
+    // ===== 엣지 수집 =====
+    const edges = [];
+    for (const [id, scene] of Object.entries(scenes)) {
+        if (scene.next && positions[scene.next]) {
+            edges.push({ from: id, to: scene.next, label: '', type: 'next', index: 0, total: 1 });
+        }
+        if (scene.choices) {
+            const uniqueNexts = [...new Set(scene.choices.map(c => c.next))];
+            scene.choices.forEach((c, i) => {
+                if (c.next && positions[c.next]) {
+                    edges.push({
+                        from: id, to: c.next,
+                        label: c.text || '',
+                        type: 'choice',
+                        index: i,
+                        total: scene.choices.length,
+                        stats: c.stats,
+                        flags: c.setFlags,
+                        hint: c.statHint
+                    });
+                }
+            });
+        }
+    }
+
+    // ===== 렌더링 =====
+    const graphEl = document.getElementById('graph');
+    graphEl.style.width = graphW + 'px';
+    graphEl.style.height = graphH + 'px';
+
+    // SVG 엣지 레이어
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.id = 'edges-layer';
+    svg.setAttribute('width', graphW);
+    svg.setAttribute('height', graphH);
+    svg.style.width = graphW + 'px';
+    svg.style.height = graphH + 'px';
+
+    // 엣지 그리기
+    const edgeElements = [];
+    for (const edge of edges) {
+        const fp = positions[edge.from], tp = positions[edge.to];
+        if (!fp || !tp) continue;
+
+        // 출발점: 선택지면 하단에서 팬아웃
+        let x1 = fp.x + NODE_W / 2;
+        let y1 = fp.y + NODE_H;
+        if (edge.type === 'choice' && edge.total > 1) {
+            const spread = Math.min(NODE_W * 0.6, edge.total * 30);
+            x1 += (edge.index - (edge.total - 1) / 2) * (spread / edge.total);
+        }
+
+        // 도착점
+        const x2 = tp.x + NODE_W / 2;
+        const y2 = tp.y;
+
+        const dy = y2 - y1;
+        const dx = x2 - x1;
+        const rankGap = (ranks[edge.to] || 0) - (ranks[edge.from] || 0);
+
+        let pathD;
+        if (rankGap <= 2) {
+            const cp = Math.max(30, dy * 0.4);
+            pathD = `M ${x1} ${y1} C ${x1} ${y1 + cp}, ${x2} ${y2 - cp}, ${x2} ${y2}`;
+        } else {
+            // 긴 엣지: 옆으로 살짝 휘게
+            const side = dx >= 0 ? 1 : -1;
+            const xOff = side * Math.min(60, rankGap * 8);
+            const cp1y = y1 + 40;
+            const cp2y = y2 - 40;
+            pathD = `M ${x1} ${y1} C ${x1 + xOff} ${cp1y}, ${x2 + xOff} ${cp2y}, ${x2} ${y2}`;
+        }
+
+        const color = edge.type === 'choice'
+            ? (CHOICE_COLORS[edge.index % 3] || '#888')
+            : 'rgba(100,100,140,0.4)';
+        const opacity = edge.type === 'choice' ? 0.5 : 0.35;
+
+        const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        g.innerHTML = `
+            <path class="edge-path" d="${pathD}" stroke="${color}" style="opacity:${opacity}"
+                  data-label="${esc(edge.label)}" data-hint="${esc(edge.hint || '')}" />
+            <circle class="edge-dot" cx="${x2}" cy="${y2}" r="3" fill="${color}" style="opacity:${opacity * 1.2}" />
+        `;
+        svg.appendChild(g);
+
+        // 선택지 번호 표시 (출발점 근처)
+        if (edge.type === 'choice') {
+            const numEl = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            numEl.setAttribute('x', x1);
+            numEl.setAttribute('y', y1 + 16);
+            numEl.setAttribute('text-anchor', 'middle');
+            numEl.setAttribute('fill', color);
+            numEl.setAttribute('font-size', '9');
+            numEl.setAttribute('font-weight', '600');
+            numEl.setAttribute('style', 'pointer-events:none; opacity:0.7');
+            numEl.textContent = edge.index + 1;
+            svg.appendChild(numEl);
+        }
+
+        edgeElements.push({ g, edge });
+    }
+
+    graphEl.appendChild(svg);
+
+    // 노드 그리기
+    for (const id of ids) {
+        if (!positions[id]) continue;
+        const scene = scenes[id];
+        const pos = positions[id];
+        const type = classifyScene(id);
+        const preview = scene.dialogue && scene.dialogue.length > 0
+            ? scene.dialogue[0].text : '—';
+
+        let badges = '';
+        if (scene.setFlags) {
+            for (const f of Object.keys(scene.setFlags))
+                badges += `<span class="nbadge nbadge-flag">${f}</span>`;
+        }
+        if (scene.choices) {
+            badges += `<span class="nbadge nbadge-choices">${scene.choices.length}지선다</span>`;
+        }
+        if (scene.addCompanion) {
+            badges += `<span class="nbadge nbadge-companion">+동료</span>`;
+        }
+
+        const node = document.createElement('div');
+        node.className = 'node';
+        node.id = 'node-' + id;
+        node.dataset.id = id;
+        node.style.left = pos.x + 'px';
+        node.style.top = pos.y + 'px';
+        node.innerHTML = `
+            <div class="node-bar" style="background:${TYPE_COLORS[type]}"></div>
+            <div class="node-body">
+                <div class="node-id">${id}</div>
+                <div class="node-preview">${esc(preview)}</div>
+                ${badges ? `<div class="node-badges">${badges}</div>` : ''}
+            </div>
+        `;
+        // 뱃지가 있으면 높이를 좀 늘림
+        if (badges) {
+            node.style.height = (NODE_H + 18) + 'px';
+        }
+        node.addEventListener('click', () => openPanel(id));
+        graphEl.appendChild(node);
+    }
+
+    document.getElementById('sceneCount').textContent = `${ids.length}개 씬 · ${edges.length}개 연결`;
+
+    // ===== 엣지 툴팁 =====
+    const tooltip = document.getElementById('edge-tooltip');
+    svg.addEventListener('mouseover', e => {
+        const path = e.target.closest('.edge-path');
+        if (!path) return;
+        const label = path.dataset.label;
+        const hint = path.dataset.hint;
+        if (!label) return;
+        tooltip.innerHTML = `${esc(label)}${hint ? `<br><span style="color:#666;font-size:10px">${esc(hint)}</span>` : ''}`;
+        tooltip.style.display = 'block';
+        path.style.opacity = '1';
+        path.style.strokeWidth = '2.5';
+    });
+    svg.addEventListener('mousemove', e => {
+        tooltip.style.left = (e.clientX + 12) + 'px';
+        tooltip.style.top = (e.clientY - 10) + 'px';
+    });
+    svg.addEventListener('mouseout', e => {
+        const path = e.target.closest('.edge-path');
+        if (path) {
+            path.style.opacity = '';
+            path.style.strokeWidth = '';
+        }
+        tooltip.style.display = 'none';
+    });
+
+    // ===== 디테일 패널 =====
+    let activeNodeId = null;
+
+    window.openPanel = function(id) {
+        const scene = scenes[id];
+        if (!scene) return;
+        const type = classifyScene(id);
+
+        // 활성 노드 표시
+        document.querySelectorAll('.node').forEach(n => n.classList.remove('active'));
+        const nodeEl = document.getElementById('node-' + id);
+        if (nodeEl) nodeEl.classList.add('active');
+        activeNodeId = id;
+
+        document.getElementById('panelDot').style.background = TYPE_COLORS[type];
+        document.getElementById('panelId').textContent = id;
+
+        let html = '';
+
+        // 챕터
+        if (scene.chapter) {
+            html += `<div class="panel-section"><div class="panel-label">챕터</div>
+                <div style="font-size:13px;color:#aaa">${scene.chapter.number} — ${scene.chapter.title}</div></div>`;
+        }
+
+        // 대사
+        if (scene.dialogue && scene.dialogue.length > 0) {
+            html += `<div class="panel-section"><div class="panel-label">대사 (${scene.dialogue.length}줄)</div>`;
+            for (const d of scene.dialogue) {
+                const sp = d.speaker ? `<span class="dlg-speaker">${esc(d.speaker)}:</span> ` : '';
+                html += `<div class="dlg-line">${sp}${esc(d.text)}</div>`;
+            }
+            html += '</div>';
+        }
+
+        // 선택지
+        if (scene.choices) {
+            html += `<div class="panel-section"><div class="panel-label">선택지</div>`;
+            scene.choices.forEach((c, i) => {
+                let meta = '';
+                if (c.stats) {
+                    for (const [k, v] of Object.entries(c.stats)) {
+                        const cls = v >= 0 ? 'stat-pos' : 'stat-neg';
+                        meta += `<span class="stat-pill ${cls}">${k} ${v > 0 ? '+' : ''}${v}</span>`;
+                    }
+                }
+                if (c.setFlags) {
+                    for (const f of Object.keys(c.setFlags)) {
+                        meta += `<span class="flag-pill">${f}</span>`;
+                    }
+                }
+                html += `
+                    <div class="choice-card" onclick="focusNode('${c.next}')">
+                        <div class="choice-card-head">
+                            <span class="choice-num" style="color:${CHOICE_COLORS[i % 3]}">${i + 1}</span>
+                            <span class="choice-text">${esc(c.text)}</span>
+                        </div>
+                        ${c.statHint ? `<div class="choice-hint">${esc(c.statHint)}</div>` : ''}
+                        ${meta ? `<div class="choice-meta">${meta}</div>` : ''}
+                        <span class="choice-next-link">${c.next} →</span>
+                    </div>`;
+            });
+            html += '</div>';
+        }
+
+        // 플래그
+        if (scene.setFlags) {
+            html += `<div class="panel-section"><div class="panel-label">플래그 설정</div>`;
+            for (const [f, v] of Object.entries(scene.setFlags)) {
+                html += `<span class="flag-pill" style="font-size:11px">${f} = ${v}</span> `;
+            }
+            html += '</div>';
+        }
+
+        // 동료
+        if (scene.addCompanion) {
+            const comp = scene.addCompanion;
+            html += `<div class="panel-section"><div class="panel-label">동료 추가</div><div class="companion-info">`;
+            html += `기본 표시: <strong>${comp.name}</strong><br>`;
+            if (comp.nameConditions) {
+                comp.nameConditions.forEach(c => {
+                    html += `<span class="flag-pill">${c.flag}</span> → <strong>${c.name}</strong><br>`;
+                });
+            }
+            if (comp.nameIfFlag) {
+                html += `<span class="flag-pill">${comp.nameIfFlag}</span> → <strong>${comp.nameValue}</strong>`;
+            }
+            html += '</div></div>';
+        }
+
+        // 다음
+        if (scene.next) {
+            html += `<div class="panel-section"><div class="panel-label">다음 씬</div>
+                <span class="panel-next-link" onclick="focusNode('${scene.next}')">${scene.next} →</span></div>`;
+        }
+
+        document.getElementById('panelBody').innerHTML = html;
+        document.getElementById('detail-panel').classList.add('open');
+    };
+
+    window.closePanel = function() {
+        document.getElementById('detail-panel').classList.remove('open');
+        document.querySelectorAll('.node').forEach(n => n.classList.remove('active'));
+        activeNodeId = null;
+    };
+
+    window.focusNode = function(id) {
+        const pos = positions[id];
+        if (!pos) return;
+        openPanel(id);
+        // 해당 노드가 중앙에 오도록 팬
+        const vp = document.getElementById('viewport');
+        const cx = vp.clientWidth / 2;
+        const cy = vp.clientHeight / 2;
+        panX = cx - (pos.x + NODE_W / 2) * zoom;
+        panY = cy - (pos.y + NODE_H / 2) * zoom;
+        applyTransform();
+    };
+
+    // ===== 팬/줌 =====
+    let zoom = 1, panX = 0, panY = 0;
+    let isDragging = false, dragStartX, dragStartY;
+    const viewport = document.getElementById('viewport');
+
+    function applyTransform() {
+        graphEl.style.transform = `translate(${panX}px, ${panY}px) scale(${zoom})`;
+        document.getElementById('zoomLabel').textContent = Math.round(zoom * 100) + '%';
+    }
+
+    window.zoomBy = function(delta) {
+        const vp = viewport;
+        const cx = vp.clientWidth / 2;
+        const cy = vp.clientHeight / 2;
+        const oldZoom = zoom;
+        zoom = Math.max(0.15, Math.min(3, zoom + delta));
+        panX = cx - (cx - panX) * (zoom / oldZoom);
+        panY = cy - (cy - panY) * (zoom / oldZoom);
+        applyTransform();
+    };
+
+    window.zoomToFit = function() {
+        const vp = viewport;
+        const pw = vp.clientWidth - 40;
+        const ph = vp.clientHeight - 40;
+        zoom = Math.min(pw / graphW, ph / graphH, 1.5);
+        panX = (vp.clientWidth - graphW * zoom) / 2;
+        panY = (vp.clientHeight - graphH * zoom) / 2;
+        applyTransform();
+    };
+
+    viewport.addEventListener('mousedown', e => {
+        if (e.target.closest('.node') || e.target.closest('.edge-path')) return;
+        isDragging = true;
+        dragStartX = e.clientX - panX;
+        dragStartY = e.clientY - panY;
+        viewport.classList.add('dragging');
+    });
+    window.addEventListener('mousemove', e => {
+        if (!isDragging) return;
+        panX = e.clientX - dragStartX;
+        panY = e.clientY - dragStartY;
+        applyTransform();
+    });
+    window.addEventListener('mouseup', () => {
+        isDragging = false;
+        viewport.classList.remove('dragging');
+    });
+    viewport.addEventListener('wheel', e => {
+        e.preventDefault();
+        const rect = viewport.getBoundingClientRect();
+        const mx = e.clientX - rect.left;
+        const my = e.clientY - rect.top;
+        const oldZoom = zoom;
+        const delta = e.deltaY > 0 ? -0.08 : 0.08;
+        zoom = Math.max(0.15, Math.min(3, zoom + delta));
+        panX = mx - (mx - panX) * (zoom / oldZoom);
+        panY = my - (my - panY) * (zoom / oldZoom);
+        applyTransform();
+    }, { passive: false });
+
+    // 키보드 단축키
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') closePanel();
+        if (e.key === '0' || e.key === 'f') zoomToFit();
+    });
+
+    // 초기 화면: 전체가 보이도록
+    zoomToFit();
+})();
+</script>
+
+</body>
+</html>
