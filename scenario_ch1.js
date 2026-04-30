@@ -40,7 +40,7 @@ const SCENES_CH1 = {
     ch1_street: {
         image: 'assets/images/ch1_empty_street.png',
         characterIf: [
-            { flag: 'has_companion', character: 'assets/images/character_protagonist_2.png', name: '하은' },
+            { flag: 'has_companion', character: 'assets/images/character_neutral.png', name: '하은' },
         ],
         dialogue: [
             { speaker: '', text: '바람이 분다. 여름인데 차갑다.' },
@@ -65,7 +65,7 @@ const SCENES_CH1 = {
     ch1_notice_student: {
         image: 'assets/images/ch1_empty_street.png',
         characters: {
-            left: { src: 'assets/images/character_protagonist_2.png', name: '하은',
+            left: { src: 'assets/images/character_neutral.png', name: '하은',
                     condition: { flag: 'has_companion' } },
             right: { src: 'assets/images/character_student.png', name: '서연', scale: 0.95 },
         },
@@ -100,7 +100,7 @@ const SCENES_CH1 = {
     ch1_student_approach: {
         image: 'assets/images/ch1_empty_street.png',
         characters: {
-            left: { src: 'assets/images/character_protagonist_2.png', name: '하은',
+            left: { src: 'assets/images/character_neutral.png', name: '하은',
                     condition: { flag: 'has_companion' } },
             right: { src: 'assets/images/character_student.png', name: '서연', scale: 0.95 },
         },
@@ -127,7 +127,7 @@ const SCENES_CH1 = {
     ch1_student_observe: {
         image: 'assets/images/ch1_empty_street.png',
         characters: {
-            left: { src: 'assets/images/character_protagonist_2.png', name: '하은',
+            left: { src: 'assets/images/character_neutral.png', name: '하은',
                     condition: { flag: 'has_companion' } },
             right: { src: 'assets/images/character_student.png', name: '서연', scale: 0.95 },
         },
@@ -149,7 +149,7 @@ const SCENES_CH1 = {
     ch1_student_choice: {
         image: 'assets/images/ch1_empty_street.png',
         characters: {
-            left: { src: 'assets/images/character_protagonist_2.png', name: '하은',
+            left: { src: 'assets/images/character_neutral.png', name: '하은',
                     condition: { flag: 'has_companion' } },
             right: { src: 'assets/images/character_student.png', name: '서연', scale: 0.95 },
         },
@@ -185,7 +185,7 @@ const SCENES_CH1 = {
     ch1_student_join: {
         image: 'assets/images/ch1_empty_street.png',
         characters: {
-            left: { src: 'assets/images/character_protagonist_2.png', name: '하은',
+            left: { src: 'assets/images/character_neutral.png', name: '하은',
                     condition: { flag: 'has_companion' } },
             right: { src: 'assets/images/character_student.png', name: '서연', scale: 0.95 },
         },
@@ -217,7 +217,7 @@ const SCENES_CH1 = {
     ch1_student_refuse: {
         image: 'assets/images/ch1_empty_street.png',
         characters: {
-            left: { src: 'assets/images/character_protagonist_2.png', name: '하은',
+            left: { src: 'assets/images/character_neutral.png', name: '하은',
                     condition: { flag: 'has_companion' } },
             right: { src: 'assets/images/character_student.png', name: '서연', scale: 0.95 },
         },
@@ -242,7 +242,7 @@ const SCENES_CH1 = {
     ch1_where_to_go: {
         image: 'assets/images/ch1_empty_street.png',
         characterIf: [
-            { flag: 'has_companion', character: 'assets/images/character_protagonist_2.png', name: '하은' },
+            { flag: 'has_companion', character: 'assets/images/character_neutral.png', name: '하은' },
         ],
         dialogue: [
             { speaker: '', text: '주머니를 뒤져본다. 지갑, 열쇠. 핸드폰은 여전히 꺼져 있다.' },
@@ -310,7 +310,7 @@ const SCENES_CH1 = {
     ch1_convstore_approach: {
         image: 'assets/images/ch1_convstore_exterior.png',
         characters: {
-            left: { src: 'assets/images/character_protagonist_2.png', name: '하은', condition: { flag: 'has_companion' } },
+            left: { src: 'assets/images/character_neutral.png', name: '하은', condition: { flag: 'has_companion' } },
             right: { src: 'assets/images/character_student.png', name: '서연', scale: 0.95, condition: { flag: 'student_companion' } },
         },
         dialogue: [
@@ -327,7 +327,7 @@ const SCENES_CH1 = {
     ch1_convstore_enter: {
         image: 'assets/images/ch1_convstore_interior.png',
         characters: {
-            left: { src: 'assets/images/character_protagonist_2.png', name: '하은', condition: { flag: 'has_companion' } },
+            left: { src: 'assets/images/character_neutral.png', name: '하은', condition: { flag: 'has_companion' } },
             right: { src: 'assets/images/character_student.png', name: '서연', scale: 0.95, condition: { flag: 'student_companion' } },
         },
         dialogue: [
@@ -347,7 +347,7 @@ const SCENES_CH1 = {
     ch1_store_look: {
         image: 'assets/images/ch1_convstore_interior.png',
         characters: {
-            left: { src: 'assets/images/character_protagonist_2.png', name: '하은', condition: { flag: 'has_companion' } },
+            left: { src: 'assets/images/character_neutral.png', name: '하은', condition: { flag: 'has_companion' } },
             right: { src: 'assets/images/character_student.png', name: '서연', scale: 0.95, condition: { flag: 'student_companion' } },
         },
         dialogue: [
@@ -422,7 +422,7 @@ const SCENES_CH1 = {
     ch1_store_reaction: {
         image: 'assets/images/ch1_convstore_interior.png',
         characters: {
-            left: { src: 'assets/images/character_protagonist_2.png', name: '하은', condition: { flag: 'has_companion' } },
+            left: { src: 'assets/images/character_neutral.png', name: '하은', condition: { flag: 'has_companion' } },
             right: { src: 'assets/images/character_student.png', name: '서연', scale: 0.95, condition: { flag: 'student_companion' } },
         },
         dialogue: [
@@ -444,7 +444,7 @@ const SCENES_CH1 = {
     ch1_store_settle: {
         image: 'assets/images/ch1_convstore_interior.png',
         characters: {
-            left: { src: 'assets/images/character_protagonist_2.png', name: '하은', condition: { flag: 'has_companion' } },
+            left: { src: 'assets/images/character_neutral.png', name: '하은', condition: { flag: 'has_companion' } },
             right: { src: 'assets/images/character_student.png', name: '서연', scale: 0.95, condition: { flag: 'student_companion' } },
         },
         dialogue: [
