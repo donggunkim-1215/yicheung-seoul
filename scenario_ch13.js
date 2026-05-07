@@ -21,15 +21,20 @@ const SCENES_CH13 = {
 
     ch13_intro: {
         chapter: { number: '제13장', title: '일곱 개의 새벽' },
-        image: 'assets/images/ch13_dawn.png',
+        image: 'assets/images/ch13_ending_dawn_simple.png',
         imageEffect: 'ken-burns',
         bgm: 'ch13',
-        dialogue: [],
+        dialogue: [
+            { react: [
+                { text: '...새벽이다.',         say: '...새벽이다. 며칠인지 모를 — 끝의, 새벽.' },
+                { text: '숨을 한 번 고르자.',  say: '...숨을 한 번 고르자. 어떤 결말이든, 받아들일 준비를 하자.' },
+            ]},
+        ],
         next: 'ch13_route'
     },
 
     ch13_route: {
-        image: 'assets/images/ch13_dawn.png',
+        image: 'assets/images/ch13_ending_dawn_simple.png',
         nextIf: [
             { condition: { flag: 'ending_path' /* placeholder, will use specific flags below */ }, next: 'ch13_check_path' },
         ],
@@ -37,12 +42,17 @@ const SCENES_CH13 = {
     },
 
     ch13_check_path: {
-        image: 'assets/images/ch13_dawn.png',
+        image: 'assets/images/ch13_ending_dawn_simple.png',
         nextIf: [
-            // 정화 진엔딩 (최고)
-            { condition: { flag: 'ch12_path_purify' }, next: 'ch13_true_purified' },
-            // 격파 진엔딩
-            { condition: { allFlags: ['ch12_path_destroy', 'sashin_count_4', 'protagonist_accepted_truth'] }, next: 'ch13_true_end' },
+            // 정화 진엔딩 (최고) — 정화 + 동료 유대 충분 (하은 호감도 5+)
+            { condition: { flag: 'ch12_path_purify', affinity: { haeun: 5 } }, next: 'ch13_true_purified' },
+            // 정화했지만 동료 유대 부족 → 격파 진엔딩 톤으로 강등
+            { condition: { flag: 'ch12_path_purify' }, next: 'ch13_true_end' },
+            // 격파 진엔딩 — 진실 수용 + 사신 4 + 동료 유대 (하은 5+ 또는 어둑시니 5+)
+            { condition: { allFlags: ['ch12_path_destroy', 'sashin_count_4', 'protagonist_accepted_truth'], affinity: { haeun: 5 } }, next: 'ch13_true_end' },
+            { condition: { allFlags: ['ch12_path_destroy', 'sashin_count_4', 'protagonist_accepted_truth'], affinity: { eoduksini: 5 } }, next: 'ch13_true_end' },
+            // 진실 수용했지만 동료 유대 부족 → 정엔딩으로 강등
+            { condition: { allFlags: ['ch12_path_destroy', 'sashin_count_4', 'protagonist_accepted_truth'] }, next: 'ch13_quiet_end' },
             // 구엔딩 (구미호 동행 + 격파)
             { condition: { allFlags: ['ch12_path_destroy', 'gumiho_companion'] }, next: 'ch13_save_end' },
             { condition: { allFlags: ['ch12_path_destroy', 'gumiho_with_protagonist_battle'] }, next: 'ch13_save_end' },
@@ -66,7 +76,7 @@ const SCENES_CH13 = {
     // ==========================================
 
     ch13_true_purified: {
-        image: 'assets/images/ch13_purified_sky.png',
+        image: 'assets/images/ch13_ending_dawn_full.png',
         imageEffect: 'ken-burns',
         bgm: 'ch13_true',
         dialogue: [
@@ -84,7 +94,7 @@ const SCENES_CH13 = {
     },
 
     ch13_true_purified_2: {
-        image: 'assets/images/ch13_seoul_revival.png',
+        image: 'assets/images/ch13_ending_dawn_full.png',
         dialogue: [
             { speaker: '', text: '서울이 — 깨어난다.' },
             { speaker: '', text: '한 명, 두 명, 백 명, 천 명.' },
@@ -97,7 +107,7 @@ const SCENES_CH13 = {
     },
 
     ch13_true_purified_3: {
-        image: 'assets/images/ch13_companions_smile.png',
+        image: 'assets/images/ch13_ending_dawn_full.png',
         dialogue: [
             { speaker: '하은', text: '...해냈어.', condition: { flag: 'ch12_haeun_in' }, emotion: 'smile' },
             { speaker: '서연', text: '진짜로 — 모든 사람이, 돌아왔어요.', condition: { flag: 'ch12_seoyeon_in' }, emotion: 'smile' },
@@ -110,7 +120,7 @@ const SCENES_CH13 = {
             { speaker: '황덕구', text: '컹!', condition: { flag: 'ch12_pet_dog' }, emotion: 'smile' },
             { speaker: '청룡', text: '...새 시대가, 열렸군.', condition: { flag: 'ch12_cheongryong_in' }, emotion: 'smile' },
             { speaker: '백호', text: '...검을 — 거두자.', condition: { flag: 'ch12_baekho_in' }, emotion: 'smile' },
-            { speaker: '주작', text: '...불꽃이, 마침내 — 따뜻해졌어요.', condition: { flag: 'ch12_jujak_in' }, emotion: 'smile' },
+            { speaker: '주작', text: '...불꽃이, 마침내 — 따뜻해졌네.', condition: { flag: 'ch12_jujak_in' }, emotion: 'smile' },
             { speaker: '전우치', text: '...이제, 1할의 저는 — 9할의 당신과, 합쳐질게요. (씩 웃으며)', emotion: 'smile' },
             { speaker: '전우치', text: '오랜만이에요. 천 년 — 만에, 한 사람으로.' },
             { speaker: '', text: '도사가 — 미소지으며, 내 안으로, 흩어져 — 들어온다.' },
@@ -120,7 +130,7 @@ const SCENES_CH13 = {
     },
 
     ch13_true_purified_credits: {
-        image: 'assets/images/ch13_seoul_dawn.png',
+        image: 'assets/images/ch13_ending_dawn_full.png',
         bgm: 'ch13_credits',
         dialogue: [
             { speaker: '', text: '...' },
@@ -139,7 +149,7 @@ const SCENES_CH13 = {
     // ==========================================
 
     ch13_true_end: {
-        image: 'assets/images/ch13_after_battle.png',
+        image: 'assets/images/ch13_ending_dawn_simple.png',
         imageEffect: 'ken-burns',
         bgm: 'ch13_true',
         dialogue: [
@@ -153,7 +163,7 @@ const SCENES_CH13 = {
     },
 
     ch13_true_end_2: {
-        image: 'assets/images/ch13_companions_smile.png',
+        image: 'assets/images/ch13_ending_dawn_simple.png',
         dialogue: [
             { speaker: '하은', text: '...해냈어.', condition: { flag: 'ch12_haeun_in' }, emotion: 'smile' },
             { speaker: '서연', text: '...!', condition: { flag: 'ch12_seoyeon_in' }, emotion: 'smile' },
@@ -167,7 +177,7 @@ const SCENES_CH13 = {
     },
 
     ch13_true_end_credits: {
-        image: 'assets/images/ch13_seoul_dawn.png',
+        image: 'assets/images/ch13_ending_dawn_simple.png',
         bgm: 'ch13_credits',
         dialogue: [
             { speaker: '', text: '진엔딩 (真)' },
@@ -187,7 +197,7 @@ const SCENES_CH13 = {
     // ==========================================
 
     ch13_save_end: {
-        image: 'assets/images/ch13_after_battle.png',
+        image: 'assets/images/ch13_ending_save.png',
         imageEffect: 'ken-burns',
         bgm: 'ch13_save',
         characters: {
@@ -208,7 +218,7 @@ const SCENES_CH13 = {
     },
 
     ch13_save_end_2: {
-        image: 'assets/images/ch13_save_path.png',
+        image: 'assets/images/ch13_ending_save.png',
         dialogue: [
             { speaker: '', text: '...' },
             { speaker: '', text: '망설인다. 한 박자.' },
@@ -225,7 +235,7 @@ const SCENES_CH13 = {
     },
 
     ch13_save_end_credits: {
-        image: 'assets/images/ch13_ihyung_calm.png',
+        image: 'assets/images/ch13_ending_save.png',
         bgm: 'ch13_credits',
         dialogue: [
             { speaker: '', text: '구원 엔딩 (救)' },
@@ -244,7 +254,7 @@ const SCENES_CH13 = {
     // ==========================================
 
     ch13_ascend_end: {
-        image: 'assets/images/ch13_self_seal.png',
+        image: 'assets/images/ch13_ending_ascend.png',
         imageEffect: 'ken-burns',
         bgm: 'ch13_ascend',
         dialogue: [
@@ -262,7 +272,7 @@ const SCENES_CH13 = {
     },
 
     ch13_ascend_end_2: {
-        image: 'assets/images/ch13_companions_searching.png',
+        image: 'assets/images/ch13_ending_ascend.png',
         dialogue: [
             { speaker: '하은', text: '...어디 갔어. 어디 — 갔어!', condition: { flag: 'ch12_haeun_in' }, emotion: 'sad' },
             { speaker: '서연', text: '강 안으로... 같이 — 들어가셨어요.', condition: { flag: 'ch12_seoyeon_in' }, emotion: 'sad' },
@@ -276,7 +286,7 @@ const SCENES_CH13 = {
     },
 
     ch13_ascend_end_credits: {
-        image: 'assets/images/ch13_seoul_dawn.png',
+        image: 'assets/images/ch13_ending_ascend.png',
         bgm: 'ch13_credits',
         dialogue: [
             { speaker: '', text: '승엔딩 (昇)' },
@@ -296,7 +306,7 @@ const SCENES_CH13 = {
     // ==========================================
 
     ch13_together_end: {
-        image: 'assets/images/ch13_ihyung_seoul.png',
+        image: 'assets/images/ch13_ending_together.png',
         imageEffect: 'ken-burns',
         bgm: 'ch13_together',
         dialogue: [
@@ -310,7 +320,7 @@ const SCENES_CH13 = {
     },
 
     ch13_together_end_credits: {
-        image: 'assets/images/ch13_ihyung_dawn.png',
+        image: 'assets/images/ch13_ending_together.png',
         bgm: 'ch13_credits',
         dialogue: [
             { speaker: '', text: '공엔딩 (共)' },
@@ -330,7 +340,7 @@ const SCENES_CH13 = {
     // ==========================================
 
     ch13_quiet_end: {
-        image: 'assets/images/ch13_partial_dawn.png',
+        image: 'assets/images/ch13_ending_quiet.png',
         imageEffect: 'ken-burns',
         bgm: 'ch13_quiet',
         dialogue: [
@@ -344,7 +354,7 @@ const SCENES_CH13 = {
     },
 
     ch13_quiet_end_2: {
-        image: 'assets/images/ch13_companions_quiet.png',
+        image: 'assets/images/ch13_ending_quiet.png',
         dialogue: [
             { speaker: '하은', text: '...완벽하지는 — 않았네.', condition: { flag: 'ch12_haeun_in' }, emotion: 'sad' },
             { speaker: '하은', text: '근데, 오늘 — 살아남은 게, 더, 큰 일이야.', condition: { flag: 'ch12_haeun_in' }, emotion: 'smile' },
@@ -355,7 +365,7 @@ const SCENES_CH13 = {
     },
 
     ch13_quiet_end_credits: {
-        image: 'assets/images/ch13_seoul_dawn.png',
+        image: 'assets/images/ch13_ending_quiet.png',
         bgm: 'ch13_credits',
         dialogue: [
             { speaker: '', text: '정엔딩 (靜)' },
@@ -373,7 +383,7 @@ const SCENES_CH13 = {
     // ==========================================
 
     ch13_lost_end: {
-        image: 'assets/images/ch13_imugi_ascends.png',
+        image: 'assets/images/ch13_ending_lost.png',
         imageEffect: 'ken-burns',
         bgm: 'ch13_lost',
         dialogue: [
@@ -389,7 +399,7 @@ const SCENES_CH13 = {
     },
 
     ch13_lost_end_credits: {
-        image: 'assets/images/ch13_dark_seoul.png',
+        image: 'assets/images/ch13_ending_lost.png',
         bgm: 'ch13_credits',
         dialogue: [
             { speaker: '', text: '실엔딩 (失)' },
@@ -408,7 +418,7 @@ const SCENES_CH13 = {
     // ==========================================
 
     ch13_forget_end: {
-        image: 'assets/images/ch13_forgotten.png',
+        image: 'assets/images/ch13_ending_forget.png',
         imageEffect: 'ken-burns',
         bgm: 'ch13_forget',
         dialogue: [
@@ -424,7 +434,7 @@ const SCENES_CH13 = {
     },
 
     ch13_forget_end_credits: {
-        image: 'assets/images/ch13_seoul_normal.png',
+        image: 'assets/images/ch13_ending_forget.png',
         bgm: 'ch13_credits',
         dialogue: [
             { speaker: '', text: '망엔딩 (忘)' },
@@ -445,9 +455,10 @@ const SCENES_CH13 = {
     //  최종 화면
     // ==========================================
 
+    // 모든 엔딩 → 검은 화면 + "감사합니다" → 타이틀 (engine._endingToTitle)
     ch13_final: {
-        image: 'assets/images/ch13_final_screen.png',
-        showFlowchart: 'ch13',
+        image: 'assets/images/ch13_ending_dawn_simple.png',
+        endsGame: true,
         dialogue: [],
     },
 };
@@ -459,19 +470,19 @@ const SCENES_CH13 = {
 const FLOWCHARTS_CH13 = {
     ch13: {
         episode: '제13장',
-        title: '일곱 개의 새벽',
+        title: '여덟 개의 새벽',
         tree: [
             { type: 'story', text: '결판의 — 결과' },
             { type: 'choice', label: '도달한 엔딩',
               branches: [
-                  { text: '眞 — 정화 진엔딩' },
-                  { text: '真 — 격파 진엔딩' },
-                  { text: '救 — 구원 (구미호와)' },
-                  { text: '昇 — 자기 봉인' },
-                  { text: '共 — 함께 이층으로' },
-                  { text: '靜 — 부분 정화' },
-                  { text: '失 — 실패' },
-                  { text: '忘 — 망각' },
+                  { text: '眞-淨 — 정화 트루엔딩', flag: 'ending_reached_true_purified', alwaysVisible: true },
+                  { text: '眞 — 정화엔딩',         flag: 'ending_reached_true',          alwaysVisible: true },
+                  { text: '救 — 구원 (구미호와)',   flag: 'ending_reached_save',          alwaysVisible: true },
+                  { text: '昇 — 자기 봉인',        flag: 'ending_reached_ascend',        alwaysVisible: true },
+                  { text: '共 — 함께 이층으로',    flag: 'ending_reached_together',      alwaysVisible: true },
+                  { text: '靜 — 정엔딩',           flag: 'ending_reached_quiet',         alwaysVisible: true },
+                  { text: '失 — 상실엔딩',         flag: 'ending_reached_lost',          alwaysVisible: true },
+                  { text: '忘 — 망각엔딩',         flag: 'ending_reached_forget',        alwaysVisible: true },
               ]
             },
             { type: 'story', text: '이층 : 서울, 0시 — 끝' },

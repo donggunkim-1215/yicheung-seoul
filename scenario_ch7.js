@@ -95,17 +95,26 @@ const SCENES_CH7 = {
         choices: [
             { text: '귀를 막는다 — 듣지 않는다',
               setFlags: { ch7_blocked_ears: true },
-              stats: { calm: 2, courage: 1 },
+              stats: { calm: 1, love: -1 },
               next: 'ch7_block_path' },
             { text: '동료의 손을 — 꽉 잡는다. 곁에 있다는 것을 확인한다',
               setFlags: { ch7_held_hand: true },
-              stats: { love: 3 },
-              affinity: { haeun: 5, student: 5 },
+              stats: { love: 1 },
+              affinity: { haeun: 1, student: 1, datnyangi: 1, hwangdokgu: 1 },
               next: 'ch7_hold_path' },
             { text: '"...누구야. 모습 — 보여."',
               setFlags: { ch7_demanded_form: true },
-              stats: { courage: 2, wisdom: 1 },
+              stats: { courage: 1, calm: -1 },
               next: 'ch7_demand_path' },
+            // 동료 능력 게이트 — 어둑시니가 어둠 속 진짜 목소리를 분간
+            { text: '"어둑시니 — 이 목소리들 중 진짜를 골라줘."',
+              requires: { hasCompanion: 'eoduksini' },
+              lockedText: '어둑시니가 곁에 있어야 한다',
+              statHint: '어둠은 어둠을 안다',
+              setFlags: { ch7_eoduksini_filtered: true, ch7_blocked_ears: true },
+              stats: { wisdom: 1 },
+              affinity: { eoduksini: 1 },
+              next: 'ch7_block_path' },
         ]
     },
 
@@ -163,7 +172,7 @@ const SCENES_CH7 = {
     // ==========================================
 
     ch7_jangsan_appears: {
-        image: 'assets/images/ch7_jangsan_appear.png',
+        image: 'assets/images/ch7_forest_dim.png',
         characters: {
             center: { char: 'jangsanbeom', emotion: 'neutral' },
         },
@@ -185,7 +194,7 @@ const SCENES_CH7 = {
     },
 
     ch7_jangsan_dialogue: {
-        image: 'assets/images/ch7_jangsan_appear.png',
+        image: 'assets/images/ch7_forest_dim.png',
         characters: {
             center: { char: 'jangsanbeom' },
         },
@@ -197,6 +206,11 @@ const SCENES_CH7 = {
             { speaker: '', text: '...!' },
             { speaker: '', text: '인간이, 아니다.' },
             { speaker: '', text: '그 단어가, 다른 자리에서, 또, 묻혀 — 머리에 박힌다.' },
+            { react: [
+                { text: '...받아들이지 말자.', say: '...받아들이지 말자. 일단 지금은, 못 들은 척.' },
+                { text: '왜 자꾸 그 말이.',     say: '왜 자꾸 그 말이 나오지. 이무기도, 이 짐승도.' },
+                { text: '...어쩌면 정말로.',   say: '...어쩌면 정말로 — 인간이 아닐지도 모른다.' },
+            ]},
             { speaker: '전우치', text: '...쓸데없는 — 말은, 그만하고요.', emotion: 'smile' },
             { speaker: '전우치', text: '거래하러 — 왔어요. 정보 — 두 가지.' },
             { speaker: '장산범', text: '...허허. 도사 양반이, 단도직입적이로군요.', emotion: 'smile' },
@@ -207,7 +221,7 @@ const SCENES_CH7 = {
 
     // 정보 거래 — 무엇을 물을 것인가
     ch7_info_choice: {
-        image: 'assets/images/ch7_jangsan_appear.png',
+        image: 'assets/images/ch7_forest_dim.png',
         characters: {
             center: { char: 'jangsanbeom' },
         },
@@ -222,21 +236,30 @@ const SCENES_CH7 = {
         choices: [
             { text: '"이무기의 — 약점이 뭐야, 장산범 어르신."',
               setFlags: { ch7_asked_weakness: true },
-              stats: { courage: 2 },
+              stats: { courage: 1 },
               next: 'ch7_info_weakness' },
             { text: '"자료벽 주인 — 어디 있어, 장산범 어르신."',
               setFlags: { ch7_asked_observer: true },
-              stats: { wisdom: 2 },
+              stats: { wisdom: 1 },
               next: 'ch7_info_observer' },
             { text: '"...구미호는 — 왜, 이무기 편이지?"',
               setFlags: { ch7_asked_gumiho: true },
-              stats: { love: 2, wisdom: 1 },
+              stats: { wisdom: 1, courage: -1 },
               next: 'ch7_info_gumiho' },
+            // 동료 능력 게이트 — 서연의 분석으로 패턴을 짚는다
+            { text: '"서연 — 너라면, 정말 결정적인 질문을 알겠지?"',
+              requires: { hasCompanion: 'student', affinity: { student: 4 } },
+              lockedText: '서연과의 신뢰가 필요하다',
+              statHint: '관찰자가 핵심을 짚는다',
+              setFlags: { ch7_asked_weakness: true, ch7_seoyeon_chose: true },
+              stats: { wisdom: 1 },
+              affinity: { student: 1 },
+              next: 'ch7_info_weakness' },
         ]
     },
 
     ch7_info_weakness: {
-        image: 'assets/images/ch7_jangsan_appear.png',
+        image: 'assets/images/ch7_forest_dim.png',
         characters: { center: { char: 'jangsanbeom' } },
         dialogue: [
             { speaker: '장산범', text: '약점, 약점이라.', emotion: 'serious' },
@@ -254,7 +277,7 @@ const SCENES_CH7 = {
     },
 
     ch7_info_observer: {
-        image: 'assets/images/ch7_jangsan_appear.png',
+        image: 'assets/images/ch7_forest_dim.png',
         characters: { center: { char: 'jangsanbeom' } },
         dialogue: [
             { speaker: '장산범', text: '자료벽 주인.', emotion: 'serious' },
@@ -272,7 +295,7 @@ const SCENES_CH7 = {
     },
 
     ch7_info_gumiho: {
-        image: 'assets/images/ch7_jangsan_appear.png',
+        image: 'assets/images/ch7_forest_dim.png',
         characters: { center: { char: 'jangsanbeom', emotion: 'sad' } },
         dialogue: [
             { speaker: '장산범', text: '구미호.', emotion: 'sad' },
@@ -294,7 +317,7 @@ const SCENES_CH7 = {
 
     // 한 가지 더 묻기? (insight 게이트)
     ch7_jangsan_offer_more: {
-        image: 'assets/images/ch7_jangsan_appear.png',
+        image: 'assets/images/ch7_forest_dim.png',
         characters: { center: { char: 'jangsanbeom' } },
         dialogue: [
             { speaker: '장산범', text: '...한 가지, 더 — 들으시겠어요?', emotion: 'smile' },
@@ -312,7 +335,7 @@ const SCENES_CH7 = {
     },
 
     ch7_extra_offer: {
-        image: 'assets/images/ch7_jangsan_appear.png',
+        image: 'assets/images/ch7_forest_dim.png',
         characters: { center: { char: 'jangsanbeom', emotion: 'serious' } },
         dialogue: [
             { speaker: '장산범', text: '대가는 — 당신의 과거 한 조각이에요.', emotion: 'serious' },
@@ -324,17 +347,17 @@ const SCENES_CH7 = {
         choices: [
             { text: '"...받아들인다."',
               setFlags: { ch7_paid_memory: true, lost_memory_fragment: true },
-              stats: { wisdom: 5 },
+              stats: { wisdom: 2, calm: -1 },
               next: 'ch7_extra_truth' },
             { text: '"...못 한다. 너무, 비싸."',
               setFlags: { ch7_kept_memory: true },
-              stats: { courage: 2 },
+              stats: { courage: 1, wisdom: -1 },
               next: 'ch7_jangsan_farewell' },
         ]
     },
 
     ch7_extra_truth: {
-        image: 'assets/images/ch7_jangsan_appear.png',
+        image: 'assets/images/ch7_forest_dim.png',
         characters: { center: { char: 'jangsanbeom', emotion: 'sad' } },
         dialogue: [
             { speaker: '', text: '장산범이 — 손을 든다.' },
@@ -360,7 +383,7 @@ const SCENES_CH7 = {
     },
 
     ch7_jangsan_farewell: {
-        image: 'assets/images/ch7_jangsan_appear.png',
+        image: 'assets/images/ch7_forest_dim.png',
         characters: { center: { char: 'jangsanbeom' } },
         dialogue: [
             { speaker: '장산범', text: '...자, 거래는 — 끝났어요.', emotion: 'smile' },
@@ -369,8 +392,8 @@ const SCENES_CH7 = {
         choices: [
             { text: '"...장산범 어르신, 감사합니다."',
               setFlags: { ch7_paid_respect: true },
-              stats: { love: 2 },
-              affinity: { jangsanbeom: 5 },
+              stats: { love: 1 },
+              affinity: { jangsanbeom: 1 },
               next: 'ch7_jangsan_smiles' },
             { text: '"...장산범."',
               setFlags: { ch7_paid_minimal: true },
@@ -379,7 +402,7 @@ const SCENES_CH7 = {
     },
 
     ch7_jangsan_smiles: {
-        image: 'assets/images/ch7_jangsan_appear.png',
+        image: 'assets/images/ch7_forest_dim.png',
         characters: { center: { char: 'jangsanbeom', emotion: 'smile' } },
         dialogue: [
             { speaker: '장산범', text: '...아.', emotion: 'smile' },
@@ -392,7 +415,7 @@ const SCENES_CH7 = {
     },
 
     ch7_jangsan_smirks: {
-        image: 'assets/images/ch7_jangsan_appear.png',
+        image: 'assets/images/ch7_forest_dim.png',
         characters: { center: { char: 'jangsanbeom' } },
         dialogue: [
             { speaker: '장산범', text: '...뭐, 형식적으로라도 — 받았으니, 됐어요.', emotion: 'sad' },
@@ -408,9 +431,10 @@ const SCENES_CH7 = {
     ch7_aftermath: {
         image: 'assets/images/ch7_inwangsan_descent.png',
         bgm: 'ch7',
+        // 산 내려가는 풍경 narration이 길어 — 전우치/하은은 발화 라인에서만 등장
         characters: {
-            left:  { char: 'jeonwoochi', emotion: 'serious' },
-            right: { char: 'haeun',     condition: { flag: 'ch7_haeun_in' } },
+            left:  { char: 'jeonwoochi', emotion: 'serious', appearOnSpeak: true },
+            right: { char: 'haeun',     condition: { flag: 'ch7_haeun_in' }, appearOnSpeak: true },
         },
         dialogue: [
             { speaker: '', text: '산을 — 내려간다.' },
@@ -426,6 +450,11 @@ const SCENES_CH7 = {
             // 큰 떡밥 (잊었다면 이상한 빈자리만)
             { speaker: '', text: '...무언가, 큰 진실을 들었던 것 같다.', condition: { flag: 'jangsan_revealed_protagonist' } },
             { speaker: '', text: '잊었지만, 빈자리가 — 무겁다.', condition: { flag: 'jangsan_revealed_protagonist' } },
+            { react: [
+                { text: '...뭔가 빠진 것 같다.', say: '...뭔가, 머리에서 빠진 것 같다. 중요한 무언가가.' },
+                { text: '머리가 안 따라간다.',   say: '하루치 정보가 — 너무 많다. 머리가 안 따라간다.' },
+                { text: '발걸음에 집중하자.',    say: '...발걸음에만 집중하자. 일단은.' },
+            ]},
             // 동료 대화
             { speaker: '하은', text: '...우리, 이제 어디로 가?', condition: { flag: 'ch7_haeun_in' } },
             { speaker: '전우치', text: '...산을, 내려가서 — 종묘 쪽으로. 자료벽 — 주인을, 만나러요.', emotion: 'serious' },

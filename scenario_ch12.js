@@ -11,7 +11,7 @@ const SCENES_CH12 = {
 
     ch12_intro: {
         chapter: { number: '제12장', title: '한강의 자정' },
-        image: 'assets/images/ch12_hangang_eve.png',
+        image: 'assets/images/ch12_hangang_estuary.png',
         imageEffect: 'ken-burns',
         bgm: 'ch12',
         dialogue: [
@@ -25,7 +25,7 @@ const SCENES_CH12 = {
     },
 
     ch12_status: {
-        image: 'assets/images/ch12_hangang_eve.png',
+        image: 'assets/images/ch12_hangang_estuary.png',
         setFlagsIf: [
             { condition: { flag: 'ch11_haeun_in' },     flags: { ch12_haeun_in: true } },
             { condition: { flag: 'ch11_seoyeon_in' },   flags: { ch12_seoyeon_in: true } },
@@ -45,7 +45,7 @@ const SCENES_CH12 = {
     // ==========================================
 
     ch12_imugi_appears: {
-        image: 'assets/images/ch12_imugi_ritual.png',
+        image: 'assets/images/ch12_hangang_imugi.png',
         imageEffect: 'ken-burns',
         bgm: 'ch12_ritual',
         characters: {
@@ -70,7 +70,7 @@ const SCENES_CH12 = {
     // ==========================================
 
     ch12_gumiho_decision: {
-        image: 'assets/images/ch12_imugi_ritual.png',
+        image: 'assets/images/ch12_hangang_estuary.png',
         // 9장 분기에 따라
         nextIf: [
             { condition: { flag: 'gumiho_companion' },     next: 'ch12_gumiho_with_us' },
@@ -82,7 +82,7 @@ const SCENES_CH12 = {
     },
 
     ch12_gumiho_with_us: {
-        image: 'assets/images/ch12_gumiho_ours.png',
+        image: 'assets/images/ch12_hangang_estuary.png',
         characters: {
             center: { char: 'imugi' },
             right:  { char: 'gumiho', emotion: 'serious' },
@@ -107,7 +107,7 @@ const SCENES_CH12 = {
     },
 
     ch12_gumiho_absent: {
-        image: 'assets/images/ch12_imugi_ritual.png',
+        image: 'assets/images/ch12_hangang_estuary.png',
         characters: { center: { char: 'imugi', emotion: 'serious' } },
         dialogue: [
             { speaker: '', text: '구미호는 — 보이지 않는다.' },
@@ -123,7 +123,7 @@ const SCENES_CH12 = {
     },
 
     ch12_gumiho_decides: {
-        image: 'assets/images/ch12_gumiho_choice.png',
+        image: 'assets/images/ch12_hangang_estuary.png',
         characters: {
             center: { char: 'imugi' },
             right:  { char: 'gumiho', emotion: 'sad' },
@@ -144,7 +144,7 @@ const SCENES_CH12 = {
     },
 
     ch12_gumiho_speak_choice: {
-        image: 'assets/images/ch12_gumiho_choice.png',
+        image: 'assets/images/ch12_hangang_estuary.png',
         characters: {
             right: { char: 'gumiho' },
         },
@@ -156,17 +156,17 @@ const SCENES_CH12 = {
         choices: [
             { text: '"...우리, 같이 가자. 진실 위에서, 함께 살자."',
               setFlags: { ch12_invited_gumiho: true, gumiho_with_protagonist_battle: true, imugi_unprotected: true },
-              stats: { love: 5 },
+              stats: { love: 1, calm: -1 },
               next: 'ch12_gumiho_joins_now' },
             { text: '"...당신이, 결정해. 우리는 기다릴게."',
               setFlags: { ch12_let_gumiho_decide: true },
-              stats: { wisdom: 3 },
+              stats: { wisdom: 1, love: -1 },
               next: 'ch12_gumiho_chooses_alone' },
         ]
     },
 
     ch12_gumiho_joins_now: {
-        image: 'assets/images/ch12_gumiho_ours.png',
+        image: 'assets/images/ch12_hangang_estuary.png',
         characters: {
             right: { char: 'gumiho', emotion: 'smile' },
         },
@@ -188,7 +188,7 @@ const SCENES_CH12 = {
     },
 
     ch12_gumiho_chooses_alone: {
-        image: 'assets/images/ch12_gumiho_choice.png',
+        image: 'assets/images/ch12_hangang_estuary.png',
         characters: {
             right: { char: 'gumiho', emotion: 'sad' },
         },
@@ -207,7 +207,7 @@ const SCENES_CH12 = {
     },
 
     ch12_gumiho_with_imugi: {
-        image: 'assets/images/ch12_imugi_ritual.png',
+        image: 'assets/images/ch12_hangang_estuary.png',
         characters: {
             center: { char: 'imugi' },
         },
@@ -227,7 +227,7 @@ const SCENES_CH12 = {
     // ==========================================
 
     ch12_battle_prep: {
-        image: 'assets/images/ch12_battle_prep.png',
+        image: 'assets/images/ch12_hangang_imugi.png',
         characters: {
             left:  { char: 'jeonwoochi' },
             right: { char: 'haeun', condition: { flag: 'ch12_haeun_in' } },
@@ -244,7 +244,7 @@ const SCENES_CH12 = {
     },
 
     ch12_battle_start: {
-        image: 'assets/images/ch12_battle_chaos.png',
+        image: 'assets/images/ch12_hangang_estuary.png',
         bgm: 'ch12_battle',
         characters: {
             center: { char: 'imugi', emotion: 'serious' },
@@ -260,14 +260,80 @@ const SCENES_CH12 = {
     },
 
     ch12_sashin_song: {
-        image: 'assets/images/ch12_sashin_circle.png',
+        image: 'assets/images/ch12_hangang_estuary.png',
         bgm: 'ch12_song',
         dialogue: [
             { speaker: '', text: '하은이, 강물에 — 발을 — 담근다.' },
-            { speaker: '하은', text: '"...북쪽의 깊은 — 물이여, 일어나라."', condition: { flag: 'ch12_haeun_in' }, emotion: 'serious' },
-            { speaker: '청룡', text: '"...동쪽의 푸른 — 바람이여, 함께 부니라."', condition: { flag: 'ch12_cheongryong_in' }, emotion: 'serious' },
-            { speaker: '백호', text: '"...서쪽의 흰 — 검이여, 한 합으로 가르라."', condition: { flag: 'ch12_baekho_in' }, emotion: 'serious' },
-            { speaker: '주작', text: '"...남쪽의 붉은 — 불이여, 정화하라."', condition: { flag: 'ch12_jujak_in' }, emotion: 'serious' },
+            { speaker: '', text: '사신의 — 노래가, 시작된다.' },
+        ],
+        nextIf: [
+            { condition: { flag: 'ch12_haeun_in' },       next: 'ch12_sashin_haeun' },
+            { condition: { flag: 'ch12_cheongryong_in' }, next: 'ch12_sashin_cheongryong' },
+            { condition: { flag: 'ch12_baekho_in' },      next: 'ch12_sashin_baekho' },
+            { condition: { flag: 'ch12_jujak_in' },       next: 'ch12_sashin_jujak' },
+        ],
+        next: 'ch12_protagonist_strike'
+    },
+
+    ch12_sashin_haeun: {
+        image: 'assets/images/ch12_hangang_estuary.png',
+        characters: {
+            center: { char: 'haeun', emotion: 'serious' },
+        },
+        dialogue: [
+            { speaker: '하은', text: '"...북쪽의 깊은 — 물이여, 일어나라."', emotion: 'serious' },
+        ],
+        nextIf: [
+            { condition: { flag: 'ch12_cheongryong_in' }, next: 'ch12_sashin_cheongryong' },
+            { condition: { flag: 'ch12_baekho_in' },      next: 'ch12_sashin_baekho' },
+            { condition: { flag: 'ch12_jujak_in' },       next: 'ch12_sashin_jujak' },
+        ],
+        next: 'ch12_sashin_combine'
+    },
+
+    ch12_sashin_cheongryong: {
+        image: 'assets/images/ch12_hangang_estuary.png',
+        characters: {
+            center: { char: 'cheongryong', emotion: 'serious' },
+        },
+        dialogue: [
+            { speaker: '청룡', text: '"...동쪽의 푸른 — 바람이여, 함께 부니라."', emotion: 'serious' },
+        ],
+        nextIf: [
+            { condition: { flag: 'ch12_baekho_in' }, next: 'ch12_sashin_baekho' },
+            { condition: { flag: 'ch12_jujak_in' },  next: 'ch12_sashin_jujak' },
+        ],
+        next: 'ch12_sashin_combine'
+    },
+
+    ch12_sashin_baekho: {
+        image: 'assets/images/ch12_hangang_estuary.png',
+        characters: {
+            center: { char: 'baekho', emotion: 'serious' },
+        },
+        dialogue: [
+            { speaker: '백호', text: '"...서쪽의 흰 — 검이여, 한 합으로 가르라."', emotion: 'serious' },
+        ],
+        nextIf: [
+            { condition: { flag: 'ch12_jujak_in' }, next: 'ch12_sashin_jujak' },
+        ],
+        next: 'ch12_sashin_combine'
+    },
+
+    ch12_sashin_jujak: {
+        image: 'assets/images/ch12_hangang_estuary.png',
+        characters: {
+            center: { char: 'jujak', emotion: 'serious' },
+        },
+        dialogue: [
+            { speaker: '주작', text: '"...남쪽의 붉은 — 불이여, 정화하라."', emotion: 'serious' },
+        ],
+        next: 'ch12_sashin_combine'
+    },
+
+    ch12_sashin_combine: {
+        image: 'assets/images/ch12_hangang_estuary.png',
+        dialogue: [
             { speaker: '', text: '사신의 노래가 — 강을 — 둘러싼다.' },
             { speaker: '', text: '이무기의 — 황금 줄기가, 한 번 — 흔들린다.' },
             { speaker: '이무기', text: '...!', emotion: 'serious' },
@@ -276,7 +342,7 @@ const SCENES_CH12 = {
     },
 
     ch12_protagonist_strike: {
-        image: 'assets/images/ch12_blue_torrent.png',
+        image: 'assets/images/ch12_hangang_estuary.png',
         dialogue: [
             { speaker: '', text: '두 손에, 도술의 — 푸른 빛을, 모은다.' },
             // 도술 각성 정도 분기
@@ -295,7 +361,7 @@ const SCENES_CH12 = {
     // ==========================================
 
     ch12_climax_setup: {
-        image: 'assets/images/ch12_imugi_weakened.png',
+        image: 'assets/images/ch12_hangang_imugi.png',
         characters: {
             center: { char: 'imugi', emotion: 'sad' },
         },
@@ -313,35 +379,44 @@ const SCENES_CH12 = {
 
     // 결정적 선택지 — 13장 엔딩으로 라우팅
     ch12_final_choice: {
-        image: 'assets/images/ch12_imugi_weakened.png',
+        image: 'assets/images/ch12_hangang_imugi.png',
         choiceTimer: 12,
+        dialogue: [
+            { react: [
+                { text: '...어떻게 끝내야 할까.',  say: '...어떻게 끝내야 할까. 어제까지의 나는, 답을 못 냈을 일이다.' },
+                { text: '심장이 뛴다.',             say: '심장이 뛴다. 어떤 답이든, 돌이킬 수 없다.' },
+                { text: '...이무기도 외로웠겠지.', say: '...이무기도 — 천 년이나 외로웠겠지. 그래도, 답을 내야 한다.' },
+            ]},
+        ],
         choices: [
-            // 격파 — 사신 다수 + 도술 각성 필요
+            // 격파 — 누구나 가능 (기본 분기)
             { text: '"...죽인다. 이번에야말로 — 끝낸다."',
               setFlags: { ch12_path_destroy: true },
-              stats: { courage: 6 },
+              stats: { courage: 1 },
               next: 'ch12_path_destroy_check' },
-            // 봉인 — 도술 일부라도
+            // 봉인 — 누구나 가능
             { text: '"...봉인한다. 다시, 천 년 — 잠재워둔다."',
               setFlags: { ch12_path_seal: true },
-              stats: { wisdom: 3, courage: 2 },
+              stats: { wisdom: 1, love: -1 },
               next: 'ch12_path_seal_check' },
-            // 자기 봉인 — 희생
+            // 자기 봉인 — 누구나 가능
             { text: '"...내가, 함께 — 잠든다. 그를, 내 — 안에, 가둔다."',
               setFlags: { ch12_path_sacrifice: true },
-              stats: { courage: 5, love: 3 },
+              stats: { love: 1, calm: -1 },
               next: 'ch12_path_sacrifice' },
-            // 함께 이층으로
+            // 함께 이층으로 — 동료 유대 + 사랑 능력치
             { text: '"...함께, 이층으로 — 가자. 거기서, 너의 — 한을, 풀자."',
               setFlags: { ch12_path_together: true },
-              stats: { love: 7 },
-              requires: { love: 16 },
+              stats: { love: 1 },
+              requires: { love: 11, affinity: { haeun: 6 } },
+              lockedText: '사랑이 부족하거나 하은과의 유대가 약하다',
               next: 'ch12_path_together' },
-            // 거래 — 정화 시도
+            // 정화 — 가장 까다로운 옵션 (모든 자질 필요)
             { text: '"...너의 — 한을, 정화하자. 진짜로 — 승천하게 — 도와줄게."',
               setFlags: { ch12_path_purify: true },
-              stats: { love: 7, wisdom: 3 },
-              requires: { love: 20, wisdom: 14 },
+              stats: { love: 1, wisdom: 1 },
+              requires: { love: 13, wisdom: 7, affinity: { haeun: 8 } },
+              lockedText: '사랑·지혜·하은과의 유대 모두 필요하다',
               next: 'ch12_path_purify' },
         ]
     },
@@ -350,7 +425,7 @@ const SCENES_CH12 = {
     //  격파 라인
     // ==========================================
     ch12_path_destroy_check: {
-        image: 'assets/images/ch12_imugi_weakened.png',
+        image: 'assets/images/ch12_hangang_estuary.png',
         // 사신 수 + 도술 상태에 따라 분기
         nextIf: [
             { condition: { allFlags: ['sashin_count_4', 'protagonist_accepted_truth'] }, next: 'ch12_destroy_perfect' },
@@ -361,7 +436,10 @@ const SCENES_CH12 = {
     },
 
     ch12_destroy_perfect: {
-        image: 'assets/images/ch12_perfect_strike.png',
+        image: 'assets/images/ch12_hangang_estuary.png',
+        characters: {
+            center: { char: 'imugi', emotion: 'sad', appearOnSpeak: true },
+        },
         dialogue: [
             { speaker: '', text: '네 영물의 노래가, 동시에 — 정점에 — 닿는다.' },
             { speaker: '', text: '나의 도술이, 천 년의 — 모든 도술이, 한 점으로 — 모인다.' },
@@ -377,7 +455,10 @@ const SCENES_CH12 = {
     },
 
     ch12_destroy_great: {
-        image: 'assets/images/ch12_great_strike.png',
+        image: 'assets/images/ch12_hangang_estuary.png',
+        characters: {
+            center: { char: 'imugi', emotion: 'smile', appearOnSpeak: true },
+        },
         dialogue: [
             { speaker: '', text: '세 영물의 노래가, 큰 화음을 — 만든다.' },
             { speaker: '', text: '청풍천검이, 이무기의 — 핵의 — 90%를, 가른다.' },
@@ -392,7 +473,10 @@ const SCENES_CH12 = {
     },
 
     ch12_destroy_partial: {
-        image: 'assets/images/ch12_partial_strike.png',
+        image: 'assets/images/ch12_hangang_estuary.png',
+        characters: {
+            center: { char: 'imugi', emotion: 'serious', appearOnSpeak: true },
+        },
         dialogue: [
             { speaker: '', text: '두 영물의 노래.' },
             { speaker: '', text: '도술이, 절반의 힘으로 — 이무기를 친다.' },
@@ -405,7 +489,10 @@ const SCENES_CH12 = {
     },
 
     ch12_destroy_failed: {
-        image: 'assets/images/ch12_failed_strike.png',
+        image: 'assets/images/ch12_hangang_imugi.png',
+        characters: {
+            center: { char: 'imugi', emotion: 'smile', appearOnSpeak: true },
+        },
         dialogue: [
             { speaker: '', text: '...힘이, 부족하다.' },
             { speaker: '', text: '도술이, 약하다. 사신이, 부족하다.' },
@@ -423,7 +510,7 @@ const SCENES_CH12 = {
     //  봉인 라인
     // ==========================================
     ch12_path_seal_check: {
-        image: 'assets/images/ch12_imugi_weakened.png',
+        image: 'assets/images/ch12_hangang_estuary.png',
         nextIf: [
             { condition: { allFlags: ['can_defeat_imugi', 'protagonist_accepted_truth'] }, next: 'ch12_seal_success' },
             { condition: { flag: 'protagonist_unsure' },                                  next: 'ch12_seal_partial' },
@@ -432,7 +519,10 @@ const SCENES_CH12 = {
     },
 
     ch12_seal_success: {
-        image: 'assets/images/ch12_seal_circle.png',
+        image: 'assets/images/ch12_bell_complete.png',
+        characters: {
+            center: { char: 'imugi', emotion: 'smile', appearOnSpeak: true },
+        },
         dialogue: [
             { speaker: '', text: '"...봉인의 매듭."' },
             { speaker: '', text: '천 년 전에 했던 — 그 도술을, 다시.' },
@@ -450,7 +540,10 @@ const SCENES_CH12 = {
     },
 
     ch12_seal_partial: {
-        image: 'assets/images/ch12_seal_circle.png',
+        image: 'assets/images/ch12_bell_partial.png',
+        characters: {
+            center: { char: 'imugi', emotion: 'smile', appearOnSpeak: true },
+        },
         dialogue: [
             { speaker: '', text: '봉인의 매듭이, 절반쯤 — 만들어진다.' },
             { speaker: '', text: '도술이 부족하다. 봉인이, 약하다.' },
@@ -464,7 +557,10 @@ const SCENES_CH12 = {
     },
 
     ch12_seal_failed: {
-        image: 'assets/images/ch12_failed_strike.png',
+        image: 'assets/images/ch12_hangang_imugi.png',
+        characters: {
+            center: { char: 'imugi', emotion: 'smile', appearOnSpeak: true },
+        },
         dialogue: [
             { speaker: '', text: '봉인의 매듭이 — 만들어지지 않는다.' },
             { speaker: '', text: '도술이, 너무 약하다.' },
@@ -479,7 +575,11 @@ const SCENES_CH12 = {
     //  자기 봉인 라인 (희생)
     // ==========================================
     ch12_path_sacrifice: {
-        image: 'assets/images/ch12_self_seal.png',
+        image: 'assets/images/ch12_seal_ritual.png',
+        characters: {
+            right: { char: 'imugi', emotion: 'sad', appearOnSpeak: true },
+            left:  { char: 'jeonwoochi', emotion: 'surprised', appearOnSpeak: true },
+        },
         dialogue: [
             { speaker: '', text: '"...내가, 함께 — 잠든다."' },
             { speaker: '', text: '도사가 — 놀란다.' },
@@ -505,7 +605,10 @@ const SCENES_CH12 = {
     //  함께 이층으로 라인
     // ==========================================
     ch12_path_together: {
-        image: 'assets/images/ch12_together_path.png',
+        image: 'assets/images/ch12_hangang_estuary.png',
+        characters: {
+            center: { char: 'imugi', emotion: 'surprised', appearOnSpeak: true },
+        },
         dialogue: [
             { speaker: '', text: '"...함께, 이층으로 — 가자."' },
             { speaker: '이무기', text: '...네?', emotion: 'surprised' },
@@ -527,13 +630,16 @@ const SCENES_CH12 = {
     //  정화 라인 (가장 어려운 길)
     // ==========================================
     ch12_path_purify: {
-        image: 'assets/images/ch12_purify_path.png',
+        image: 'assets/images/ch12_hangang_estuary.png',
+        characters: {
+            center: { char: 'imugi', emotion: 'sad', appearOnSpeak: true },
+        },
         dialogue: [
             { speaker: '', text: '"...너의 — 한을, 정화하자. 진짜로 — 승천하게 — 도와줄게."' },
             { speaker: '이무기', text: '...!', emotion: 'surprised' },
             { speaker: '이무기', text: '...당신, 그게 — 진심이세요?', emotion: 'serious' },
             { speaker: '', text: '"진심이야. 너는 — 한이 — 깊을 뿐, 악한 자는 — 아니야."' },
-            { speaker: '주작', text: '"...정화의 노래로, 함께 — 부를게요."', condition: { flag: 'ch12_jujak_in' }, emotion: 'serious' },
+            { speaker: '주작', text: '"...정화의 노래로, 함께 — 부르세."', condition: { flag: 'ch12_jujak_in' }, emotion: 'serious' },
             { speaker: '구미호', text: '"...저도, 곁에서 — 노래할게요."', condition: { flag: 'ch12_gumiho_in' }, emotion: 'serious' },
             { speaker: '구미호', text: '"...저도, 곁에서 — 노래할게요."', condition: { flag: 'gumiho_with_protagonist_battle' }, emotion: 'serious' },
             { speaker: '', text: '도술과, 정화의 노래가 — 이무기의 — 한을, 한 자락씩 — 풀어낸다.' },
@@ -553,7 +659,7 @@ const SCENES_CH12 = {
     //  엔딩 라우터 — 13장으로
     // ==========================================
     ch13_router: {
-        image: 'assets/images/ch13_dawn.png',
+        image: 'assets/images/ch13_ending_dawn_simple.png',
         next: 'ch13_intro'
     },
 };

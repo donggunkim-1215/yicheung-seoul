@@ -21,6 +21,93 @@ const SCENES_CH4 = {
             { speaker: '', text: '그 안으로 — 들어간다.' },
             { speaker: '', text: '먼지 냄새. 식어버린 커피 향. 정적.' },
         ],
+        next: 'ch4_haeun_rejoin_check'
+    },
+
+    // 하은이 1장에서 거절(or 혼자 도망)된 케이스 — 카페에서 우연히 재합류
+    // (플롯상 하은=현무로 사신 4완성에 필수. 거절 분기에서도 합류 보장)
+    ch4_haeun_rejoin_check: {
+        image: 'assets/images/ch4_cafe_inside.png',
+        nextIf: [
+            { condition: { allFlags: ['is_alone'], noneOfFlags: ['has_companion'] }, next: 'ch4_haeun_rejoin' },
+        ],
+        next: 'ch4_seoyeon_rejoin_check'
+    },
+
+    ch4_haeun_rejoin: {
+        image: 'assets/images/ch4_cafe_inside.png',
+        characters: {
+            center: { char: 'haeun', alias: '???', emotion: 'surprised' },
+        },
+        dialogue: [
+            { speaker: '', text: '카페 안에 — 자리잡으려는 그때.' },
+            { speaker: '', text: '셔터가 — 살짝 들리는 소리.' },
+            { speaker: '', text: '한 사람이 — 들어선다.' },
+            { speaker: '???', text: '...!', emotion: 'surprised' },
+            { speaker: '???', text: '...어? 너...', emotion: 'surprised' },
+            { speaker: '', text: '익숙한 얼굴이다.' },
+            { speaker: '', text: '지하철에서 만났던 — 그 아이.' },
+            { speaker: '', text: '내가 — 손을 놓고 떠났던, 그 자리에 — 있던 아이.' },
+            { speaker: '???', text: '...나도, 혼자 헤매다가, 여기까지 — 흘러왔어.', emotion: 'sad' },
+            { speaker: '???', text: '나, 하은이야. 그때는 — 인사도, 못 했지.', setFlags: { know_name: true } },
+            { speaker: '하은', text: '...다시 만나서, 다행이야.', emotion: 'smile' },
+            { speaker: '하은', text: '이번엔 — 같이 갈래.', emotion: 'serious' },
+        ],
+        setFlags: {
+            has_companion: true,
+            with_girl: true,
+            is_alone: false,
+            ch4_haeun_rejoined: true,
+        },
+        addCompanion: {
+            id: 'haeun',
+            name: '하은',
+            portrait: 'assets/images/portraits/haeun_neutral.png',
+        },
+        next: 'ch4_seoyeon_rejoin_check'
+    },
+
+    // 서연이 1장에서 거절(student_refused)된 케이스 — 같은 카페 단서 따라 흘러들어옴
+    // (관찰자 노트 단서 시퀀스가 ch4에 있어 분석가 서연이 자연스럽게 합류)
+    ch4_seoyeon_rejoin_check: {
+        image: 'assets/images/ch4_cafe_inside.png',
+        nextIf: [
+            { condition: { allFlags: ['student_refused'], noneOfFlags: ['with_seoyeon'] }, next: 'ch4_seoyeon_rejoin' },
+        ],
+        next: 'ch4_status'
+    },
+
+    ch4_seoyeon_rejoin: {
+        image: 'assets/images/ch4_cafe_inside.png',
+        characters: {
+            left:   { char: 'haeun',   condition: { flag: 'has_companion' } },
+            center: { char: 'seoyeon', emotion: 'surprised' },
+        },
+        dialogue: [
+            { speaker: '', text: '카페 한 켠에서 — 부스럭, 종이 넘기는 소리.' },
+            { speaker: '', text: '카운터 뒤. 작은 그림자.' },
+            { speaker: '서연', text: '...!', emotion: 'surprised' },
+            { speaker: '서연', text: '...아, 다시 — 만났네요.', emotion: 'sad' },
+            { speaker: '', text: '안경을 — 고쳐쓰며, 노트를 — 가슴에 안는 소녀.' },
+            { speaker: '', text: '지하철 옆 정류장 — 벤치에서 만났던, 그 아이.' },
+            { speaker: '', text: '내가 — 함께 가지 않겠다고, 떠났던, 그 자리에 있던 아이.' },
+            { speaker: '서연', text: '저는 — 혼자, 단서를 — 따라왔어요.', emotion: 'serious' },
+            { speaker: '서연', text: '"이층" — 그 단어가, 카페 — 자료벽으로 — 이어지더라고요.' },
+            { speaker: '서연', text: '...같은 길을, 따로 — 걸은 — 거네요.' },
+            { speaker: '서연', text: '이번엔 — 같이, 가도 될까요?', emotion: 'sad' },
+            { speaker: '', text: '"...같이 가자."' },
+            { speaker: '서연', text: '(작게 미소) ...고맙습니다.', emotion: 'smile' },
+        ],
+        setFlags: {
+            with_seoyeon: true,
+            student_refused: false,
+            ch4_seoyeon_rejoined: true,
+        },
+        addCompanion: {
+            id: 'student',
+            name: '서연',
+            portrait: 'assets/images/portraits/seoyeon_neutral.png',
+        },
         next: 'ch4_status'
     },
 
@@ -28,7 +115,10 @@ const SCENES_CH4 = {
         image: 'assets/images/ch4_cafe_inside.png',
         setFlagsIf: [
             { condition: { flag: 'ch3_haeun_in' },     flags: { ch4_haeun_in: true } },
+            { condition: { flag: 'ch4_haeun_rejoined' }, flags: { ch4_haeun_in: true } },
             { condition: { flag: 'ch3_seoyeon_in' },   flags: { ch4_seoyeon_in: true } },
+            // 4장 재합류 케이스 (서연도 동일 처리)
+            { condition: { flag: 'ch4_seoyeon_rejoined' }, flags: { ch4_seoyeon_in: true } },
             { condition: { flag: 'ch3_eoduksini_in' }, flags: { ch4_eoduksini_in: true } },
             { condition: { flag: 'ch3_pet_cat' },      flags: { ch4_pet_cat: true } },
             { condition: { flag: 'ch3_pet_dog' },      flags: { ch4_pet_dog: true } },
@@ -69,6 +159,11 @@ const SCENES_CH4 = {
             { speaker: '', text: '그 질문이 — 머릿속에서, 가시처럼 박힌다.' },
             { speaker: '', text: '왜 나만, 남았는가.' },
             { speaker: '', text: '그것이 — 핵심이라는 직감이 든다.' },
+            { react: [
+                { text: '...우연일 거야.',  say: '...우연일 거야. 어쩌다 남은 거지, 이유가 있을 리 없어.' },
+                { text: '나만 표적인가.',   say: '...나만 표적인가. 구미호가 \'기다렸다\'고 했지.' },
+                { text: '생각 회피하지 말자.', say: '회피하지 말자. 답을 마주해야 한다.' },
+            ]},
         ],
         setFlags: { question_why_remain: true },
         next: 'ch4_planning'
@@ -81,43 +176,20 @@ const SCENES_CH4 = {
     ch4_planning: {
         image: 'assets/images/ch4_cafe_inside.png',
         dialogue: [
-            { speaker: '', text: '벽에 — 지도가 붙어 있다. 카페 손님들이 적은 메모로 가득한, 동네 지도.' },
-            { speaker: '', text: '그 위에, 누군가가 — 빨간 표시를 해두었다.' },
-            { speaker: '', text: '한 곳, 두 곳, 세 곳. 모두 — 이상한 사건이 났던 자리.' },
-            { speaker: '', text: '이 카페가 — 우연히 들어온 곳이 아닐지도 모른다.' },
+            { speaker: '', text: '카페 안. 잠시 — 숨을 고른다.' },
+            { speaker: '', text: '여기서, 무엇을 할 수 있을까.' },
         ],
         choices: [
-            { text: '지도를 자세히 살핀다 — 다음 단서를 찾는다',
-              setFlags: { ch4_examined_map: true },
-              stats: { wisdom: 3 },
-              next: 'ch4_map_clue' },
             { text: '카페를 뒤져본다 — 누군가 왔다 간 흔적',
               setFlags: { ch4_searched_cafe: true },
-              stats: { wisdom: 1, courage: 1 },
+              stats: { wisdom: 1, courage: -1 },
               next: 'ch4_cafe_clue' },
             { text: '동료들과 휴식 — 호감도 회복',
               setFlags: { ch4_rested: true },
-              stats: { calm: 2, love: 1 },
-              affinity: { haeun: 3, student: 2, eoduksini: 2 },
+              stats: { love: 1, wisdom: -1 },
+              affinity: { haeun: 1, student: 1, eoduksini: 1 },
               next: 'ch4_rest' },
         ]
-    },
-
-    ch4_map_clue: {
-        image: 'assets/images/ch4_cafe_map.png',
-        dialogue: [
-            { speaker: '', text: '지도에 가까이 다가간다.' },
-            { speaker: '', text: '빨간 표시들 — 모두 한 가지 패턴을 그린다.' },
-            { speaker: '', text: '동·서·남·북. 각각의 방향에 — 한 곳씩.' },
-            { speaker: '', text: '지도 가운데에, 작은 글씨로 — "사신(四神)"이라고 적혀 있다.' },
-            { speaker: '서연', text: '사신... 청룡, 백호, 주작, 현무?', condition: { flag: 'ch4_seoyeon_in' }, emotion: 'surprised' },
-            { speaker: '하은', text: '왜, 그 단어가 — 익숙하지?', condition: { flag: 'ch4_haeun_in' }, emotion: 'worried' },
-            { speaker: '', text: '하은이, 자기도 모르게 — 손을 가슴에 댄다.' },
-            { speaker: '', text: '심장이 — 한 박자 다르게 뛴다.' },
-            { speaker: '', text: '이건, 우연이 아니다.' },
-        ],
-        setFlags: { learned_sashin_word: true, haeun_first_resonance: true },
-        next: 'ch4_imugi_arrives_setup'
     },
 
     ch4_cafe_clue: {
@@ -182,34 +254,35 @@ const SCENES_CH4 = {
         next: 'ch4_imugi_face'
     },
 
+    // 임팩트 컷씬 — BG에 이무기 박힌 컷, portrait 슬롯은 비움 (중복 방지). narration + 발화는 BG 안 캐릭터로 처리
     ch4_imugi_face: {
-        image: 'assets/images/ch4_imugi_seated.png',
-        characters: {
-            center: { char: 'imugi', emotion: 'neutral' },
-        },
+        image: 'assets/images/ch4_cafe_inside.png',
+        characters: { center: { char: 'imugi' } },
         dialogue: [
             { speaker: '', text: '남자.' },
-            { speaker: '', text: '검은 정장. 검은 머리. 다리를 꼬고 — 마치, 자기 카페인 듯 앉아 있다.' },
+            { speaker: '', text: '새하얀 쓰리피스 슈트. 흰 셔츠. 흰 넥타이. 백발에 가까운 흰 머리.' },
+            { speaker: '', text: '한 점의 얼룩도, 그늘도 없는 — 모든 것이 흰. 그게 더 — 이상하다.' },
+            { speaker: '', text: '다리를 꼬고 — 마치, 자기 카페인 듯 앉아 있다.' },
             { speaker: '', text: '그리고 — 얼굴.' },
             { speaker: '', text: '...잘생겼다.' },
             { speaker: '', text: '구미호의 아름다움이 "이 세상의 것이 아닌" 것이었다면,' },
             { speaker: '', text: '이 남자의 잘생김은 — "너무 이 세상에 어울리는" 그런 종류다.' },
             { speaker: '', text: '뉴스 앵커, 정치인, 카리스마 있는 CEO — 그런 인상.' },
             { speaker: '', text: '하지만, 눈을 보면 — 안다.' },
-            { speaker: '', text: '천 년의 한이 — 그 안에 고여 있다.' },
+            { speaker: '', text: '실눈처럼 가늘게 휘어진, 옅은 — 눈.' },
+            { speaker: '', text: '그 안에 — 천 년의 한이 고여 있다.' },
             { speaker: '이무기', text: '...아, 어서 오세요. (실눈으로 미소)', emotion: 'smile' },
             { speaker: '이무기', text: '앉으시지요. 좀, 긴 이야기가 — 될 — 테니까요.' },
             { speaker: '하은', text: '...!', condition: { flag: 'ch4_haeun_in' }, emotion: 'surprised' },
             { speaker: '서연', text: '도, 도망가야 — !', condition: { flag: 'ch4_seoyeon_in' }, emotion: 'surprised' },
         ],
+        setFlags: { imugi_revealed: true },  // 정체 공개 — 이후 발화자명 '이무기'로 표시
         next: 'ch4_imugi_demonstrates'
     },
 
     ch4_imugi_demonstrates: {
-        image: 'assets/images/ch4_imugi_seated.png',
-        characters: {
-            center: { char: 'imugi', emotion: 'serious' },
-        },
+        image: 'assets/images/ch4_cafe_inside.png',
+        characters: { center: { char: 'imugi' } },
         dialogue: [
             { speaker: '이무기', text: '...도망이라.', emotion: 'smile' },
             { speaker: '이무기', text: '흥미로운 단어예요. 도망이라는 것.' },
@@ -228,7 +301,7 @@ const SCENES_CH4 = {
     },
 
     ch4_imugi_speaks: {
-        image: 'assets/images/ch4_imugi_seated.png',
+        image: 'assets/images/ch4_cafe_inside.png',
         characters: { center: { char: 'imugi' } },
         dialogue: [
             { speaker: '이무기', text: '아, 소개가 — 늦었네요. 무례했어요.', emotion: 'smile' },
@@ -242,6 +315,11 @@ const SCENES_CH4 = {
             { speaker: '', text: '...왜, 그 이름이 — 익숙한가.' },
             { speaker: '', text: '본 적도 없는데. 들은 적도 없을 텐데.' },
             { speaker: '', text: '머리가 — 살짝 어지럽다.' },
+            { react: [
+                { text: '...전우치.',         say: '...전우치. 이 이름이 왜 — 내 안에서 울리지.' },
+                { text: '내 얘긴가?',         say: '...설마 — 그게 내 얘긴가? 말도 안 돼.' },
+                { text: '못 들은 척하자.',    say: '못 들은 척하자. 휘말리면 안 된다.' },
+            ]},
             { speaker: '이무기', text: '...오.', emotion: 'surprised' },
             { speaker: '이무기', text: '반응하시는군요. 역시 — 그렇군요.', emotion: 'smile' },
             { speaker: '이무기', text: '흥미로운 — 일이에요.' },
@@ -251,7 +329,7 @@ const SCENES_CH4 = {
     },
 
     ch4_imugi_proposal: {
-        image: 'assets/images/ch4_imugi_seated.png',
+        image: 'assets/images/ch4_cafe_inside.png',
         characters: { center: { char: 'imugi' } },
         dialogue: [
             { speaker: '이무기', text: '그럼 — 본론으로, 들어갈까요.' },
@@ -272,7 +350,7 @@ const SCENES_CH4 = {
     },
 
     ch4_imugi_demand: {
-        image: 'assets/images/ch4_imugi_seated.png',
+        image: 'assets/images/ch4_cafe_inside.png',
         characters: { center: { char: 'imugi', emotion: 'serious' } },
         dialogue: [
             { speaker: '이무기', text: '왜냐하면 — 당신, 때문이에요.', emotion: 'smile' },
@@ -295,7 +373,7 @@ const SCENES_CH4 = {
     // ==========================================
 
     ch4_choice: {
-        image: 'assets/images/ch4_imugi_seated.png',
+        image: 'assets/images/ch4_cafe_inside.png',
         characters: { center: { char: 'imugi' } },
         choiceTimer: 7,
         dialogue: [
@@ -304,23 +382,41 @@ const SCENES_CH4 = {
         choices: [
             { text: '"거절한다."',
               setFlags: { ch4_refused: true },
-              stats: { courage: 5 },
+              stats: { courage: 1 },
               next: 'ch4_refuse' },
             { text: '"...시간을 줘. 답하기 전에."',
               setFlags: { ch4_stalled: true },
-              stats: { wisdom: 3 },
+              stats: { wisdom: 1 },
               next: 'ch4_stall' },
             { text: '동료를 보호하며 — 그를 노려본다',
               setFlags: { ch4_defied_silently: true },
-              stats: { love: 2, courage: 1 },
-              affinity: { haeun: 3, student: 3, eoduksini: 2 },
+              stats: { love: 1, calm: -1 },
+              affinity: { haeun: 1, student: 1, eoduksini: 1 },
               next: 'ch4_defy_silent' },
+            // 동료 능력 게이트 — 어둑시니가 그림자에 숨어 협상 보조
+            { text: '"어둑시니 — 그림자에 숨어. 그가 방심할 때까지."',
+              requires: { hasCompanion: 'eoduksini' },
+              lockedText: '어둑시니가 곁에 있어야 한다',
+              statHint: '어둠이 어둠을 속인다',
+              setFlags: { ch4_eoduksini_hidden: true, ch4_stalled: true },
+              stats: { wisdom: 1 },
+              affinity: { eoduksini: 1 },
+              next: 'ch4_stall' },
+            // 호감도 게이트 — 하은과의 강한 유대로 함께 거절
+            { text: '"우리는 — 함께 거절한다." (하은의 손을 잡고)',
+              requires: { hasCompanion: 'haeun', affinity: { haeun: 4 } },
+              lockedText: '하은과의 깊은 유대가 필요하다',
+              statHint: '둘이라면 두렵지 않다',
+              setFlags: { ch4_refused: true, ch4_haeun_united: true },
+              stats: { love: 1, courage: 1 },
+              affinity: { haeun: 1 },
+              next: 'ch4_refuse' },
         ]
     },
 
     ch4_refuse: {
-        image: 'assets/images/ch4_imugi_standing.png',
-        characters: { center: { char: 'imugi', emotion: 'serious' } },
+        image: 'assets/images/ch4_cafe_inside.png',
+        characters: { center: { char: 'imugi', emotion: 'smile' } },
         dialogue: [
             { speaker: '', text: '"거절한다."' },
             { speaker: '', text: '목소리가 — 떨리지 않는다. 처음으로.' },
@@ -334,7 +430,7 @@ const SCENES_CH4 = {
     },
 
     ch4_stall: {
-        image: 'assets/images/ch4_imugi_seated.png',
+        image: 'assets/images/ch4_cafe_inside.png',
         characters: { center: { char: 'imugi' } },
         dialogue: [
             { speaker: '이무기', text: '...시간을, 청하시는군요.', emotion: 'smile' },
@@ -349,8 +445,8 @@ const SCENES_CH4 = {
     },
 
     ch4_defy_silent: {
-        image: 'assets/images/ch4_imugi_standing.png',
-        characters: { center: { char: 'imugi' } },
+        image: 'assets/images/ch4_cafe_inside.png',
+        characters: { center: { char: 'imugi', emotion: 'smile' } },
         dialogue: [
             { speaker: '', text: '한 마디도 하지 않는다.' },
             { speaker: '', text: '대신, 한 발 — 동료들 앞으로 나선다.' },
@@ -370,7 +466,7 @@ const SCENES_CH4 = {
     // ==========================================
 
     ch4_combat: {
-        image: 'assets/images/ch4_imugi_combat.png',
+        image: 'assets/images/ch4_cafe_inside.png',
         imageEffect: 'ken-burns',
         bgm: 'ch4_combat',
         characters: { center: { char: 'imugi', emotion: 'serious' } },
@@ -398,7 +494,7 @@ const SCENES_CH4 = {
     },
 
     ch4_overwhelmed: {
-        image: 'assets/images/ch4_imugi_combat.png',
+        image: 'assets/images/ch4_cafe_inside.png',
         characters: { center: { char: 'imugi' } },
         dialogue: [
             { speaker: '이무기', text: '아직 — 깨지 않은 분에게는, 너무 — 빠른 일이지요.', emotion: 'smile' },
@@ -416,6 +512,44 @@ const SCENES_CH4 = {
             { speaker: '', text: '...죽는다.' },
             { speaker: '', text: '그 단어가, 처음으로 — 사실의 무게로 다가온다.' },
         ],
+        // 거절 + 어둑시니 동행 시 — 어둑시니가 주인공 보호하다 흡수당함 (일시 이탈)
+        nextIf: [
+            { condition: { allFlags: ['ch4_refused', 'ch4_eoduksini_in'], noneOfFlags: ['eoduksini_taken'] }, next: 'ch4_eoduksini_taken' },
+        ],
+        next: 'ch4_savior_appears'
+    },
+
+    // ===== 어둑시니 일시 이탈 분기 (ch4 거절 + 어둑시니 동행 시) =====
+    ch4_eoduksini_taken: {
+        image: 'assets/images/ch4_cafe_inside.png',
+        characters: { center: { char: 'eoduksini', emotion: 'serious' } },
+        bgm: 'ch4_combat',
+        dialogue: [
+            { speaker: '', text: '...그때.' },
+            { speaker: '', text: '내 — 그림자가, 스스로 — 솟구친다.' },
+            { speaker: '어둑시니', text: '...물러나.', emotion: 'serious' },
+            { speaker: '', text: '어둑시니가 — 내 앞에, 선다.' },
+            { speaker: '', text: '검은 윤곽이 — 이무기를 향해, 펼쳐진다.' },
+            { speaker: '어둑시니', text: '...어둠은, 어둠이 — 막아.' },
+            { speaker: '이무기', text: '...오, 흥미롭네요.', emotion: 'smile' },
+            { speaker: '이무기', text: '그림자가, 그림자에게 — 맞서는, 그림이라.' },
+            { speaker: '이무기', text: '하지만 — 천 년의 어둠과, 한 줄기 — 떠도는 그림자.' },
+            { speaker: '이무기', text: '결과는 — 이미, 정해져 있어요.' },
+            { speaker: '', text: '이무기가 — 손을, 든다.' },
+            { speaker: '', text: '검은 회오리가, 어둑시니를 — 감싼다.' },
+            { speaker: '어둑시니', text: '...!', emotion: 'surprised' },
+            { speaker: '하은', text: '...어둑시니!', condition: { flag: 'ch4_haeun_in' }, emotion: 'surprised' },
+            { speaker: '서연', text: '...!', condition: { flag: 'ch4_seoyeon_in' }, emotion: 'surprised' },
+            { speaker: '어둑시니', text: '...괜찮아. 너는, 살아.', emotion: 'sad' },
+            { speaker: '어둑시니', text: '...다시, 만나.', emotion: 'sad' },
+            { speaker: '', text: '어둑시니의 윤곽이 — 흡수된다. 이무기 안으로.' },
+            { speaker: '', text: '내 — 그림자가, 옅어진다. 텅, 비어버린다.' },
+            { speaker: '', text: '...어둑시니가, 사라졌다.' },
+            { speaker: '이무기', text: '...자, 이제 — 정리되었군요.', emotion: 'smile' },
+            { speaker: '이무기', text: '...아쉽네요. 그 — 작은 어둠도, 한때는 — 제 — 친척이었거든요.' },
+        ],
+        setFlags: { eoduksini_taken: true, eoduksini_lost_at_ch4: true },
+        removeCompanion: 'eoduksini',
         next: 'ch4_savior_appears'
     },
 
@@ -455,6 +589,11 @@ const SCENES_CH4 = {
             { speaker: '', text: '얼굴은 — 보이지 않는다. 그의 등 뒤로 — 푸른 빛이, 너무 강하다.' },
             { speaker: '', text: '하지만, 한 가지는 안다.' },
             { speaker: '', text: '그가, 나를 — 구하러 왔다는 것.' },
+            { react: [
+                { text: '...누구야, 저 사람.',  say: '...누구야, 저 사람. 어디서 본 적도 없는데, 왜 — 이렇게 익숙하지.' },
+                { text: '살았다.',                say: '...살았다. 일단, 그건 확실하다.' },
+                { text: '왜 나를 알지.',         say: '왜 — 나를 알고 왔지. 이 사람도, 이무기도, 전부.' },
+            ]},
             { speaker: '', text: '...' },
             { speaker: '', text: '제4장 — 끝.' },
         ],
@@ -482,7 +621,6 @@ const FLOWCHARTS_CH4 = {
             { type: 'story', text: '카페에 숨다 — 동료들과의 대화' },
             { type: 'choice', label: '다음 행동', sceneId: 'ch4_planning',
               branches: [
-                  { text: '지도를 살핀다 → 사신' },
                   { text: '카페를 뒤진다 → 관찰자의 노트' },
                   { text: '함께 휴식 → 호감도' },
               ]
