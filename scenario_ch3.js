@@ -131,12 +131,14 @@ const SCENES_CH3 = {
         },
         dialogue: [
             { speaker: '', text: '여자다.' },
-            { speaker: '', text: '한복도, 양장도 아닌 — 그 사이의 무언가를 입었다.' },
-            { speaker: '', text: '검은 머리가, 바람도 없이, 가볍게 흔들린다.' },
+            { speaker: '', text: '한복도, 양장도 아닌 — 그 사이의 무언가를 입었다. 새하얀.' },
+            { speaker: '', text: '은빛 — 아니, 흰빛이 도는 긴 머리가, 바람도 없이, 가볍게 흔들린다.' },
+            { speaker: '', text: '머리 위로 — 두 개의, 흰 짐승 귀.' },
+            { speaker: '', text: '뒤로 — 길게 늘어진, 풍성한 흰 꼬리.' },
             { speaker: '', text: '그리고 — 얼굴.' },
             { speaker: '', text: '...너무 — 아름답다.' },
             { speaker: '', text: '아름답다는 말이 부족하다. 그건 시각적 묘사가 아니라 — 사실의 진술이다.' },
-            { speaker: '', text: '이 세상의 것이 아닌, 그런 종류의.' },
+            { speaker: '', text: '이 세상의 것이 아닌, 그런 종류의. 사람이 — 아니다.' },
             { speaker: '하은', text: '...(말을 잃었다.)', condition: { flag: 'ch3_haeun_in' }, emotion: 'surprised' },
             { speaker: '서연', text: '...누구...세요?', condition: { flag: 'ch3_seoyeon_in' }, emotion: 'surprised' },
             { speaker: '구미호', text: '...아.', emotion: 'smile' },
@@ -146,6 +148,11 @@ const SCENES_CH3 = {
             { speaker: '구미호', text: '...오셨네요.', emotion: 'smile' },
             { speaker: '구미호', text: '정말로, 와주실 — 줄은 — 몰랐는데.' },
             { speaker: '구미호', text: '...어디서, 뵌 — 분 — 같으세요. (혼잣말처럼)', emotion: 'sad' },
+            { react: [
+                { text: '...나를?',           say: '...나를? 처음 보는 사람한테 왜 그런 말을.' },
+                { text: '연기 같다.',         say: '연기 같다. 너무 자연스럽게 연기를 잘하는 사람의.' },
+                { text: '...이상하게 익숙해.', say: '...이상하게 — 익숙한 느낌이 든다. 왜지.' },
+            ]},
         ],
         next: 'ch3_first_words'
     },
@@ -169,8 +176,8 @@ const SCENES_CH3 = {
             { speaker: '', text: '...착각인가.' },
             { speaker: '', text: '다음 길.' },
             { speaker: '', text: '여자의 눈을 본다.' },
-            { speaker: '', text: '검다. 그냥 검은 게 아니라 — 깊다.' },
-            { speaker: '', text: '오래된 우물 속을 들여다보는 것 같은 — 그런 깊이.' },
+            { speaker: '', text: '옅다. 색이 거의 — 없는, 투명한 회색.' },
+            { speaker: '', text: '그런데 — 깊다. 오래된 우물 속을 들여다보는 것 같은, 그런 깊이.' },
             { speaker: '어둑시니', text: '(내 그림자에서, 작게) ...조심해. 천 년이라고 했잖아.', condition: { flag: 'ch3_eoduksini_in' }, emotion: 'serious' },
         ],
         next: 'ch3_first_choice'
@@ -189,15 +196,15 @@ const SCENES_CH3 = {
         choices: [
             { text: '"그래도 — 이름은 알아야겠어."',
               setFlags: { gumiho_asked_name: true },
-              stats: { courage: 1, wisdom: 1 },
+              stats: { courage: 1, love: -1 },
               next: 'ch3_name_pressed' },
             { text: '"...괜찮아. 안내해주세요."',
               setFlags: { gumiho_trusted: true },
-              stats: { love: 2 },
+              stats: { love: 1, wisdom: -1 },
               next: 'ch3_trust_path' },
             { text: '"왜 우리를 기다렸어요?"',
               setFlags: { gumiho_questioned: true },
-              stats: { wisdom: 2 },
+              stats: { wisdom: 1 },
               next: 'ch3_question_path' },
         ]
     },
@@ -210,7 +217,8 @@ const SCENES_CH3 = {
             { speaker: '구미호', text: '...강요, 하시는군요.', emotion: 'sad' },
             { speaker: '구미호', text: '하긴 — 그래야지요. 모르는 — 누군가를, 따라가시는 — 건데.' },
             { speaker: '', text: '여자가 잠시 침묵한다. 그리고는 — 작게 미소.' },
-            { speaker: '구미호', text: '...호(狐).', emotion: 'sad' },
+            // 이 라인부터 발화자명 '???' → '호'로 전환 (정체는 아직 미공개)
+            { speaker: '구미호', text: '...호(狐).', emotion: 'sad', setFlags: { gumiho_name_known: true } },
             { speaker: '구미호', text: '제 이름은 — 호예요. 외자.' },
             { speaker: '', text: '호.' },
             { speaker: '', text: '...여우 호.' },
@@ -281,32 +289,34 @@ const SCENES_CH3 = {
         choices: [
             { text: '"안내해주세요."',
               setFlags: { followed_gumiho: true },
-              stats: { courage: 2 },
+              stats: { courage: 1, calm: -1 },
               next: 'ch3_follow' },
             { text: '"...자정까지, 여기서 기다릴게요."',
               setFlags: { waited_in_place: true },
-              stats: { wisdom: 1, calm: 1 },
+              stats: { calm: 1, courage: -1 },
               next: 'ch3_wait' },
             { text: '"이름부터 — 진짜 이름을 말해줘요."',
               setFlags: { demanded_real_name: true },
-              stats: { wisdom: 2 },
-              requires: { wisdom: 4 },
+              stats: { wisdom: 1, love: -1 },
+              requires: { wisdom: 6 },
+              lockedText: '지혜가 부족하다 — 통찰이 더 필요하다',
               next: 'ch3_real_name' },
         ]
     },
 
     // 분기 A: 따라간다
     ch3_follow: {
-        image: 'assets/images/ch3_alley_to_bell.png',
+        image: 'assets/images/ch3_bosingak.png',
         imageEffect: 'ken-burns',
-        characters: { center: { char: 'gumiho' } },
+        // 진입 시엔 일반 portrait. '아홉 개' 라인에서 꼬리 펼친 portrait으로 전환
+        characters: { center: { char: 'gumiho', emotion: 'neutral', lockEmotion: true } },
         dialogue: [
             { speaker: '', text: '여자를 따라간다.' },
             { speaker: '', text: '광장을 가로질러, 종 가까이로.' },
             { speaker: '', text: '걸음마다 — 공기가 무거워진다.' },
             { speaker: '', text: '여자의 그림자가 — 이상하다.' },
             { speaker: '', text: '한 사람의 그림자가 아니다. 여러 개가 — 겹쳐져 있다.' },
-            { speaker: '', text: '아홉 개. 정확히 — 아홉 개의 꼬리 모양.' },
+            { speaker: '', text: '아홉 개. 정확히 — 아홉 개의 꼬리 모양.', setEmotion: 'revealed' },
             { speaker: '', text: '...!' },
             { speaker: '', text: '깨달음이 — 한 박자 늦게 온다.' },
             { speaker: '하은', text: '잠깐 — 저 그림자, 봤어?', condition: { flag: 'ch3_haeun_in' }, emotion: 'surprised' },
@@ -320,8 +330,9 @@ const SCENES_CH3 = {
     },
 
     ch3_revealed: {
-        image: 'assets/images/ch3_alley_to_bell.png',
-        characters: { center: { char: 'gumiho', emotion: 'serious' } },
+        image: 'assets/images/ch3_bosingak.png',
+        // 꼬리 묘사 없는 정체 공개 대화 — 일반 portrait (serious=neutral_2) 유지
+        characters: { center: { char: 'gumiho', emotion: 'serious', lockEmotion: true } },
         dialogue: [
             { speaker: '구미호', text: '저는 — 구미호예요.', emotion: 'sad' },
             { speaker: '구미호', text: '그리고 — 저 종 안에, 제 — 주인이 — 계세요.' },
@@ -342,14 +353,15 @@ const SCENES_CH3 = {
     // 분기 B: 기다린다
     ch3_wait: {
         image: 'assets/images/ch3_bosingak.png',
-        characters: { center: { char: 'gumiho' } },
+        // 진입 시엔 일반 portrait. '아홉 개' 라인에서 꼬리 펼친 portrait으로 전환
+        characters: { center: { char: 'gumiho', emotion: 'neutral', lockEmotion: true } },
         dialogue: [
             { speaker: '', text: '"...아니요. 여기서 기다리겠어요."' },
             { speaker: '구미호', text: '...그러시군요.', emotion: 'sad' },
             { speaker: '구미호', text: '그것도 — 한 가지, 길이에요.' },
             { speaker: '', text: '여자가 한 걸음 물러난다.' },
             { speaker: '', text: '걸음마다 — 그림자가 길어진다.' },
-            { speaker: '', text: '한 개, 두 개, 세 개... 아홉 개.' },
+            { speaker: '', text: '한 개, 두 개, 세 개... 아홉 개.', setEmotion: 'revealed' },
             { speaker: '', text: '아홉 개의 꼬리 모양 그림자.' },
             { speaker: '하은', text: '...!', condition: { flag: 'ch3_haeun_in' }, emotion: 'surprised' },
             { speaker: '서연', text: '구미호...!', condition: { flag: 'ch3_seoyeon_in' }, emotion: 'surprised' },
@@ -365,12 +377,13 @@ const SCENES_CH3 = {
     // 분기 C: 진짜 이름 요구 (insight 2 필요)
     ch3_real_name: {
         image: 'assets/images/ch3_bosingak.png',
-        characters: { center: { char: 'gumiho', emotion: 'sad' } },
+        // 진입 시엔 일반 portrait. '아홉 꼬리의' 자기 명칭 라인에서 꼬리 펼친 portrait으로 전환
+        characters: { center: { char: 'gumiho', emotion: 'neutral', lockEmotion: true } },
         dialogue: [
             { speaker: '구미호', text: '...허, 허.', emotion: 'sad' },
             { speaker: '구미호', text: '눈치, 채셨군요. "호"라는 — 게, 이미 — 진짜에 — 가까웠다는 — 걸.' },
             { speaker: '', text: '여자가 — 처음으로, 진심에 가까운 표정을 보인다.' },
-            { speaker: '구미호', text: '구미호예요. 아홉 — 꼬리의.', emotion: 'sad' },
+            { speaker: '구미호', text: '구미호예요. 아홉 — 꼬리의.', emotion: 'sad', setEmotion: 'revealed' },
             { speaker: '구미호', text: '그리고 — 저는, 부탁이 — 아니라. 명령, 받은 — 거예요.' },
             { speaker: '구미호', text: '"그가 — 오면, 끌고 — 와라"고요.', emotion: 'sad' },
             { speaker: '', text: '...!' },
@@ -426,13 +439,18 @@ const SCENES_CH3 = {
             { speaker: '', text: '온도가 떨어진다. 그게 아니라 — 무게가 다르다.' },
             { speaker: '', text: '내 어깨에 — 무거운 손이 얹힌 것처럼.' },
             { speaker: '', text: '어디서 본 적도 없는 — 거대한 존재의 시선.' },
+            { react: [
+                { text: '...뭐가 오는 거야.',  say: '...뭐가 오는 거야. 종 안에서 — 뭐가.' },
+                { text: '도망쳐야 하나.',      say: '도망쳐야 하나. 다리가 안 움직인다.' },
+                { text: '눈을 못 떼겠다.',     say: '눈을 못 떼겠다. 고개를 돌리는 것조차 — 허락받지 않은 느낌이다.' },
+            ]},
             { speaker: '구미호', text: '...오셨어.', emotion: 'sad' },
             { speaker: '', text: '여자가 — 종을 본다. 종 안의, 어둠을.' },
             { speaker: '', text: '종 속에서 — 무언가가, 천천히, 일어난다.' },
             { speaker: '', text: '거대한 형체의 윤곽.' },
             { speaker: '', text: '그리고, 이내 — 한 명의 남자로 좁혀진다.' },
-            { speaker: '', text: '검은 머리. 검은 옷.' },
-            { speaker: '', text: '얼굴은 — 보이지 않는다. 종의 그림자가, 그를 가리고 있다.' },
+            { speaker: '', text: '백발에 가까운 흰 머리. 한 점의 얼룩도 없는 — 새하얀 정장.' },
+            { speaker: '', text: '얼굴은 — 보이지 않는다. 종의 그림자가, 그 흰빛마저 — 삼키고 있다.' },
             { speaker: '하은', text: '...누구야, 저 사람.', condition: { flag: 'ch3_haeun_in' }, emotion: 'surprised' },
             { speaker: '서연', text: '...이름조차, 부르지 못하는 누군가.', condition: { flag: 'ch3_seoyeon_in' }, emotion: 'worried' },
             { speaker: '어둑시니', text: '(작게) ...피해. 지금 당장.', condition: { flag: 'ch3_eoduksini_in' }, emotion: 'serious' },
@@ -444,6 +462,9 @@ const SCENES_CH3 = {
 
     ch3_man_speaks: {
         image: 'assets/images/ch3_bell_shadow.png',
+        characters: {
+            center: { char: 'imugi', alias: '???', shrouded: true },
+        },
         dialogue: [
             { speaker: '???', text: '...드디어.' },
             { speaker: '', text: '목소리.' },
@@ -464,28 +485,46 @@ const SCENES_CH3 = {
     // 첫 시험: 도망 / 맞섬 / 대화
     ch3_first_test: {
         image: 'assets/images/ch3_bell_shadow.png',
+        characters: {
+            center: { char: 'imugi', alias: '???', shrouded: true, emotion: 'serious' },
+        },
         dialogue: [
             { speaker: '???', text: '...달아나려느냐, 아니면 — 마주하려느냐?', emotion: 'serious' },
         ],
         choices: [
             { text: '도망친다 — 지금 당장 이곳을 떠난다',
               setFlags: { ch3_fled: true },
-              stats: { wisdom: 2, calm: 1 },
+              stats: { calm: 1, courage: -1 },
               next: 'ch3_flee_path' },
             { text: '"...당신이 누구야. 이름을 — 말해."',
               setFlags: { ch3_demanded_name: true },
-              stats: { courage: 4 },
+              stats: { courage: 1 },
               next: 'ch3_demand_path' },
             { text: '동료를 보호하며 천천히 물러난다',
               setFlags: { ch3_protected_retreat: true },
-              stats: { love: 2, calm: 2 },
+              stats: { love: 1, courage: -1 },
+              next: 'ch3_protect_path' },
+            // 동료 고유 능력 게이트
+            { text: '"어둑시니 — 그림자 속을 살펴줘."',
+              requires: { hasCompanion: 'eoduksini' },
+              lockedText: '어둑시니가 곁에 있어야 한다',
+              setFlags: { ch3_eoduksini_scouted: true, ch3_protected_retreat: true },
+              stats: { wisdom: 1 },
+              affinity: { eoduksini: 1 },
+              next: 'ch3_protect_path' },
+            { text: '"서연 — 저 자, 패턴을 분석해 봐."',
+              requires: { hasCompanion: 'seoyeon' },
+              lockedText: '서연이 곁에 있어야 한다',
+              setFlags: { ch3_seoyeon_analyzed: true, ch3_protected_retreat: true },
+              stats: { wisdom: 1 },
+              affinity: { student: 1 },
               next: 'ch3_protect_path' },
         ]
     },
 
     // 도망 분기
     ch3_flee_path: {
-        image: 'assets/images/ch3_alley_to_bell.png',
+        image: 'assets/images/ch3_bosingak.png',
         dialogue: [
             { speaker: '', text: '"뛰어!"' },
             { speaker: '', text: '몸이 먼저 움직인다. 머리보다 빠르게.' },
@@ -505,6 +544,9 @@ const SCENES_CH3 = {
     // 맞섬 분기
     ch3_demand_path: {
         image: 'assets/images/ch3_bell_shadow.png',
+        characters: {
+            center: { char: 'imugi', alias: '???', shrouded: true, emotion: 'serious' },
+        },
         dialogue: [
             { speaker: '', text: '"이름을 말해."' },
             { speaker: '', text: '목소리가 — 떨린다. 그래도, 한다.' },
@@ -530,6 +572,9 @@ const SCENES_CH3 = {
     // 보호 분기
     ch3_protect_path: {
         image: 'assets/images/ch3_bell_shadow.png',
+        characters: {
+            center: { char: 'imugi', alias: '???', shrouded: true, emotion: 'serious' },
+        },
         dialogue: [
             { speaker: '', text: '한 손을 내 뒤로 돌린다. 동료들을 — 가린다.' },
             { speaker: '', text: '한 걸음, 천천히, 뒤로.' },
@@ -571,6 +616,11 @@ const SCENES_CH3 = {
             { speaker: '', text: '"그분"이라고 부른 — 종 속의 누군가.' },
             { speaker: '', text: '천 년의 무게.' },
             { speaker: '', text: '그것이 — 어떤 존재인가, 아직 모른다.' },
+            { react: [
+                { text: '...구미호의 눈빛.',    say: '...구미호의 눈빛이 자꾸 떠오른다. 그건, 슬픔이었다.' },
+                { text: '천 년이라니.',         say: '천 년이라니. 농담 같은 단어가 — 농담이 아니었다.' },
+                { text: '집에 가고 싶다.',     say: '집에 가고 싶다. 정말로.' },
+            ]},
             // 동료 대화
             { speaker: '하은', text: '...어디로 가야 해, 이제?', condition: { flag: 'ch3_haeun_in' } },
             { speaker: '서연', text: '저... 자료벽에서 본 메모, 그건 분명 — 누군가가 우리에게 남긴 거였어요.', condition: { flag: 'ch3_seoyeon_in' }, emotion: 'serious' },

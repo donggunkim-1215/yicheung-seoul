@@ -200,9 +200,6 @@ const SCENES_CH13 = {
         image: 'assets/images/ch13_ending_save.png',
         imageEffect: 'ken-burns',
         bgm: 'ch13_save',
-        characters: {
-            center: { char: 'gumiho', emotion: 'smile' },
-        },
         dialogue: [
             { speaker: '', text: '이무기가, 사라진 — 자리.' },
             { speaker: '', text: '구미호가, 강 — 가에, 서 있다.' },

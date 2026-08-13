@@ -27,13 +27,20 @@ const SCENES_CH10 = {
 
     ch10_status: {
         image: 'assets/images/ch10_seoul_dawn.png',
+        // 정상 플레이 매핑 + 치트/누락 진입 보호 — 동료 root flag로 fallback
         setFlagsIf: [
-            { condition: { flag: 'ch9_haeun_in' },     flags: { ch10_haeun_in: true } },
-            { condition: { flag: 'ch9_seoyeon_in' },   flags: { ch10_seoyeon_in: true } },
-            { condition: { flag: 'ch9_eoduksini_in' }, flags: { ch10_eoduksini_in: true } },
-            { condition: { flag: 'ch9_pet_cat' },      flags: { ch10_pet_cat: true } },
-            { condition: { flag: 'ch9_pet_dog' },      flags: { ch10_pet_dog: true } },
-            { condition: { flag: 'gumiho_companion' }, flags: { ch10_gumiho_in: true } },
+            { condition: { flag: 'ch9_haeun_in' },         flags: { ch10_haeun_in: true } },
+            { condition: { flag: 'has_companion' },        flags: { ch10_haeun_in: true } },
+            { condition: { flag: 'ch9_seoyeon_in' },       flags: { ch10_seoyeon_in: true } },
+            { condition: { flag: 'with_seoyeon' },         flags: { ch10_seoyeon_in: true } },
+            { condition: { flag: 'ch9_eoduksini_in' },     flags: { ch10_eoduksini_in: true } },
+            { condition: { flag: 'eoduksini_companion' },  flags: { ch10_eoduksini_in: true } },
+            { condition: { flag: 'eoduksini_returned' },   flags: { ch10_eoduksini_in: true } },
+            { condition: { flag: 'ch9_pet_cat' },          flags: { ch10_pet_cat: true } },
+            { condition: { flag: 'has_datnyangi' },        flags: { ch10_pet_cat: true } },
+            { condition: { flag: 'ch9_pet_dog' },          flags: { ch10_pet_dog: true } },
+            { condition: { flag: 'has_hwangdokgu' },       flags: { ch10_pet_dog: true } },
+            { condition: { flag: 'gumiho_companion' },     flags: { ch10_gumiho_in: true } },
         ],
         next: 'ch10_haeun_awaken_setup'
     },
@@ -51,36 +58,20 @@ const SCENES_CH10 = {
         next: 'ch10_route_choice'
     },
 
+    // 한강에 발 담그는 컷씬 — 다이얼로그 없이 그림으로만 (사용자 클릭 시 다음 노드)
     ch10_haeun_awaken: {
         image: 'assets/images/ch10_haeun_water.png',
         imageEffect: 'ken-burns',
         bgm: 'ch10_solemn',
-        characters: {
-            center: { char: 'haeun', emotion: 'surprised' },
-        },
         dialogue: [
-            { speaker: '', text: '한강.' },
-            { speaker: '', text: '도사가, 우리를 — 한강 자락으로, 데려왔다.' },
-            { speaker: '', text: '강물이, 옅은 새벽 빛에 — 천천히, 흐른다.' },
-            { speaker: '전우치', text: '...하은 씨.', emotion: 'smile' },
-            { speaker: '전우치', text: '한강 — 가, 이 자리에 — 발을, 담가 — 보시겠어요.' },
-            { speaker: '하은', text: '...물에요?', emotion: 'worried' },
-            { speaker: '전우치', text: '네. 천천히, 한 발씩이요.', emotion: 'smile' },
-            { speaker: '', text: '하은이가 — 신을, 벗는다.' },
-            { speaker: '', text: '망설임. 그리고, 한 발.' },
-            { speaker: '', text: '발끝이, 강물에 — 닿는 — 순간.' },
-            { speaker: '', text: '...!' },
-            { speaker: '', text: '강물이, 한 박자 — 멈춘다.' },
-            { speaker: '', text: '주변의 — 작은 — 동심원이, 거대해지며, 밖으로 — 퍼져나간다.' },
+            { speaker: '', text: '' },
         ],
         next: 'ch10_haeun_become_hyeonmu'
     },
 
+    // 현무 각성 — 이미지에 하은+현무가 박혀 있어 portrait 슬롯 비움 (중복 방지)
     ch10_haeun_become_hyeonmu: {
         image: 'assets/images/ch10_haeun_awakening.png',
-        characters: {
-            center: { char: 'hyeonmu', emotion: 'serious' },
-        },
         dialogue: [
             { speaker: '하은', text: '...아.', emotion: 'surprised' },
             { speaker: '하은', text: '...뭔가, 안에서 — 일어났어. 깊은 — 차가운 — 무언가가.', emotion: 'serious' },
@@ -89,6 +80,11 @@ const SCENES_CH10 = {
             { speaker: '', text: '...현무.' },
             { speaker: '', text: '하은이, 천천히 — 강물에서, 발을 — 뺀다.' },
             { speaker: '', text: '눈이 — 다르다. 아까보다, 아주 — 조금, 더 — 깊다.' },
+            { react: [
+                { text: '...진짜로 영물이었어.', say: '...진짜로 영물이었어. 어제까진 그냥 옆에서 같이 떨던 사람이었는데.' },
+                { text: '하은이 멋있다.',         say: '...멋있다. 어떤 표정을 짓고 있어도.' },
+                { text: '내 차례는 언제 올까.',  say: '...내 차례는 언제 올까. 아니, 와도 되는 건가.' },
+            ]},
             { speaker: '하은', text: '...내가, 진짜로 — 거기, 있었어.', emotion: 'serious' },
             { speaker: '하은', text: '아니, 거기에 — 내가, 있어. 지금도.' },
             { speaker: '하은', text: '...현무. 그게 — 내 안의, 이름이야.' },
@@ -119,6 +115,7 @@ const SCENES_CH10 = {
             { speaker: '닷냥이', text: '냐옹.', emotion: 'smile' },
         ],
         setFlags: { datnyangi_revealed_saryeong: true },
+        affinity: { datnyangi: 1 },
         next: 'ch10_route_choice'
     },
 
@@ -136,6 +133,7 @@ const SCENES_CH10 = {
             { speaker: '황덕구', text: '컹! 컹!', emotion: 'smile' },
         ],
         setFlags: { hwangdokgu_revealed_saryeong: true },
+        affinity: { hwangdokgu: 1 },
         next: 'ch10_route_choice'
     },
 
@@ -224,6 +222,15 @@ const SCENES_CH10 = {
               setFlags: { ch10_cheongryong_humble: true },
               stats: { love: 1 },
               next: 'ch10_cheongryong_humble' },
+            // 동료 능력 게이트 — 서연이 분석한 답을 가져온다
+            { text: '"서연 — 너의 — 답을, 들려줘."',
+              requires: { hasCompanion: 'student', affinity: { student: 5 } },
+              lockedText: '서연과의 깊은 신뢰가 필요하다',
+              statHint: '학자가 학자에게 말한다',
+              setFlags: { ch10_cheongryong_correct: true, ch10_seoyeon_answered: true },
+              stats: { wisdom: 1 },
+              affinity: { student: 1 },
+              next: 'ch10_cheongryong_pass' },
         ]
     },
 
@@ -246,7 +253,7 @@ const SCENES_CH10 = {
             portrait: 'assets/images/portraits/cheongryong_neutral.png',
             affinity: 8,
         },
-        setFlags: { cheongryong_joined: true, sashin_count_2: true },
+        setFlags: { cheongryong_joined: true, sashin_count_2: true, cheongryong_visited: true },
         next: 'ch10_route_continue'
     },
 
@@ -263,7 +270,7 @@ const SCENES_CH10 = {
             { speaker: '', text: '...청룡은, 동료가 되지 않는다.' },
             { speaker: '', text: '하지만, 내일 — 의식 자리에서, 멀리서 — 도와줄 거란 — 약속을, 했다.' },
         ],
-        setFlags: { cheongryong_distant_aid: true },
+        setFlags: { cheongryong_distant_aid: true, cheongryong_visited: true },
         next: 'ch10_route_continue'
     },
 
@@ -283,7 +290,7 @@ const SCENES_CH10 = {
             portrait: 'assets/images/portraits/cheongryong_neutral.png',
             affinity: 6,
         },
-        setFlags: { cheongryong_joined: true, sashin_count_2: true },
+        setFlags: { cheongryong_joined: true, sashin_count_2: true, cheongryong_visited: true },
         next: 'ch10_route_continue'
     },
 
@@ -304,7 +311,8 @@ const SCENES_CH10 = {
 
     ch10_baekho_meet: {
         image: 'assets/images/ch10_dojang.png',
-        characters: { center: { char: 'baekho', emotion: 'serious' } },
+        // 검도장 BG 묘사 narration 후 백호 발화에서 portrait 등장
+        characters: { center: { char: 'baekho', emotion: 'serious', appearOnSpeak: true } },
         dialogue: [
             { speaker: '', text: '한 사람이 — 정중앙에, 서 있다.' },
             { speaker: '', text: '키가 크다. 검도복.' },
@@ -328,23 +336,34 @@ const SCENES_CH10 = {
         choices: [
             { text: '정면 — 검을 — 든다',
               setFlags: { ch10_baekho_face: true },
-              stats: { courage: 2 },
-              requires: { courage: 8 },
+              stats: { courage: 1 },
+              requires: { courage: 9 },
+              lockedText: '용기가 부족하다 — 검 앞에서 다리가 풀린다',
               next: 'ch10_baekho_pass' },
             { text: '검을 — 내려놓고, 빈손으로 마주한다',
               setFlags: { ch10_baekho_unarmed: true },
-              stats: { courage: 3, wisdom: 2 },
-              requires: { courage: 8 },
+              stats: { wisdom: 1, calm: -1 },
+              requires: { courage: 7, wisdom: 5 },
+              lockedText: '용기와 지혜가 모두 필요하다',
               next: 'ch10_baekho_unarmed' },
             { text: '"...나는, 검사가 — 아니야. 함께 — 갈 다른 길은, 없을까?"',
               setFlags: { ch10_baekho_words: true },
               stats: { love: 1 },
               next: 'ch10_baekho_words' },
+            // 동료 능력 게이트 — 어둑시니가 그림자 검술로 응한다
+            { text: '"어둑시니 — 그림자로, 한 합 — 받아줘."',
+              requires: { hasCompanion: 'eoduksini', affinity: { eoduksini: 5 } },
+              lockedText: '어둑시니와의 깊은 유대가 필요하다',
+              statHint: '검은 빛으로도 검을 받는다',
+              setFlags: { ch10_baekho_face: true, ch10_eoduksini_dueled: true },
+              stats: { courage: 1 },
+              affinity: { eoduksini: 1 },
+              next: 'ch10_baekho_pass' },
         ]
     },
 
     ch10_baekho_pass: {
-        image: 'assets/images/ch10_dojang_combat.png',
+        image: 'assets/images/ch10_dojang.png',
         characters: { center: { char: 'baekho', emotion: 'serious' } },
         dialogue: [
             { speaker: '', text: '검을 든다.' },
@@ -365,7 +384,7 @@ const SCENES_CH10 = {
             portrait: 'assets/images/portraits/baekho_neutral.png',
             affinity: 7,
         },
-        setFlags: { baekho_joined: true, sashin_count_3: true },
+        setFlags: { baekho_joined: true, sashin_count_3: true, baekho_visited: true },
         next: 'ch10_route_continue'
     },
 
@@ -389,7 +408,7 @@ const SCENES_CH10 = {
             portrait: 'assets/images/portraits/baekho_neutral.png',
             affinity: 9,
         },
-        setFlags: { baekho_joined: true, sashin_count_3: true },
+        setFlags: { baekho_joined: true, sashin_count_3: true, baekho_visited: true },
         next: 'ch10_route_continue'
     },
 
@@ -404,7 +423,7 @@ const SCENES_CH10 = {
             { speaker: '', text: '백호는 — 동료가 — 되지 않는다.' },
             { speaker: '', text: '하지만 — 내일의 자리에서, 멀리서 — 한 줄기, 검의 기를 — 보내준다는 — 약속.' },
         ],
-        setFlags: { baekho_distant_aid: true },
+        setFlags: { baekho_distant_aid: true, baekho_visited: true },
         next: 'ch10_route_continue'
     },
 
@@ -426,16 +445,17 @@ const SCENES_CH10 = {
 
     ch10_jujak_meet: {
         image: 'assets/images/ch10_mudang.png',
-        characters: { center: { char: 'jujak', emotion: 'sad' } },
+        // 무당집 BG 묘사 narration 후 주작 발화에서 portrait 등장
+        characters: { center: { char: 'jujak', emotion: 'sad', appearOnSpeak: true } },
         dialogue: [
             { speaker: '', text: '안.' },
-            { speaker: '', text: '한 — 여인이, 정좌해 있다.' },
-            { speaker: '', text: '한복. 머리는 단정하다.' },
-            { speaker: '', text: '얼굴은 — 작고, 슬프다. 처음 보는 사람의 — 슬픔까지, 거두는 — 그런 표정.' },
-            { speaker: '주작', text: '...어서 오세요.', emotion: 'sad' },
-            { speaker: '주작', text: '오시는 분이 있는 줄, 알았어요.' },
-            { speaker: '주작', text: '꿈에서 — 빨간 — 새가, 창공을 — 가르며 — 부르더라고요.' },
-            { speaker: '주작', text: '저는, 그게 — 저인 — 줄, 몰랐는데.', emotion: 'sad' },
+            { speaker: '', text: '한 — 남자가, 정좌해 있다.' },
+            { speaker: '', text: '한복. 머리는 단정하게 — 묶어 올렸다.' },
+            { speaker: '', text: '얼굴은 — 곱고, 슬프다. 처음 보는 사람의 — 슬픔까지, 거두는 — 그런 표정.' },
+            { speaker: '주작', text: '...오시는군.', emotion: 'sad' },
+            { speaker: '주작', text: '오시는 — 분이, 있는 줄 — 알았네.' },
+            { speaker: '주작', text: '꿈에서 — 빨간 — 새가, 창공을 — 가르며 — 부르더군.' },
+            { speaker: '주작', text: '나는, 그게 — 나인 줄, 몰랐다.', emotion: 'sad' },
         ],
         next: 'ch10_jujak_test'
     },
@@ -444,23 +464,23 @@ const SCENES_CH10 = {
         image: 'assets/images/ch10_mudang.png',
         characters: { center: { char: 'jujak' } },
         dialogue: [
-            { speaker: '주작', text: '저는, 한 가지만 — 보고 싶어요.', emotion: 'serious' },
-            { speaker: '주작', text: '제 — 손을, 잡아 주세요.' },
-            { speaker: '주작', text: '그러면 — 당신의 마음이, 저에게 — 흘러옵니다.' },
-            { speaker: '주작', text: '제가 — 따라갈 — 분인지, 그것으로, 알 수 있어요.' },
+            { speaker: '주작', text: '나는, 한 가지만 — 보고 싶다.', emotion: 'serious' },
+            { speaker: '주작', text: '내 — 손을, 잡아 보게.' },
+            { speaker: '주작', text: '그러면 — 당신의 마음이, 내게로 — 흘러올 것일세.' },
+            { speaker: '주작', text: '내가 — 따라갈 — 분인지, 그것으로 — 알 수 있네.' },
         ],
         choices: [
             { text: '망설이지 않고 — 손을, 잡는다',
               setFlags: { ch10_jujak_open: true },
-              stats: { love: 4 },
+              stats: { love: 1, wisdom: -1 },
               next: 'ch10_jujak_open' },
             { text: '"...내 마음을, 그대로 보여줘도 돼요?"',
               setFlags: { ch10_jujak_consent: true },
-              stats: { love: 1, wisdom: 1 },
+              stats: { wisdom: 1 },
               next: 'ch10_jujak_consent' },
             { text: '...주저한다. 보여주고 싶지 않은 — 마음이, 있다',
               setFlags: { ch10_jujak_hesitant: true },
-              stats: { courage: 1 },
+              stats: { calm: 1, love: -1 },
               next: 'ch10_jujak_hesitant' },
         ]
     },
@@ -471,13 +491,13 @@ const SCENES_CH10 = {
         dialogue: [
             { speaker: '', text: '손을, 내민다.' },
             { speaker: '', text: '주작의 손은 — 따뜻하다. 그리고, 가볍다.' },
-            { speaker: '', text: '내 — 안의, 마음이 — 한 자락씩, 그녀에게로 — 흘러간다.' },
+            { speaker: '', text: '내 — 안의, 마음이 — 한 자락씩, 그에게로 — 흘러간다.' },
             { speaker: '', text: '두려움. 의심. 그리고 — 동료들에 대한, 깊은 — 연.' },
             { speaker: '주작', text: '...아.', emotion: 'sad' },
-            { speaker: '주작', text: '당신의 마음은 — 두려움이 — 큰데도, 그것을 — 동료에 대한 — 사랑으로 — 덮고 있어요.' },
-            { speaker: '주작', text: '그것이, 가장 — 사람다운 — 마음이에요.' },
-            { speaker: '주작', text: '...함께 가요.', emotion: 'smile' },
-            { speaker: '주작', text: '제가, 그 사랑이 — 다 — 타지 않게, 정화해드릴게요.' },
+            { speaker: '주작', text: '당신의 마음은 — 두려움이 — 큰데도, 그것을 — 동료에 대한 — 사랑으로 — 덮고 있군.' },
+            { speaker: '주작', text: '그것이, 가장 — 사람다운 — 마음이지.' },
+            { speaker: '주작', text: '...함께 가세.', emotion: 'smile' },
+            { speaker: '주작', text: '내가, 그 사랑이 — 다 — 타지 않게, 정화해주겠네.' },
         ],
         addCompanion: {
             id: 'jujak',
@@ -485,7 +505,7 @@ const SCENES_CH10 = {
             portrait: 'assets/images/portraits/jujak_neutral.png',
             affinity: 10,
         },
-        setFlags: { jujak_joined: true, sashin_count_4: true },
+        setFlags: { jujak_joined: true, sashin_count_4: true, jujak_visited: true },
         next: 'ch10_route_continue'
     },
 
@@ -493,13 +513,13 @@ const SCENES_CH10 = {
         image: 'assets/images/ch10_mudang.png',
         characters: { center: { char: 'jujak', emotion: 'smile' } },
         dialogue: [
-            { speaker: '주작', text: '...허락을, 구하시는군요.', emotion: 'smile' },
-            { speaker: '주작', text: '그것이 — 정중함이지요.' },
-            { speaker: '주작', text: '저, 받아드릴게요. 보여주세요.' },
+            { speaker: '주작', text: '...허락을, 구하시는군.', emotion: 'smile' },
+            { speaker: '주작', text: '그것이 — 정중함일세.' },
+            { speaker: '주작', text: '받겠네. 보여주시게.' },
             { speaker: '', text: '손을 — 잡는다.' },
             { speaker: '', text: '주작의 — 따뜻함이, 손바닥을 — 통해, 들어온다.' },
-            { speaker: '주작', text: '...당신은, 정중한 — 사람이에요.', emotion: 'smile' },
-            { speaker: '주작', text: '함께 가지요.' },
+            { speaker: '주작', text: '...당신은, 정중한 — 사람이군.', emotion: 'smile' },
+            { speaker: '주작', text: '함께 가세.' },
         ],
         addCompanion: {
             id: 'jujak',
@@ -507,7 +527,7 @@ const SCENES_CH10 = {
             portrait: 'assets/images/portraits/jujak_neutral.png',
             affinity: 8,
         },
-        setFlags: { jujak_joined: true, sashin_count_4: true },
+        setFlags: { jujak_joined: true, sashin_count_4: true, jujak_visited: true },
         next: 'ch10_route_continue'
     },
 
@@ -515,13 +535,13 @@ const SCENES_CH10 = {
         image: 'assets/images/ch10_mudang.png',
         characters: { center: { char: 'jujak', emotion: 'sad' } },
         dialogue: [
-            { speaker: '주작', text: '...주저하시는군요.', emotion: 'sad' },
-            { speaker: '주작', text: '그것도, 답이에요. 사람의 마음에는 — 닫혀 있어야 — 할 — 자리도, 있으니까요.' },
-            { speaker: '주작', text: '오늘은, 그 — 닫힘을, 존중할게요.' },
-            { speaker: '주작', text: '함께 가지는, 못해도 — 멀리서, 노래는 — 부쳐드릴게요.' },
+            { speaker: '주작', text: '...주저하시는군.', emotion: 'sad' },
+            { speaker: '주작', text: '그것도, 답일세. 사람의 마음에는 — 닫혀 있어야 — 할 — 자리도, 있는 법이지.' },
+            { speaker: '주작', text: '오늘은, 그 — 닫힘을, 존중하겠네.' },
+            { speaker: '주작', text: '함께 가지는, 못해도 — 멀리서, 노래는 — 부쳐 보내지.' },
             { speaker: '주작', text: '내일 — 자정에, 한강 어귀에서.' },
         ],
-        setFlags: { jujak_distant_aid: true },
+        setFlags: { jujak_distant_aid: true, jujak_visited: true },
         next: 'ch10_route_continue'
     },
 
@@ -529,18 +549,50 @@ const SCENES_CH10 = {
     //  3막: 다음 — 사신, 그리고 마무리
     // ==========================================
 
+    // 라우터 — 사신 방문 단계별로 다음 경로 결정
+    // 각 사신 결과 노드(_pass / _distant_aid 등)에 N_visited flag 추가됨
+    // 우선순위: 3 visited(끝) → 2 visited(마지막 한 곳) → 1 visited(첫 방문 후 done_1)
     ch10_route_continue: {
         image: 'assets/images/ch10_seoul_dawn.png',
-        // 안 가본 곳으로 이동 — 단순화: 모두 한 번씩 방문하는 라우팅
         nextIf: [
-            { condition: { allFlags: ['ch10_route_east_first', 'cheongryong_joined'] },     next: 'ch10_route_east_done_1' },
-            { condition: { allFlags: ['ch10_route_east_first', 'cheongryong_distant_aid'] }, next: 'ch10_route_east_done_1' },
-            { condition: { allFlags: ['ch10_route_west_first', 'baekho_joined'] },           next: 'ch10_route_west_done_1' },
-            { condition: { allFlags: ['ch10_route_west_first', 'baekho_distant_aid'] },      next: 'ch10_route_west_done_1' },
-            { condition: { allFlags: ['ch10_route_south_first', 'jujak_joined'] },           next: 'ch10_route_south_done_1' },
-            { condition: { allFlags: ['ch10_route_south_first', 'jujak_distant_aid'] },      next: 'ch10_route_south_done_1' },
+            // 3 visited — 모두 방문 끝 → summary
+            { condition: { allFlags: ['cheongryong_visited', 'baekho_visited', 'jujak_visited'] }, next: 'ch10_summary' },
+            // 2 visited — 안 간 한 곳으로 (마지막 방문)
+            { condition: { allFlags: ['cheongryong_visited', 'baekho_visited'], noneOfFlags: ['jujak_visited'] }, next: 'ch10_to_jujak' },
+            { condition: { allFlags: ['cheongryong_visited', 'jujak_visited'], noneOfFlags: ['baekho_visited'] }, next: 'ch10_to_baekho' },
+            { condition: { allFlags: ['baekho_visited', 'jujak_visited'], noneOfFlags: ['cheongryong_visited'] }, next: 'ch10_to_cheongryong' },
+            // 1 visited — 첫 방문 후 → 첫 방문 순서에 따라 done_1
+            { condition: { allFlags: ['ch10_route_east_first', 'cheongryong_visited'] }, next: 'ch10_route_east_done_1' },
+            { condition: { allFlags: ['ch10_route_west_first', 'baekho_visited'] },      next: 'ch10_route_west_done_1' },
+            { condition: { allFlags: ['ch10_route_south_first', 'jujak_visited'] },      next: 'ch10_route_south_done_1' },
         ],
         next: 'ch10_summary'
+    },
+
+    // 마지막 한 사신 만나러 가는 narration 노드들 (2 visited → 3번째 사신)
+    ch10_to_cheongryong: {
+        image: 'assets/images/ch10_seoul_dawn.png',
+        dialogue: [
+            { speaker: '', text: '...두 곳을, 마쳤다.' },
+            { speaker: '', text: '마지막 — 강남 카페로.' },
+        ],
+        next: 'ch10_cheongryong_arrive_2'
+    },
+    ch10_to_baekho: {
+        image: 'assets/images/ch10_seoul_dawn.png',
+        dialogue: [
+            { speaker: '', text: '...두 곳을, 마쳤다.' },
+            { speaker: '', text: '마지막 — 한강 검도장으로.' },
+        ],
+        next: 'ch10_baekho_arrive_2'
+    },
+    ch10_to_jujak: {
+        image: 'assets/images/ch10_seoul_dawn.png',
+        dialogue: [
+            { speaker: '', text: '...두 곳을, 마쳤다.' },
+            { speaker: '', text: '마지막 — 명동 무당집으로.' },
+        ],
+        next: 'ch10_jujak_arrive_2'
     },
 
     // 단순 라우팅: 첫 방문 후 두 곳 더 (자동으로 모두 방문)
@@ -591,7 +643,7 @@ const SCENES_CH10 = {
     // ==========================================
 
     ch10_summary: {
-        image: 'assets/images/ch10_seoul_noon.png',
+        image: 'assets/images/ch10_seoul_dawn.png',
         bgm: 'ch10',
         dialogue: [
             { speaker: '', text: '낮이 — 끝나간다.' },
@@ -610,7 +662,7 @@ const SCENES_CH10 = {
     },
 
     ch10_count_check: {
-        image: 'assets/images/ch10_seoul_noon.png',
+        image: 'assets/images/ch10_seoul_dawn.png',
         // 합류 수 분기 (sashin_count_*)
         nextIf: [
             { condition: { flag: 'sashin_count_4' }, next: 'ch10_count_full' },
@@ -621,7 +673,7 @@ const SCENES_CH10 = {
     },
 
     ch10_count_full: {
-        image: 'assets/images/ch10_seoul_noon.png',
+        image: 'assets/images/ch10_seoul_dawn.png',
         dialogue: [
             { speaker: '전우치', text: '...완벽한데요. (씩 웃으며)', emotion: 'smile' },
             { speaker: '전우치', text: '네 마리 — 다, 모셨네요. 천 년 — 만의, 사신 — 회의예요.' },
@@ -632,7 +684,7 @@ const SCENES_CH10 = {
     },
 
     ch10_count_three: {
-        image: 'assets/images/ch10_seoul_noon.png',
+        image: 'assets/images/ch10_seoul_dawn.png',
         dialogue: [
             { speaker: '전우치', text: '...세 분, 모셨네요.', emotion: 'smile' },
             { speaker: '전우치', text: '이무기 — 막기엔, 충분해요.' },
@@ -643,7 +695,7 @@ const SCENES_CH10 = {
     },
 
     ch10_count_two: {
-        image: 'assets/images/ch10_seoul_noon.png',
+        image: 'assets/images/ch10_seoul_dawn.png',
         dialogue: [
             { speaker: '전우치', text: '...두 분이세요.', emotion: 'serious' },
             { speaker: '전우치', text: '최소한의 — 조건은, 채웠어요.' },
@@ -654,7 +706,7 @@ const SCENES_CH10 = {
     },
 
     ch10_count_one: {
-        image: 'assets/images/ch10_seoul_noon.png',
+        image: 'assets/images/ch10_seoul_dawn.png',
         dialogue: [
             { speaker: '전우치', text: '...아.', emotion: 'sad' },
             { speaker: '전우치', text: '한 분 — 만이시네요.' },
@@ -667,7 +719,7 @@ const SCENES_CH10 = {
     },
 
     ch10_aftermath: {
-        image: 'assets/images/ch10_seoul_dusk.png',
+        image: 'assets/images/ch10_seoul_dawn.png',
         bgm: 'ch10',
         dialogue: [
             { speaker: '', text: '낮의 끝.' },
@@ -683,7 +735,7 @@ const SCENES_CH10 = {
     },
 
     ch10_final: {
-        image: 'assets/images/ch10_seoul_dusk.png',
+        image: 'assets/images/ch10_seoul_dawn.png',
         showFlowchart: 'ch10',
         dialogue: [],
         next: 'ch11_intro',

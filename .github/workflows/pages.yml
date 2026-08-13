@@ -1,0 +1,39 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch: # 수동 실행 버튼도 제공
+
+# GITHUB_TOKEN 이 Pages 에 배포할 수 있도록 권한 부여
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 동시 배포 방지 (진행 중 배포는 유지, 대기열은 최신 것만)
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: . # 저장소 루트 전체를 그대로 배포
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

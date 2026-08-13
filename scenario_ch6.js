@@ -11,7 +11,7 @@ const SCENES_CH6 = {
 
     ch6_intro: {
         chapter: { number: '제6장', title: '천 년의 이야기' },
-        image: 'assets/images/ch6_hideout_morning.png',
+        image: 'assets/images/ch5_hideout_dawn.png',
         imageEffect: 'ken-burns',
         bgm: 'ch6',
         dialogue: [
@@ -24,7 +24,7 @@ const SCENES_CH6 = {
     },
 
     ch6_status: {
-        image: 'assets/images/ch6_hideout_morning.png',
+        image: 'assets/images/ch5_hideout_dawn.png',
         setFlagsIf: [
             { condition: { flag: 'ch5_haeun_in' },     flags: { ch6_haeun_in: true } },
             { condition: { flag: 'ch5_seoyeon_in' },   flags: { ch6_seoyeon_in: true } },
@@ -36,13 +36,13 @@ const SCENES_CH6 = {
     },
 
     ch6_circle: {
-        image: 'assets/images/ch6_circle.png',
+        image: 'assets/images/ch5_hideout_dawn.png',
         characters: {
             left:  { char: 'haeun',     condition: { flag: 'ch6_haeun_in' } },
             right: { char: 'jeonwoochi', emotion: 'serious' },
         },
         dialogue: [
-            { speaker: '', text: '낮은 — 둥근 — 상.' },
+            { speaker: '', text: '낮은 — 네모난 — 상.' },
             { speaker: '', text: '그 위에, 차 다섯 잔.' },
             { speaker: '', text: '도사가 — 그 가운데, 앉아 있다.' },
             { speaker: '전우치', text: '드세요. 산속에서 — 직접, 캐온 — 좋은 — 약초예요.', emotion: 'smile' },
@@ -64,6 +64,7 @@ const SCENES_CH6 = {
     ch6_thousand_years: {
         image: 'assets/images/ch6_old_hangang.png',
         imageEffect: 'ken-burns',
+        bgOnly: true,  // 천 년 전 한강 어귀 — 중요 BG, portrait 등장 X
         dialogue: [
             { speaker: '전우치', text: '천 년 — 전, 한강 어귀에 — 한 마리의, 큰 뱀이 살았어요.', emotion: 'serious' },
             { speaker: '전우치', text: '오래 묵은 — 이무기였죠. 그 친구가요.' },
@@ -76,7 +77,9 @@ const SCENES_CH6 = {
     },
 
     ch6_imugi_failure: {
-        image: 'assets/images/ch6_old_hangang.png',
+        image: 'assets/images/ch6_imugi_legend.png',
+        imageEffect: 'ken-burns',
+        bgOnly: true,  // 이무기 전설 — 중요 BG, portrait 등장 X
         dialogue: [
             { speaker: '전우치', text: '용이 되려면 — 정(正)한 마음이, 필요해요.', emotion: 'serious' },
             { speaker: '전우치', text: '근데 — 그 친구는, 한이 — 너무 — 깊었거든요.' },
@@ -97,10 +100,12 @@ const SCENES_CH6 = {
 
     ch6_seal_break: {
         image: 'assets/images/ch6_seal_break.png',
+        bgOnly: true,  // 봉인 깨짐 — 중요 BG, portrait 등장 X
         dialogue: [
             { speaker: '전우치', text: '봉인은 — 영원할 — 수, 없어요.', emotion: 'serious' },
             { speaker: '전우치', text: '이번 주, 그게 — 깨졌고요.' },
-            { speaker: '전우치', text: '이무기 — 그 친구가, 깨어난 거예요. 천 년 — 동안, 한이 — 더 깊어진 채로요.' },
+            // 봉인 깨진 후 → 깨어난 이무기의 복수 음모 시점 (BG 전환)
+            { speaker: '전우치', text: '이무기 — 그 친구가, 깨어난 거예요. 천 년 — 동안, 한이 — 더 깊어진 채로요.', image: 'assets/images/ch6_imugi_revenge.png' },
             { speaker: '전우치', text: '그리고 — 깨어난 — 그 친구가, 좀, 영리해졌더라고요.' },
             { speaker: '전우치', text: '바로 승천하는 대신 — 서울 사람들의 부정적 기를, 천천히 — 모으는, 방법을 — 택했어요.' },
             { speaker: '전우치', text: '시기, 질투, 출산율 저하, 자기혐오, 비교, 분노 — 그 — 모든 것을요.' },
@@ -117,7 +122,7 @@ const SCENES_CH6 = {
     // ==========================================
 
     ch6_explain_ihyung: {
-        image: 'assets/images/ch6_ihyung_diagram.png',
+        image: 'assets/images/ch5_hideout_dawn.png',
         characters: {
             center: { char: 'jeonwoochi', emotion: 'serious' },
         },
@@ -147,6 +152,7 @@ const SCENES_CH6 = {
 
     ch6_explain_sashin: {
         image: 'assets/images/ch6_sashin_diagram.png',
+        bgOnly: true,  // 사신 도해 — 중요 BG, portrait 등장 X
         dialogue: [
             { speaker: '전우치', text: '이무기를 — 막을 수 — 있는 건, 사신 — 네 — 짐승이에요.', emotion: 'serious' },
             { speaker: '전우치', text: '청룡, 백호, 주작, 현무.' },
@@ -165,7 +171,7 @@ const SCENES_CH6 = {
 
     // 하은이 묘하게 반응 — 현무 떡밥
     ch6_haeun_strange: {
-        image: 'assets/images/ch6_circle.png',
+        image: 'assets/images/ch5_hideout_dawn.png',
         characters: {
             left:  { char: 'haeun',     condition: { flag: 'ch6_haeun_in' }, emotion: 'worried' },
             right: { char: 'jeonwoochi' },
@@ -197,7 +203,7 @@ const SCENES_CH6 = {
 
     // 전우치가 주인공을 묘하게 본다 (B안 트위스트 떡밥)
     ch6_protagonist_glance: {
-        image: 'assets/images/ch6_circle.png',
+        image: 'assets/images/ch5_hideout_dawn.png',
         characters: {
             center: { char: 'jeonwoochi', emotion: 'sad' },
         },
@@ -208,6 +214,11 @@ const SCENES_CH6 = {
             { speaker: '', text: '눈에서, 어제 봤던 그것이 — 또, 흔들린다.' },
             { speaker: '', text: '슬픔. 그리움. 미안함.' },
             { speaker: '', text: '하지만, 이번엔 — 미소로 — 덮지 않는다.' },
+            { react: [
+                { text: '...왜 그런 눈으로.', say: '...왜 그런 눈으로 보지. 처음 보는 사람한테.' },
+                { text: '나도 알아야 한다.',  say: '나도 — 알아야 한다. 내 일이잖아.' },
+                { text: '...무섭다.',          say: '...무섭다. 저 눈빛이.' },
+            ]},
             { speaker: '전우치', text: '...당신은, 또 — 다른 이야기예요.', emotion: 'sad' },
             { speaker: '전우치', text: '그건 — 좀 더, 시간이 — 지난 — 후에, 풀어드릴게요.' },
             { speaker: '전우치', text: '지금은 — 모르시는 게, 좋아요.' },
@@ -223,75 +234,26 @@ const SCENES_CH6 = {
     //  4막: 무엇을 — 먼저 할 것인가
     // ==========================================
 
+    // 다음 행선지 안내 — 분기 없이 직선 narration (장산범 → 자료벽 주인 순서로 진행)
     ch6_choice_focus: {
-        image: 'assets/images/ch6_circle.png',
+        image: 'assets/images/ch5_hideout_dawn.png',
         characters: {
             center: { char: 'jeonwoochi' },
         },
         dialogue: [
             { speaker: '전우치', text: '...자, 정리할까요.', emotion: 'serious' },
             { speaker: '전우치', text: '이무기를 — 막으려면, 사신을 — 모아야 해요.' },
-            { speaker: '전우치', text: '근데 — 그 전에, 단서를 — 더 — 모아야 — 하고요.' },
-            { speaker: '전우치', text: '제가 — 들고 있는 — 정보로는, 두 — 군데 — 가볼 — 자리가, 있어요.' },
-            { speaker: '전우치', text: '첫째, 장산범 — 그 친구. 이무기의 — 정탐꾼인데, 정보를 — 가지고 있어요.' },
-            { speaker: '전우치', text: '둘째, 자료벽 — 주인. 누군지는 — 모르지만, 이미 — 이 일을, 추적하고 — 있던 — 분이에요.' },
-            { speaker: '전우치', text: '...자, 어디부터 — 가실래요?' },
-        ],
-        choices: [
-            { text: '"장산범부터 — 적의 정보부터 알아야 해."',
-              setFlags: { ch6_chose_jangsanbeom: true },
-              stats: { courage: 3 },
-              next: 'ch6_chose_jangsan' },
-            { text: '"자료벽 주인부터 — 우리 편을 찾자."',
-              setFlags: { ch6_chose_observer: true },
-              stats: { wisdom: 2, love: 1 },
-              next: 'ch6_chose_observer' },
-            { text: '"...둘 다, 한 번에. 둘로 나뉘어서."',
-              setFlags: { ch6_split_party: true },
-              stats: { wisdom: 2, courage: 1 },
-              requires: { wisdom: 5 },
-              next: 'ch6_split' },
-        ]
-    },
-
-    ch6_chose_jangsan: {
-        image: 'assets/images/ch6_circle.png',
-        characters: { center: { char: 'jeonwoochi' } },
-        dialogue: [
-            { speaker: '전우치', text: '...오, 과감하세요.', emotion: 'smile' },
-            { speaker: '전우치', text: '장산범 — 그 친구는, 인왕산 — 자락에 — 있을 거예요.' },
-            { speaker: '전우치', text: '근데 — 조심하세요. 그 친구, 사람 — 목소리를 — 흉내 — 내거든요.' },
+            { speaker: '전우치', text: '근데 — 그 전에, 두 — 군데 — 들러야 — 해요.' },
+            { speaker: '전우치', text: '먼저 — 인왕산. 장산범 — 그 친구한테, 정보부터 — 받을 거예요.' },
+            { speaker: '전우치', text: '그 친구, 이무기의 — 정탐꾼이지만 — 거래는 — 통하거든요.' },
+            { speaker: '전우치', text: '근데 — 조심하세요. 그 친구, 사람 — 목소리를 — 흉내 — 내거든요.', emotion: 'serious' },
             { speaker: '전우치', text: '동료 — 목소리로, 부르더라도 — 함부로, 답하지 — 마세요.' },
-        ],
-        next: 'ch6_aftermath'
-    },
-
-    ch6_chose_observer: {
-        image: 'assets/images/ch6_circle.png',
-        characters: { center: { char: 'jeonwoochi' } },
-        dialogue: [
-            { speaker: '전우치', text: '...현명한 — 선택일 수도, 있겠네요.', emotion: 'smile' },
-            { speaker: '전우치', text: '자료벽 — 주인은, 어쩌면 — 큰 도움이, 될 — 분이에요.' },
-            { speaker: '전우치', text: '제가 — 그분의, 흔적을 — 한 가지, 알고 있어요.' },
-            { speaker: '전우치', text: '...다만, 만나면 — 알고 — 싶지 않은 — 사실도, 함께 — 알게 — 되실지 몰라요.', emotion: 'sad' },
+            { speaker: '전우치', text: '그 다음 — 자료벽 — 주인. 누군지는 — 모르지만, 이미 — 이 일을, 추적하고 — 있던 — 분이에요.' },
+            { speaker: '전우치', text: '...만나면 — 알고 — 싶지 않은 — 사실도, 함께 — 알게 — 되실지 몰라요.', emotion: 'sad' },
             { speaker: '하은', text: '...무슨 말씀이세요?', condition: { flag: 'ch6_haeun_in' }, emotion: 'worried' },
             { speaker: '전우치', text: '...글쎄요. 만나보시면, 아실 — 거예요.', emotion: 'sad' },
         ],
         setFlags: { observer_hint_seed: true },
-        next: 'ch6_aftermath'
-    },
-
-    ch6_split: {
-        image: 'assets/images/ch6_circle.png',
-        characters: { center: { char: 'jeonwoochi', emotion: 'surprised' } },
-        dialogue: [
-            { speaker: '전우치', text: '...오. 야심차시네요. (씩 웃으며)', emotion: 'surprised' },
-            { speaker: '전우치', text: '둘로 — 나누면, 시간을 — 절반으로, 줄일 수 — 있죠.' },
-            { speaker: '전우치', text: '근데 — 위험해요. 둘 — 다, 안전한 — 자리가 — 아니거든요.' },
-            { speaker: '전우치', text: '...그래도, 해볼 만한 — 가치는, 있어요.' },
-            { speaker: '전우치', text: '제가 — 한 팀에, 붙어드릴게요.' },
-            { speaker: '전우치', text: '7장에서, 두 — 갈래로 — 나뉘는 거예요.' },
-        ],
         next: 'ch6_aftermath'
     },
 
@@ -300,7 +262,7 @@ const SCENES_CH6 = {
     // ==========================================
 
     ch6_aftermath: {
-        image: 'assets/images/ch6_hideout_morning.png',
+        image: 'assets/images/ch5_hideout_dawn.png',
         bgm: 'ch6',
         characters: {
             left:  { char: 'haeun',     condition: { flag: 'ch6_haeun_in' } },
@@ -329,7 +291,7 @@ const SCENES_CH6 = {
     },
 
     ch6_final: {
-        image: 'assets/images/ch6_hideout_morning.png',
+        image: 'assets/images/ch5_hideout_dawn.png',
         showFlowchart: 'ch6',
         dialogue: [],
         next: 'ch7_intro',
@@ -352,13 +314,7 @@ const FLOWCHARTS_CH6 = {
             { type: 'story', text: '사신 — 사람의 모습으로, 이 도시 어딘가에' },
             { type: 'story', text: '하은의 잠재 — 깊은 물의 기운' },
             { type: 'story', text: '주인공의 비밀 — 아직, 알 시간이 아니다' },
-            { type: 'choice', label: '다음 행선지', sceneId: 'ch6_choice_focus',
-              branches: [
-                  { text: '장산범 (적의 정보)' },
-                  { text: '자료벽 주인 (우리 편)' },
-                  { text: '둘로 나뉘어 동시에 (지혜)' },
-              ]
-            },
+            { type: 'story', text: '다음 행선지 — 인왕산 → 약방 (장산범 → 자료벽 주인)' },
             { type: 'story', text: '제6장 — 끝' },
         ],
     },

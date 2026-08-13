@@ -42,8 +42,8 @@ const SCENES_CH11 = {
     ch11_dryness: {
         image: 'assets/images/ch11_dry_road.png',
         characters: {
-            left:  { char: 'jeonwoochi' },
-            right: { char: 'haeun', condition: { flag: 'ch11_haeun_in' } },
+            left:  { char: 'jeonwoochi', appearOnSpeak: true },
+            right: { char: 'haeun', condition: { flag: 'ch11_haeun_in' }, appearOnSpeak: true },
         },
         dialogue: [
             { speaker: '', text: '걸음을 — 옮기는데, 이상하다.' },
@@ -64,7 +64,7 @@ const SCENES_CH11 = {
     // ==========================================
 
     ch11_appearance: {
-        image: 'assets/images/ch11_gangcheoli.png',
+        image: 'assets/images/ch11_dry_road.png',
         imageEffect: 'ken-burns',
         bgm: 'ch11_combat',
         characters: {
@@ -89,10 +89,10 @@ const SCENES_CH11 = {
     },
 
     ch11_combat_start: {
-        image: 'assets/images/ch11_combat_start.png',
+        image: 'assets/images/ch11_dry_road.png',
         characters: {
-            left:  { char: 'jeonwoochi', emotion: 'serious' },
-            center: { char: 'gangcheoli' },
+            left:  { char: 'jeonwoochi', emotion: 'serious', appearOnSpeak: true },
+            right: { char: 'gangcheoli' },
         },
         dialogue: [
             { speaker: '', text: '도사가, 한 발 — 앞으로.' },
@@ -112,10 +112,10 @@ const SCENES_CH11 = {
     },
 
     ch11_jeonwoochi_falls: {
-        image: 'assets/images/ch11_combat_struggle.png',
+        image: 'assets/images/ch11_dry_road.png',
         characters: {
-            left:  { char: 'jeonwoochi', emotion: 'sad' },
-            center: { char: 'gangcheoli' },
+            left:  { char: 'jeonwoochi', emotion: 'sad', appearOnSpeak: true },
+            right: { char: 'gangcheoli' },
         },
         dialogue: [
             { speaker: '', text: '도사가 — 무릎을 꿇는다.' },
@@ -137,7 +137,7 @@ const SCENES_CH11 = {
     // ==========================================
 
     ch11_protagonist_breaks: {
-        image: 'assets/images/ch11_protagonist_awaken.png',
+        image: 'assets/images/ch11_dry_road.png',
         imageEffect: 'ken-burns',
         bgm: 'ch11_awakening',
         dialogue: [
@@ -157,10 +157,9 @@ const SCENES_CH11 = {
     },
 
     ch11_first_strike: {
-        image: 'assets/images/ch11_blue_burst.png',
-        characters: {
-            center: { char: 'gangcheoli', emotion: 'surprised' },
-        },
+        image: 'assets/images/ch11_gangcheoli_struck.png',
+        imageEffect: 'ken-burns',
+        characters: {},
         dialogue: [
             { speaker: '', text: '입에서 — 모르는 단어가, 자기 자리를 — 찾아 — 쏟아진다.' },
             { speaker: '???', text: '"청풍천검(淸風千劍)!"', emotion: 'serious' },
@@ -177,7 +176,7 @@ const SCENES_CH11 = {
     },
 
     ch11_gangcheoli_dying: {
-        image: 'assets/images/ch11_gangcheoli_dying.png',
+        image: 'assets/images/ch11_dry_road.png',
         characters: {
             center: { char: 'gangcheoli', emotion: 'sad' },
         },
@@ -201,9 +200,9 @@ const SCENES_CH11 = {
     // ==========================================
 
     ch11_jeonwoochi_revelation: {
-        image: 'assets/images/ch11_jeonwoochi_smile.png',
+        image: 'assets/images/ch11_dry_road.png',
         characters: {
-            center: { char: 'jeonwoochi', emotion: 'sad' },
+            center: { char: 'jeonwoochi', emotion: 'sad', appearOnSpeak: true },
         },
         dialogue: [
             { speaker: '', text: '도사가 — 일어선다.' },
@@ -225,7 +224,7 @@ const SCENES_CH11 = {
     },
 
     ch11_truth_reveal: {
-        image: 'assets/images/ch11_two_jeonwoochi.png',
+        image: 'assets/images/ch11_dry_road.png',
         dialogue: [
             { speaker: '전우치', text: '천 년 — 전, 봉인을 — 만들 — 때. 저는 — 저 — 자신을, 두 — 조각으로 — 나눴어요.', emotion: 'sad' },
             { speaker: '전우치', text: '9할은 — 이층에. 거기서, 사신을 — 깨우는 — 잠재 — 도술로, 흩뿌려뒀어요.' },
@@ -240,6 +239,11 @@ const SCENES_CH11 = {
             { speaker: '', text: '도술의 — 잔향. 천 년의 — 무게.' },
             { speaker: '', text: '...아.' },
             { speaker: '', text: '...진짜네.' },
+            { react: [
+                { text: '...설명이 다 되네.',  say: '...설명이 다 되네. 이름이 울렸던 것도, 그림 속 얼굴도, 이향의 예언도.' },
+                { text: '받아들이기 너무 무거워.', say: '받아들이기 너무 무거워. 어제까진 평범한 직장인이었는데.' },
+                { text: '...구미호가 떠오른다.', say: '...구미호가 떠오른다. 그녀는 — 천 년 — 나를 기다린 거였어.' },
+            ]},
             { speaker: '하은', text: '...!! 무슨 — 소리예요?', condition: { flag: 'ch11_haeun_in' }, emotion: 'surprised' },
             { speaker: '서연', text: '이 사람이 — 도사라뇨...', condition: { flag: 'ch11_seoyeon_in' }, emotion: 'surprised' },
         ],
@@ -252,7 +256,7 @@ const SCENES_CH11 = {
     // ==========================================
 
     ch11_choice_accept: {
-        image: 'assets/images/ch11_two_jeonwoochi.png',
+        image: 'assets/images/ch11_dry_road.png',
         characters: {
             center: { char: 'jeonwoochi' },
         },
@@ -265,21 +269,30 @@ const SCENES_CH11 = {
         choices: [
             { text: '"...받아들인다. 나는, 전우치다."',
               setFlags: { protagonist_accepted_truth: true, full_dosul_unlocked: true },
-              stats: { courage: 8, wisdom: 3 },
+              stats: { wisdom: 1, calm: -1 },
               next: 'ch11_accept_path' },
             { text: '"...아직, 모르겠어. 시간을 — 줘."',
               setFlags: { protagonist_unsure: true, partial_dosul_unlocked: true },
-              stats: { wisdom: 2, calm: 2 },
+              stats: { calm: 1, courage: -1 },
               next: 'ch11_unsure_path' },
             { text: '"...나는, 그냥 — 사람이고 싶어. 거부한다."',
               setFlags: { protagonist_rejected_truth: true },
-              stats: { love: 2, courage: 1 },
+              stats: { love: 1, wisdom: -1 },
               next: 'ch11_reject_path' },
+            // 호감도 게이트 — 동료들의 응원으로 진실을 받아들이는 길
+            { text: '"...너희가 — 곁에 있으니, 받아들일 수 있어." (동료를 본다)',
+              requires: { affinity: { haeun: 7 } },
+              lockedText: '하은과의 깊은 유대가 필요하다',
+              statHint: '함께라면 두렵지 않다',
+              setFlags: { protagonist_accepted_truth: true, full_dosul_unlocked: true, ch11_companions_supported: true },
+              stats: { courage: 1, love: 1 },
+              affinity: { haeun: 1 },
+              next: 'ch11_accept_path' },
         ]
     },
 
     ch11_accept_path: {
-        image: 'assets/images/ch11_protagonist_full.png',
+        image: 'assets/images/ch11_dry_road.png',
         dialogue: [
             { speaker: '', text: '"...나는, 전우치다."' },
             { speaker: '', text: '입 밖으로, 그 말이 — 나오는 — 순간.' },
@@ -298,7 +311,7 @@ const SCENES_CH11 = {
     },
 
     ch11_unsure_path: {
-        image: 'assets/images/ch11_protagonist_partial.png',
+        image: 'assets/images/ch11_dry_road.png',
         dialogue: [
             { speaker: '', text: '"...아직, 모르겠어."' },
             { speaker: '', text: '몸이 — 흔들린다.' },
@@ -310,7 +323,7 @@ const SCENES_CH11 = {
     },
 
     ch11_reject_path: {
-        image: 'assets/images/ch11_protagonist_human.png',
+        image: 'assets/images/ch11_dry_road.png',
         dialogue: [
             { speaker: '', text: '"...나는, 그냥 — 사람이고 싶어."' },
             { speaker: '', text: '몸이 — 따뜻해진다.' },
@@ -329,7 +342,7 @@ const SCENES_CH11 = {
     // ==========================================
 
     ch11_aftermath: {
-        image: 'assets/images/ch11_river_distant.png',
+        image: 'assets/images/ch11_river_returning.png',
         bgm: 'ch11',
         dialogue: [
             { speaker: '', text: '강철이가, 사라진 — 자리.' },
@@ -360,7 +373,7 @@ const SCENES_CH11 = {
     },
 
     ch11_final: {
-        image: 'assets/images/ch11_river_distant.png',
+        image: 'assets/images/ch11_river_returning.png',
         showFlowchart: 'ch11',
         dialogue: [],
         next: 'ch12_intro',

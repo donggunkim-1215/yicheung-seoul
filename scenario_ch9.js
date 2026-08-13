@@ -25,12 +25,21 @@ const SCENES_CH9 = {
 
     ch9_status: {
         image: 'assets/images/ch9_dusk_park.png',
+        // 치트 진입 보호 — 정체 공개 flag 강제 set (정상 플레이엔 영향 없음)
+        setFlags: { gumiho_revealed: true, imugi_revealed: true },
+        // 정상 매핑 + 동료 root flag fallback
         setFlagsIf: [
-            { condition: { flag: 'ch8_haeun_in' },     flags: { ch9_haeun_in: true } },
-            { condition: { flag: 'ch8_seoyeon_in' },   flags: { ch9_seoyeon_in: true } },
-            { condition: { flag: 'ch8_eoduksini_in' }, flags: { ch9_eoduksini_in: true } },
-            { condition: { flag: 'ch8_pet_cat' },      flags: { ch9_pet_cat: true } },
-            { condition: { flag: 'ch8_pet_dog' },      flags: { ch9_pet_dog: true } },
+            { condition: { flag: 'ch8_haeun_in' },         flags: { ch9_haeun_in: true } },
+            { condition: { flag: 'has_companion' },        flags: { ch9_haeun_in: true } },
+            { condition: { flag: 'ch8_seoyeon_in' },       flags: { ch9_seoyeon_in: true } },
+            { condition: { flag: 'with_seoyeon' },         flags: { ch9_seoyeon_in: true } },
+            { condition: { flag: 'ch8_eoduksini_in' },     flags: { ch9_eoduksini_in: true } },
+            { condition: { flag: 'eoduksini_companion' },  flags: { ch9_eoduksini_in: true } },
+            { condition: { flag: 'eoduksini_returned' },   flags: { ch9_eoduksini_in: true } },
+            { condition: { flag: 'ch8_pet_cat' },          flags: { ch9_pet_cat: true } },
+            { condition: { flag: 'has_datnyangi' },        flags: { ch9_pet_cat: true } },
+            { condition: { flag: 'ch8_pet_dog' },          flags: { ch9_pet_dog: true } },
+            { condition: { flag: 'has_hwangdokgu' },       flags: { ch9_pet_dog: true } },
         ],
         next: 'ch9_pause'
     },
@@ -68,15 +77,15 @@ const SCENES_CH9 = {
             { speaker: '닷냥이', text: '...!', condition: { flag: 'ch9_pet_cat' }, emotion: 'serious' },
             { speaker: '황덕구', text: '컹!', condition: { flag: 'ch9_pet_dog' }, emotion: 'serious' },
             { speaker: '', text: '정자의 — 입구에.' },
-            { speaker: '', text: '한 — 아름다운 — 그림자가, 천천히 — 들어선다.' },
-            { speaker: '', text: '검은 머리. 검은 옷.' },
+            { speaker: '', text: '한 — 아름다운 — 형체가, 천천히 — 들어선다.' },
+            { speaker: '', text: '흰 머리. 흰 옷. 그리고 머리 위로, 뒤로 — 흰 꼬리.' },
             { speaker: '', text: '...구미호.' },
         ],
         next: 'ch9_gumiho_appears'
     },
 
     ch9_gumiho_appears: {
-        image: 'assets/images/ch9_gumiho_visit.png',
+        image: 'assets/images/ch9_pavilion.png',
         characters: {
             center: { char: 'gumiho', emotion: 'sad' },
         },
@@ -102,7 +111,7 @@ const SCENES_CH9 = {
 
     // 첫 번째 분기 — 구미호를 어떻게 대할 것인가
     ch9_first_choice: {
-        image: 'assets/images/ch9_gumiho_visit.png',
+        image: 'assets/images/ch9_pavilion.png',
         characters: {
             center: { char: 'gumiho' },
         },
@@ -112,23 +121,33 @@ const SCENES_CH9 = {
         choices: [
             { text: '"...들을게요. 무슨 — 말을, 하고 싶어요?"',
               setFlags: { ch9_listened: true },
-              stats: { love: 2 },
+              stats: { love: 1 },
               next: 'ch9_listen_path' },
             { text: '"...당신, 우리한테 — 거짓을 했잖아. 왜 다시 — 와?"',
               setFlags: { ch9_confronted: true },
-              stats: { courage: 3 },
+              stats: { courage: 1 },
               next: 'ch9_confront_path' },
-            // 7장에서 진실 알면 가능한 분기
+            // 7장에서 진실 알면 가능한 분기 (지혜 게이트)
             { text: '"...당신이 사랑한 — 그 사람, 죽지 않았어. 봉인된 거야."',
               setFlags: { ch9_revealed_first: true },
-              stats: { wisdom: 3 },
-              requires: { wisdom: 9 },
+              stats: { wisdom: 1 },
+              requires: { wisdom: 9, hasCompanion: 'student' },
+              lockedText: '서연의 분석과 깊은 통찰이 필요하다',
               next: 'ch9_truth_first' },
+            // 동료 능력 게이트 — 하은이 같은 여성으로서 마음을 먼저 연다
+            { text: '"하은 — 같은 입장에서, 그녀에게 — 먼저 말을 걸어줘."',
+              requires: { hasCompanion: 'haeun', affinity: { haeun: 5 } },
+              lockedText: '하은과의 깊은 유대가 필요하다',
+              statHint: '여자가 여자에게',
+              setFlags: { ch9_listened: true, ch9_haeun_bridge: true },
+              stats: { love: 1 },
+              affinity: { haeun: 1 },
+              next: 'ch9_listen_path' },
         ]
     },
 
     ch9_listen_path: {
-        image: 'assets/images/ch9_gumiho_visit.png',
+        image: 'assets/images/ch9_pavilion.png',
         characters: {
             center: { char: 'gumiho', emotion: 'sad' },
         },
@@ -148,7 +167,7 @@ const SCENES_CH9 = {
     },
 
     ch9_confront_path: {
-        image: 'assets/images/ch9_gumiho_visit.png',
+        image: 'assets/images/ch9_pavilion.png',
         characters: {
             center: { char: 'gumiho', emotion: 'sad' },
         },
@@ -164,7 +183,7 @@ const SCENES_CH9 = {
     },
 
     ch9_gumiho_continues: {
-        image: 'assets/images/ch9_gumiho_visit.png',
+        image: 'assets/images/ch9_pavilion.png',
         characters: {
             center: { char: 'gumiho' },
         },
@@ -182,13 +201,18 @@ const SCENES_CH9 = {
             { speaker: '구미호', text: '"네가 — 인간이 — 되어, 그자 — 곁에 — 살 수, 있도록 해주마"라고.' },
             { speaker: '구미호', text: '저는 — 그 — 말을, 믿고 — 싶었어요.', emotion: 'sad' },
             { speaker: '구미호', text: '진실보다 — 거짓이, 견디기 — 더, 쉬우니까요.' },
+            { react: [
+                { text: '...속였구나, 이무기.',  say: '...속였구나, 이무기. 백 년 동안 한 짐승을 그렇게.' },
+                { text: '진짜 같아 보였겠지.',  say: '진짜 같아 보였겠지. 사랑 앞에선 — 의심이 잘 안 든다.' },
+                { text: '저 사람이 그 도사일까.', say: '...저 사람이 그 — 봉인 속 도사일까. 전우치가, 자기 봉인을 했다고 했지.' },
+            ]},
         ],
         next: 'ch9_truth_choice'
     },
 
     // 두 번째 분기 — 진실을 어떻게 전할 것인가
     ch9_truth_choice: {
-        image: 'assets/images/ch9_gumiho_visit.png',
+        image: 'assets/images/ch9_pavilion.png',
         characters: {
             center: { char: 'gumiho' },
         },
@@ -201,22 +225,22 @@ const SCENES_CH9 = {
         choices: [
             { text: '"...당신, 알고 있죠? 그분의 — 약속이, 거짓이라는 걸."',
               setFlags: { ch9_truth_gentle: true },
-              stats: { love: 3, wisdom: 2 },
+              stats: { love: 1, courage: -1 },
               next: 'ch9_truth_path' },
             { text: '"...그 도사, 죽지 않았어요. 자기 봉인을 한 거예요. 이무기는 — 거짓을 했고요."',
               setFlags: { ch9_truth_blunt: true },
-              stats: { courage: 4 },
+              stats: { courage: 1, love: -1 },
               next: 'ch9_truth_path' },
             { text: '...아무 말도, 하지 않는다',
               setFlags: { ch9_silence: true },
-              stats: { wisdom: 1, calm: 2 },
+              stats: { calm: 1, love: -1 },
               next: 'ch9_silence_path' },
         ]
     },
 
     // 7장에서 진실 알았으면 — 처음에 진실 던지기 (분기 C)
     ch9_truth_first: {
-        image: 'assets/images/ch9_gumiho_visit.png',
+        image: 'assets/images/ch9_pavilion.png',
         characters: {
             center: { char: 'gumiho', emotion: 'surprised' },
         },
@@ -241,7 +265,7 @@ const SCENES_CH9 = {
     // ==========================================
 
     ch9_truth_path: {
-        image: 'assets/images/ch9_gumiho_breaking.png',
+        image: 'assets/images/ch9_pavilion.png',
         characters: {
             center: { char: 'gumiho', emotion: 'sad' },
         },
@@ -262,7 +286,7 @@ const SCENES_CH9 = {
 
     // 침묵 분기 — 별도 결말
     ch9_silence_path: {
-        image: 'assets/images/ch9_gumiho_visit.png',
+        image: 'assets/images/ch9_pavilion.png',
         characters: {
             center: { char: 'gumiho', emotion: 'sad' },
         },
@@ -285,7 +309,7 @@ const SCENES_CH9 = {
 
     // 구원의 선택
     ch9_save_choice: {
-        image: 'assets/images/ch9_gumiho_breaking.png',
+        image: 'assets/images/ch9_pavilion.png',
         characters: {
             center: { char: 'gumiho' },
         },
@@ -298,22 +322,22 @@ const SCENES_CH9 = {
         choices: [
             { text: '"...우리 — 같이 가자. 함께, 그를 막자."',
               setFlags: { ch9_recruited_gumiho: true, gumiho_companion: true },
-              stats: { love: 5 },
-              affinity: { gumiho: 10 },
+              stats: { love: 1, calm: -1 },
+              affinity: { gumiho: 1 },
               next: 'ch9_recruit_path' },
             { text: '"...당신은, 그분 옆에서 — 떠나줘. 그뿐이야."',
               setFlags: { ch9_asked_to_leave: true, gumiho_neutral: true },
-              stats: { wisdom: 2, courage: 2 },
+              stats: { calm: 1, love: -1 },
               next: 'ch9_neutral_path' },
             { text: '"...당신이 — 결정해. 우리는 — 강요하지 않을게."',
               setFlags: { ch9_let_decide: true, gumiho_undecided: true },
-              stats: { love: 2, wisdom: 2 },
+              stats: { wisdom: 1 },
               next: 'ch9_let_decide_path' },
         ]
     },
 
     ch9_recruit_path: {
-        image: 'assets/images/ch9_gumiho_breaking.png',
+        image: 'assets/images/ch9_pavilion.png',
         characters: {
             center: { char: 'gumiho', emotion: 'surprised' },
         },
@@ -348,7 +372,7 @@ const SCENES_CH9 = {
     },
 
     ch9_neutral_path: {
-        image: 'assets/images/ch9_gumiho_breaking.png',
+        image: 'assets/images/ch9_pavilion.png',
         characters: {
             center: { char: 'gumiho', emotion: 'sad' },
         },
@@ -369,7 +393,7 @@ const SCENES_CH9 = {
     },
 
     ch9_let_decide_path: {
-        image: 'assets/images/ch9_gumiho_breaking.png',
+        image: 'assets/images/ch9_pavilion.png',
         characters: {
             center: { char: 'gumiho', emotion: 'sad' },
         },

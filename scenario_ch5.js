@@ -1,5 +1,5 @@
 /**
- * 이층 : 서울, 0시 — 제5장: 푸른 옷의 도사
+ * 이층 : 서울, 0시 — 제5장: 검은 도포의 도사
  * 이무기 vs 전우치 — 일행 구원, 은신처로
  */
 
@@ -10,8 +10,8 @@ const SCENES_CH5 = {
     // ==========================================
 
     ch5_intro: {
-        chapter: { number: '제5장', title: '푸른 옷의 도사' },
-        image: 'assets/images/ch5_jeonwoochi_back.png',
+        chapter: { number: '제5장', title: '검은 도포의 도사' },
+        image: 'assets/images/ch4_cafe_inside.png',
         imageEffect: 'ken-burns',
         bgm: 'ch5',
         dialogue: [
@@ -24,11 +24,13 @@ const SCENES_CH5 = {
     },
 
     ch5_status: {
-        image: 'assets/images/ch5_jeonwoochi_back.png',
+        image: 'assets/images/ch4_cafe_inside.png',
+        // 치트 진입 보호 — 정상 플레이에선 ch3/ch4에서 이미 켜져 있는 정체 공개 flag를 강제 보장
+        setFlags: { gumiho_revealed: true, imugi_revealed: true },
         setFlagsIf: [
             { condition: { flag: 'ch4_haeun_in' },     flags: { ch5_haeun_in: true } },
             { condition: { flag: 'ch4_seoyeon_in' },   flags: { ch5_seoyeon_in: true } },
-            { condition: { flag: 'ch4_eoduksini_in' }, flags: { ch5_eoduksini_in: true } },
+            { condition: { flag: 'ch4_eoduksini_in', noneOfFlags: ['eoduksini_taken'] }, flags: { ch5_eoduksini_in: true } },
             { condition: { flag: 'ch4_pet_cat' },      flags: { ch5_pet_cat: true } },
             { condition: { flag: 'ch4_pet_dog' },      flags: { ch5_pet_dog: true } },
         ],
@@ -36,16 +38,16 @@ const SCENES_CH5 = {
     },
 
     ch5_facing: {
-        image: 'assets/images/ch5_face_off.png',
+        image: 'assets/images/ch4_cafe_inside.png',
         characters: {
             left:   { char: 'jeonwoochi', emotion: 'serious' },
             right:  { char: 'imugi', emotion: 'serious' },
         },
         dialogue: [
             { speaker: '', text: '두 사람이 — 마주 본다.' },
-            { speaker: '', text: '한쪽은, 푸른 도복.' },
-            { speaker: '', text: '다른 한쪽은, 검은 정장.' },
-            { speaker: '', text: '풍경이 — 서로 어울리지 않는다.' },
+            { speaker: '', text: '한쪽은, 검은 도포.' },
+            { speaker: '', text: '다른 한쪽은, 흰 정장.' },
+            { speaker: '', text: '어둠과 흰빛. 풍경이 — 서로 어울리지 않는다.' },
             { speaker: '', text: '하지만, 둘은 — 서로를, 너무, 잘, 알고 있다.' },
             { speaker: '이무기', text: '...돌아가신, 줄 알았어요.', emotion: 'smile' },
             { speaker: '이무기', text: '천 년 전 — 그 자리에서, 분명히 — 끝낸, 줄 — 알았는데요.' },
@@ -62,7 +64,7 @@ const SCENES_CH5 = {
     },
 
     ch5_release: {
-        image: 'assets/images/ch5_face_off.png',
+        image: 'assets/images/ch4_cafe_inside.png',
         characters: {
             left:   { char: 'jeonwoochi' },
             right:  { char: 'imugi' },
@@ -86,7 +88,7 @@ const SCENES_CH5 = {
     },
 
     ch5_imugi_warns: {
-        image: 'assets/images/ch5_face_off.png',
+        image: 'assets/images/ch4_cafe_inside.png',
         characters: {
             left:   { char: 'jeonwoochi' },
             right:  { char: 'imugi', emotion: 'serious' },
@@ -109,11 +111,11 @@ const SCENES_CH5 = {
     },
 
     // ==========================================
-    //  1막: 푸른 옷의 도사 — 정면
+    //  1막: 검은 도포의 도사 — 정면
     // ==========================================
 
     ch5_jeonwoochi_turns: {
-        image: 'assets/images/ch5_jeonwoochi_face.png',
+        image: 'assets/images/ch4_cafe_inside.png',
         characters: {
             center: { char: 'jeonwoochi', emotion: 'neutral' },
         },
@@ -124,7 +126,7 @@ const SCENES_CH5 = {
             { speaker: '', text: '아니, 정확히 말하면 — 나이를 가늠할 수 없다.' },
             { speaker: '', text: '20대 같기도, 천 살 같기도 — 한.' },
             { speaker: '', text: '머리는 길고, 묶어 올렸다. 눈은 — 깊다.' },
-            { speaker: '', text: '도복은, 푸른색이지만 — 닳았다. 오래 입은 옷처럼.' },
+            { speaker: '', text: '도포는, 검은색이지만 — 낡았다. 오래 입은 옷처럼.' },
             { speaker: '전우치', text: '...괜찮으세요?', emotion: 'smile' },
             { speaker: '전우치', text: '꽤, 많이 — 굴리셨던 — 것 같은데.' },
             { speaker: '', text: '몸을 살펴본다.' },
@@ -139,7 +141,7 @@ const SCENES_CH5 = {
     },
 
     ch5_intro_self: {
-        image: 'assets/images/ch5_jeonwoochi_face.png',
+        image: 'assets/images/ch4_cafe_inside.png',
         characters: {
             center: { char: 'jeonwoochi' },
         },
@@ -151,6 +153,11 @@ const SCENES_CH5 = {
             { speaker: '전우치', text: '그 소설은 — 몇 백 년 — 후에, 후세 사람들이 — 써주신 거고요.', emotion: 'smile' },
             { speaker: '전우치', text: '그 모티브가, 저예요. 이름은 — 그대로, 가져갔지만요.' },
             { speaker: '전우치', text: '일제 강점기쯤 — 한 번, 죽었어야 — 했었는데. (어깨 으쓱) 못 죽었네요.' },
+            { react: [
+                { text: '...진짜 전우치라고?',  say: '...진짜 전우치라고? 교과서에 나오는 그?' },
+                { text: '뭔 소리야 도대체.',     say: '뭔 소리야 도대체. 누가 누구를 뭘 빼서 어디다 둬?' },
+                { text: '말투 가벼운데.',        say: '...말투가 가볍다. 천 살 같지가 않다.' },
+            ]},
             { speaker: '하은', text: '...?', condition: { flag: 'ch5_haeun_in' }, emotion: 'surprised' },
             { speaker: '전우치', text: '도술의 1할쯤을, 미리 — 빼서, 이층에 — 두었거든요.' },
             { speaker: '전우치', text: '그 1할이, 오늘 — 깨어났어요.' },
@@ -163,7 +170,7 @@ const SCENES_CH5 = {
 
     // 전우치가 주인공을 묘한 시선으로 본다 — 트위스트 떡밥
     ch5_jeonwoochi_glance: {
-        image: 'assets/images/ch5_jeonwoochi_face.png',
+        image: 'assets/images/ch4_cafe_inside.png',
         characters: {
             center: { char: 'jeonwoochi', emotion: 'serious' },
         },
@@ -188,7 +195,7 @@ const SCENES_CH5 = {
         image: 'assets/images/ch5_alley_journey.png',
         imageEffect: 'ken-burns',
         characters: {
-            center: { char: 'jeonwoochi' },
+            center: { char: 'jeonwoochi', appearOnSpeak: true },
         },
         dialogue: [
             { speaker: '', text: '카페를 떠난다.' },
@@ -209,7 +216,7 @@ const SCENES_CH5 = {
     ch5_choice_question: {
         image: 'assets/images/ch5_alley_journey.png',
         characters: {
-            center: { char: 'jeonwoochi' },
+            center: { char: 'jeonwoochi', appearOnSpeak: true },
         },
         dialogue: [
             { speaker: '', text: '걸으면서 — 한 가지만, 물어볼 수 있을 것 같다.' },
@@ -218,22 +225,31 @@ const SCENES_CH5 = {
         choices: [
             { text: '"왜 — 나만, 사라지지 않았죠?"',
               setFlags: { ch5_asked_why_remain: true },
-              stats: { wisdom: 2 },
+              stats: { wisdom: 1 },
               next: 'ch5_q_remain' },
             { text: '"손에서 푸른 빛이 났어요. 그게, 뭐죠?"',
               setFlags: { ch5_asked_blue_light: true },
-              stats: { wisdom: 1, courage: 1 },
+              stats: { wisdom: 1, calm: -1 },
               next: 'ch5_q_light' },
             { text: '"이무기를 — 막을 수 있는 건가요?"',
               setFlags: { ch5_asked_imugi: true },
-              stats: { courage: 2 },
+              stats: { courage: 1 },
               next: 'ch5_q_imugi' },
+            // 동료 능력 게이트 — 서연의 분석 노트가 다른 질문을 떠올리게 한다
+            { text: '"서연 — 너의 노트 — 가장, 궁금한 게 뭐였어?"',
+              requires: { hasCompanion: 'student', affinity: { student: 4 } },
+              lockedText: '서연과의 신뢰가 필요하다',
+              statHint: '관찰자가 핵심 질문을 안다',
+              setFlags: { ch5_asked_blue_light: true, ch5_seoyeon_questioned: true },
+              stats: { wisdom: 1 },
+              affinity: { student: 1 },
+              next: 'ch5_q_light' },
         ]
     },
 
     ch5_q_remain: {
         image: 'assets/images/ch5_alley_journey.png',
-        characters: { center: { char: 'jeonwoochi', emotion: 'sad' } },
+        characters: { center: { char: 'jeonwoochi', emotion: 'sad', appearOnSpeak: true } },
         dialogue: [
             { speaker: '전우치', text: '...핵심을, 바로 — 짚으시네요.', emotion: 'serious' },
             { speaker: '전우치', text: '왜 — 당신만, 안 사라졌느냐.' },
@@ -249,7 +265,7 @@ const SCENES_CH5 = {
 
     ch5_q_light: {
         image: 'assets/images/ch5_alley_journey.png',
-        characters: { center: { char: 'jeonwoochi', emotion: 'serious' } },
+        characters: { center: { char: 'jeonwoochi', emotion: 'serious', appearOnSpeak: true } },
         dialogue: [
             { speaker: '전우치', text: '...오. (씩 웃으며)', emotion: 'surprised' },
             { speaker: '전우치', text: '벌써, 그게 — 나오셨네요. 빠르세요.' },
@@ -265,7 +281,7 @@ const SCENES_CH5 = {
 
     ch5_q_imugi: {
         image: 'assets/images/ch5_alley_journey.png',
-        characters: { center: { char: 'jeonwoochi', emotion: 'serious' } },
+        characters: { center: { char: 'jeonwoochi', emotion: 'serious', appearOnSpeak: true } },
         dialogue: [
             { speaker: '전우치', text: '...막을 수 — 있느냐, 라. (씩 웃으며)', emotion: 'smile' },
             { speaker: '전우치', text: '천 년 전엔 — 저 — 혼자, 막았어요. 이번엔 — 좀, 다르네요.' },
@@ -314,7 +330,7 @@ const SCENES_CH5 = {
             { speaker: '', text: '바닥엔 — 두 개의 화로, 그리고 약초의 향기.' },
             { speaker: '', text: '그리고, 가장 안쪽 벽에는 — 한 폭의, 오래된 그림.' },
             { speaker: '', text: '그림 속, 한 사람.' },
-            { speaker: '', text: '도복을 입고, 칼을 든. 푸른 빛 속의 — 도사.' },
+            { speaker: '', text: '도포를 입고, 칼을 든. 푸른 빛 속의 — 도사.' },
             { speaker: '', text: '얼굴은, 보이지 않게, 살짝, 옆으로 돌려져 있다.' },
             { speaker: '하은', text: '...이 그림 속 사람, 누구예요?', condition: { flag: 'ch5_haeun_in' }, emotion: 'worried' },
             { speaker: '전우치', text: '...글쎄요.', emotion: 'sad' },
@@ -354,17 +370,26 @@ const SCENES_CH5 = {
         choices: [
             { text: '도사의 그림을 — 가까이서, 살펴본다',
               setFlags: { ch5_studied_painting: true },
-              stats: { wisdom: 2 },
+              stats: { wisdom: 1 },
               next: 'ch5_painting_close' },
             { text: '잠든 동료들의 얼굴을 — 한 명씩 본다',
               setFlags: { ch5_watched_companions: true },
-              stats: { love: 2 },
-              affinity: { haeun: 2, student: 2, eoduksini: 2 },
+              stats: { love: 1 },
+              affinity: { haeun: 1, student: 1, eoduksini: 1, datnyangi: 1, hwangdokgu: 1 },
               next: 'ch5_watching' },
             { text: '내 손을 — 가만히 — 본다. 푸른 빛을 — 다시, 시도해본다',
               setFlags: { ch5_tried_dosul: true },
-              stats: { courage: 2, wisdom: 1 },
+              stats: { courage: 1, calm: -1 },
               next: 'ch5_try_dosul' },
+            // 호감도 게이트 — 잠 못 드는 하은과 함께 밤을 보낸다
+            { text: '하은 — 옆에서, 혼자 깨어 있다. 함께 — 시간을 보낸다',
+              requires: { hasCompanion: 'haeun', affinity: { haeun: 4 } },
+              lockedText: '하은과의 유대가 필요하다',
+              statHint: '말 없이도 가까워진다',
+              setFlags: { ch5_haeun_night: true },
+              stats: { love: 1 },
+              affinity: { haeun: 1 },
+              next: 'ch5_watching' },
         ]
     },
 
@@ -378,6 +403,11 @@ const SCENES_CH5 = {
             { speaker: '', text: '...' },
             { speaker: '', text: '거울을 — 보는 것 같다.' },
             { speaker: '', text: '심장이, 한 박자, 빠르게.' },
+            { react: [
+                { text: '...착각이다.',          say: '...착각이다. 옛 그림 얼굴이 다 비슷한 거지.' },
+                { text: '내 얼굴이 왜.',         say: '내 얼굴이 왜 — 거기 있지. 우연일 수가 있나.' },
+                { text: '못 본 척하자.',         say: '못 본 척하자. 모르는 게 — 나을 수도 있다.' },
+            ]},
             { speaker: '', text: '아니, 우연이다. 도사의 얼굴이라는 것 — 클리셰적인 형상일 뿐.' },
             { speaker: '', text: '머리를 — 흔든다.' },
             { speaker: '', text: '그래도, 자꾸 — 기억의 어딘가가, 가렵다.' },
@@ -458,7 +488,7 @@ const SCENES_CH5 = {
 const FLOWCHARTS_CH5 = {
     ch5: {
         episode: '제5장',
-        title: '푸른 옷의 도사',
+        title: '검은 도포의 도사',
         tree: [
             { type: 'story', text: '전우치 vs 이무기 — 정면 대치' },
             { type: 'story', text: '이무기 일시 후퇴' },

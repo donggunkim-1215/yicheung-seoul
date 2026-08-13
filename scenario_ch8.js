@@ -32,6 +32,59 @@ const SCENES_CH8 = {
             { condition: { flag: 'ch7_pet_cat' },      flags: { ch8_pet_cat: true } },
             { condition: { flag: 'ch7_pet_dog' },      flags: { ch8_pet_dog: true } },
         ],
+        // 어둑시니 재합류 트리거:
+        //  (a) ch4 인질 후 풀려남 — eoduksini_taken
+        //  (b) ch1 거절했지만 ch8 외로움 부름에 끌려 다시 만남 — eoduksini_refused
+        // 둘 다 ch8_eoduksini_returns로 라우팅. 노드 안에서 condition으로 분기 묘사
+        nextIf: [
+            { condition: { allFlags: ['eoduksini_taken'], noneOfFlags: ['eoduksini_returned', 'eoduksini_companion'] }, next: 'ch8_eoduksini_returns' },
+            { condition: { allFlags: ['eoduksini_refused'], noneOfFlags: ['eoduksini_returned', 'eoduksini_companion'] }, next: 'ch8_eoduksini_returns' },
+        ],
+        next: 'ch8_walking_old'
+    },
+
+    // ===== 어둑시니 재합류 =====
+    //  (a) ch4 인질 후 풀려남 (eoduksini_taken)
+    //  (b) ch1 거절 후 ch8 외로움에 끌려 다시 만남 (eoduksini_refused)
+    ch8_eoduksini_returns: {
+        image: 'assets/images/ch8_seoul_old_road.png',
+        imageEffect: 'ken-burns',
+        characters: { center: { char: 'eoduksini', emotion: 'surprised' } },
+        dialogue: [
+            { speaker: '', text: '...걷고 있는데.' },
+            { speaker: '', text: '내 — 그림자가, 갑자기 — 짙어진다.' },
+            { speaker: '', text: '...?' },
+            { speaker: '', text: '바닥에서, 검은 윤곽이 — 솟구친다.' },
+            { speaker: '어둑시니', text: '...!', emotion: 'surprised' },
+            { speaker: '어둑시니', text: '...찾았다.', emotion: 'smile' },
+            { speaker: '', text: '어둑시니다.' },
+            // (a) ch4 인질 케이스
+            { speaker: '', text: '4장 — 그 카페에서, 이무기에게 흡수됐던, 그 어둑시니.', condition: { flag: 'eoduksini_taken' } },
+            // (b) ch1 거절 케이스 — 손 내밀지 않고 떠났던 그림자
+            { speaker: '', text: '편의점 — 그 — 어둠 속에서, 한 번, 마주쳤던 — 그 아이.', condition: { flag: 'eoduksini_refused' } },
+            { speaker: '', text: '내가 — 손을 내밀지 않고, 떠났던 — 그 그림자.', condition: { flag: 'eoduksini_refused' } },
+            { speaker: '', text: '...어떻게.' },
+            { speaker: '어둑시니', text: '...이무기 — 그 자, 외로움을 — 부르고 있어.', emotion: 'sad' },
+            { speaker: '어둑시니', text: '나와 — 같은, 외로운 — 짐승이, 가까이 — 있어.' },
+            { speaker: '어둑시니', text: '그 부름에, 내 — 결이, 흔들렸어.' },
+            { speaker: '어둑시니', text: '그 — 틈으로, 풀려난 거야.' },
+            { speaker: '하은', text: '어둑시니! 살아 있었어!', condition: { flag: 'ch8_haeun_in' }, emotion: 'smile' },
+            { speaker: '서연', text: '...정말, 다행이에요.', condition: { flag: 'ch8_seoyeon_in' }, emotion: 'smile' },
+            { speaker: '어둑시니', text: '...너희도, 살아 있어. 다행이야.', emotion: 'smile' },
+            { speaker: '전우치', text: '...아, 흥미롭네요.', emotion: 'serious' },
+            { speaker: '전우치', text: '이무기 — 그 친구가, 자기도 — 모르게, 그슨대 — 그 친구를 — 부르고 있는 거예요.' },
+            { speaker: '전우치', text: '같은 외로움. 같은 — 결.' },
+            { speaker: '전우치', text: '그 부름에 — 어둑시니, 함께 — 흔들려서, 풀려난 거고요.' },
+            { speaker: '어둑시니', text: '...같이, 가도 돼?', emotion: 'sad' },
+            { speaker: '', text: '"...당연하지."' },
+        ],
+        setFlags: { eoduksini_returned: true, ch8_eoduksini_in: true, eoduksini_taken: false },
+        addCompanion: {
+            id: 'eoduksini',
+            name: '어둑시니',
+            portrait: 'assets/images/portraits/eoduksini_neutral.png',
+        },
+        affinity: { eoduksini: 1 },
         next: 'ch8_walking_old'
     },
 
@@ -59,7 +112,7 @@ const SCENES_CH8 = {
     // ==========================================
 
     ch8_appearance: {
-        image: 'assets/images/ch8_geuseundae_appear.png',
+        image: 'assets/images/ch8_seoul_old_road.png',
         imageEffect: 'ken-burns',
         bgm: 'ch8_tense',
         characters: {
@@ -86,7 +139,7 @@ const SCENES_CH8 = {
     },
 
     ch8_dialogue: {
-        image: 'assets/images/ch8_geuseundae_appear.png',
+        image: 'assets/images/ch8_seoul_old_road.png',
         characters: {
             center: { char: 'geuseundae' },
         },
@@ -110,7 +163,7 @@ const SCENES_CH8 = {
 
     // 통과 방법 분기
     ch8_choice: {
-        image: 'assets/images/ch8_geuseundae_appear.png',
+        image: 'assets/images/ch8_seoul_old_road.png',
         characters: {
             center: { char: 'geuseundae' },
         },
@@ -121,23 +174,33 @@ const SCENES_CH8 = {
         choices: [
             { text: '"이무기의 — 약속은, 거짓이야. 너에게, 진실을 알려줄게."',
               setFlags: { ch8_persuade: true },
-              stats: { wisdom: 2, love: 2 },
-              requires: { wisdom: 7 },
+              stats: { wisdom: 1, love: -1 },
+              requires: { wisdom: 8 },
+              lockedText: '지혜가 부족하다 — 진실을 꿰뚫지 못한다',
               next: 'ch8_persuade_path' },
             { text: '돌아간다 — 다른 길을 찾는다',
               setFlags: { ch8_detour: true },
-              stats: { wisdom: 1, calm: 1 },
+              stats: { calm: 1, courage: -1 },
               next: 'ch8_detour_path' },
             { text: '도사와 함께 — 정면 돌파',
               setFlags: { ch8_combat: true },
-              stats: { courage: 5 },
+              stats: { courage: 1, calm: -1 },
               next: 'ch8_combat_path' },
+            // 동료 능력 게이트 — 그슨대(외로운 거인)와 어둑시니가 서로 통한다
+            { text: '"어둑시니 — 같은 외로움을 안고 있는 자에게 — 말을 걸어줘."',
+              requires: { hasCompanion: 'eoduksini', affinity: { eoduksini: 4 } },
+              lockedText: '어둑시니와의 깊은 유대가 필요하다',
+              statHint: '외로움이 외로움을 알아본다',
+              setFlags: { ch8_persuade: true, ch8_eoduksini_persuaded: true },
+              stats: { love: 1 },
+              affinity: { eoduksini: 1 },
+              next: 'ch8_persuade_path' },
         ]
     },
 
     // 설득 분기 (지혜 게이트)
     ch8_persuade_path: {
-        image: 'assets/images/ch8_geuseundae_appear.png',
+        image: 'assets/images/ch8_seoul_old_road.png',
         characters: {
             center: { char: 'geuseundae', emotion: 'serious' },
         },
@@ -245,7 +308,7 @@ const SCENES_CH8 = {
             { speaker: '', text: '종묘.' },
             { speaker: '', text: '오백 년 묵은 — 침묵의 자리.' },
             { speaker: '', text: '그 옆 — 작은 골목 안.' },
-            { speaker: '', text: '낡은 나무 간판. "향(香)약방."' },
+            { speaker: '', text: '낡은 나무 간판. "연수당(延壽堂)." 그 옆에 작은 글씨로 — "한의원(韓醫院)."' },
             { speaker: '', text: '문이 — 살짝, 열려 있다.' },
             { speaker: '', text: '안에서, 차 향기가 — 흘러나온다.' },
             { speaker: '전우치', text: '...여기가, 그 — 분의 — 자리예요.', emotion: 'smile' },
@@ -258,6 +321,10 @@ const SCENES_CH8 = {
     ch8_meet_observer: {
         image: 'assets/images/ch8_yakbang_inside.png',
         imageEffect: 'ken-burns',
+        // 약방 내부 묘사 narration 동안엔 BG만 보이고, 이향이 발화하는 라인에서 fade-in
+        characters: {
+            center: { char: 'lee_hyang', alias: '???', appearOnSpeak: true },
+        },
         dialogue: [
             { speaker: '', text: '안.' },
             { speaker: '', text: '벽 가득한 — 약초 서랍. 한쪽 벽에는 — 작은 부적들. 반대쪽 벽에는 — 신문 스크랩과 사진.' },
@@ -277,6 +344,9 @@ const SCENES_CH8 = {
 
     ch8_observer_intro: {
         image: 'assets/images/ch8_yakbang_inside.png',
+        characters: {
+            center: { char: 'lee_hyang', alias: '???' },
+        },
         dialogue: [
             { speaker: '???', text: '...이향이라고 해요. 그냥, 그렇게 — 부르세요.', emotion: 'smile' },
             { speaker: '이향', text: '50년 — 기다렸어요.' },
@@ -295,6 +365,9 @@ const SCENES_CH8 = {
 
     ch8_observer_speaks: {
         image: 'assets/images/ch8_yakbang_inside.png',
+        characters: {
+            center: { char: 'lee_hyang' },
+        },
         dialogue: [
             { speaker: '이향', text: '...당신을, 알아요.', emotion: 'serious' },
             { speaker: '', text: '이향의 시선이, 정확히 — 나에게로.' },
@@ -303,6 +376,11 @@ const SCENES_CH8 = {
             { speaker: '이향', text: '"그를 보면, 너무 — 캐묻지 마라. 시간이 — 가르쳐줄 거다"라고.' },
             { speaker: '', text: '...!' },
             { speaker: '', text: '심장이, 또 — 한 박자, 다르게.' },
+            { react: [
+                { text: '내 얘긴가.',           say: '...내 얘긴가. 50년 전 예언이 — 나일 수가 있나.' },
+                { text: '받아들일 수 없다.',   say: '받아들일 수 없다. 어제까지 평범하게 살던 사람인데.' },
+                { text: '...일단 듣자.',         say: '...일단, 끝까지 듣자. 부정은 그 다음이다.' },
+            ]},
             { speaker: '하은', text: '...무슨 말씀이세요? 누구를 — 잊었다는 거예요?', condition: { flag: 'ch8_haeun_in' }, emotion: 'worried' },
             { speaker: '이향', text: '...글쎄요. 그건, 시간이 — 답을 줄 일이지요.', emotion: 'smile' },
             { speaker: '전우치', text: '(작게) ...할머님은, 다 — 알고 — 계셨어요?', emotion: 'sad' },
@@ -317,6 +395,9 @@ const SCENES_CH8 = {
 
     ch8_observer_offers: {
         image: 'assets/images/ch8_yakbang_inside.png',
+        characters: {
+            center: { char: 'lee_hyang' },
+        },
         dialogue: [
             { speaker: '이향', text: '...자, 시간이 — 별로 없어요.', emotion: 'serious' },
             { speaker: '이향', text: '제가 가진 것, 전부 — 드릴게요.' },
@@ -328,22 +409,25 @@ const SCENES_CH8 = {
         choices: [
             { text: '"...감사합니다. 우리는, 무엇을 — 갚을 수 있을까요?"',
               setFlags: { ch8_grateful: true },
-              stats: { love: 3 },
-              affinity: { jeonwoochi: 3 },
+              stats: { love: 1 },
+              affinity: { jeonwoochi: 1 },
               next: 'ch8_grateful_path' },
             { text: '"...어떻게, 당신을 믿을 수 있죠? 의심부터, 해야 합니다."',
               setFlags: { ch8_doubted: true },
-              stats: { wisdom: 3 },
+              stats: { wisdom: 1, love: -1 },
               next: 'ch8_doubt_path' },
             { text: '"...당신도, 같이 가요. 함께 — 싸우자."',
               setFlags: { ch8_invited: true },
-              stats: { courage: 2 },
+              stats: { courage: 1, calm: -1 },
               next: 'ch8_invite_path' },
         ]
     },
 
     ch8_grateful_path: {
         image: 'assets/images/ch8_yakbang_inside.png',
+        characters: {
+            center: { char: 'lee_hyang' },
+        },
         dialogue: [
             { speaker: '이향', text: '...착하셔라.', emotion: 'smile' },
             { speaker: '이향', text: '갚을 일이 — 따로, 없어요.' },
@@ -357,6 +441,9 @@ const SCENES_CH8 = {
 
     ch8_doubt_path: {
         image: 'assets/images/ch8_yakbang_inside.png',
+        characters: {
+            center: { char: 'lee_hyang' },
+        },
         dialogue: [
             { speaker: '이향', text: '...흠, 흠.', emotion: 'smile' },
             { speaker: '이향', text: '의심, 좋은 자세예요. 이런 시기엔.' },
@@ -369,6 +456,9 @@ const SCENES_CH8 = {
 
     ch8_invite_path: {
         image: 'assets/images/ch8_yakbang_inside.png',
+        characters: {
+            center: { char: 'lee_hyang' },
+        },
         dialogue: [
             { speaker: '이향', text: '...허허.', emotion: 'smile' },
             { speaker: '이향', text: '이 — 80 넘은 노인이, 어떻게 — 싸우러 나가요.' },
@@ -381,6 +471,9 @@ const SCENES_CH8 = {
 
     ch8_observer_gives: {
         image: 'assets/images/ch8_yakbang_inside.png',
+        characters: {
+            center: { char: 'lee_hyang' },
+        },
         dialogue: [
             { speaker: '', text: '이향이 — 낡은 종이 한 장을 — 꺼낸다.' },
             { speaker: '', text: '서울 지도. 옛 한양의 지도.' },
@@ -402,7 +495,7 @@ const SCENES_CH8 = {
     // ==========================================
 
     ch8_aftermath: {
-        image: 'assets/images/ch8_seoul_dusk.png',
+        image: 'assets/images/ch8_seoul_old_road.png',
         bgm: 'ch8',
         characters: {
             left:  { char: 'jeonwoochi' },
@@ -422,6 +515,11 @@ const SCENES_CH8 = {
             { speaker: '', text: '이향 할머님의 말씀이 — 머릿속에서, 떠나지 않는다.' },
             { speaker: '', text: '"한 사람이 — 자기 이름조차, 잊고 있을 거다."' },
             { speaker: '', text: '...그게, 누구지?' },
+            { react: [
+                { text: '...설마 정말 나야?', say: '...설마 정말 나야? 머릿속에 안 들어왔던 가능성이, 자꾸 — 위로 떠오른다.' },
+                { text: '내일에 집중하자.',   say: '내일에 집중하자. 그게 — 지금 할 수 있는 전부다.' },
+                { text: '구미호 생각이 난다.', say: '...구미호. 또 만난다. 어떤 얼굴로 봐야 할지 모르겠다.' },
+            ]},
             // 동료 대화
             { speaker: '하은', text: '...우리, 어디부터 — 가야 해?', condition: { flag: 'ch8_haeun_in' }, emotion: 'worried' },
             { speaker: '전우치', text: '...오늘 밤은 — 우선, 휴식. 내일 — 새벽부터, 사신을 — 모을게요.', emotion: 'serious' },
@@ -434,7 +532,7 @@ const SCENES_CH8 = {
     },
 
     ch8_final: {
-        image: 'assets/images/ch8_seoul_dusk.png',
+        image: 'assets/images/ch8_seoul_old_road.png',
         showFlowchart: 'ch8',
         dialogue: [],
         next: 'ch9_intro',
@@ -458,7 +556,7 @@ const FLOWCHARTS_CH8 = {
                   { text: '정면 돌파 — 도술 발현' },
               ]
             },
-            { type: 'story', text: '향(香)약방 — 이향과의 만남' },
+            { type: 'story', text: '연수당(延壽堂) — 이향과의 만남' },
             { type: 'story', text: '이향, 외할머니 3대의 추적자' },
             { type: 'choice', label: '이향에 대한 응답', sceneId: 'ch8_observer_offers',
               branches: [

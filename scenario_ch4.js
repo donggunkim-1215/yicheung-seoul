@@ -561,6 +561,7 @@ const SCENES_CH4 = {
         image: 'assets/images/ch4_jeonwoochi_arrival.png',
         imageEffect: 'ken-burns',
         bgm: 'ch4_hero',
+        bgOnly: true,  // 전우치 등장 임팩트 컷 — BG가 메인, portrait 등장 X
         dialogue: [
             { speaker: '', text: '...' },
             { speaker: '', text: '그때.' },
@@ -584,6 +585,7 @@ const SCENES_CH4 = {
 
     ch4_cliffhanger: {
         image: 'assets/images/ch4_jeonwoochi_arrival.png',
+        bgOnly: true,
         dialogue: [
             { speaker: '', text: '남자.' },
             { speaker: '', text: '얼굴은 — 보이지 않는다. 그의 등 뒤로 — 푸른 빛이, 너무 강하다.' },

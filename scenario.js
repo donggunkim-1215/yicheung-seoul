@@ -25,6 +25,11 @@ const SCENES = {
             { speaker: '', text: '하지만 아무도 없다.' },
             { speaker: '', text: '아까까지 맞은편에 앉아있던 아저씨도, 문 앞에 서있던 학생도.' },
             { speaker: '', text: '가방, 우산, 반쯤 마신 커피 — 물건만 남기고, 사람이 사라졌다.' },
+            { react: [
+                { text: '...이게 무슨 일이야.',    say: '...이게 무슨 일이야. 사람이 이렇게 한꺼번에 사라질 수가 있나.' },
+                { text: '몰래카메라인가?',         say: '...몰래카메라? 누가 짠 일이라고 보기엔 너무 정교한데.' },
+                { text: '진정하자. 일단 진정하자.', say: '진정하자. 숨을 고르고, 천천히 — 상황부터 파악하자.' },
+            ]},
         ],
         choices: [
             {
@@ -159,10 +164,14 @@ const SCENES = {
 
     encounter_girl: {
         image: 'assets/images/prologue_subway_inside.png',
-        character: 'assets/images/character_protagonist_2.png',
+        character: 'assets/images/portraits/haeun_intro.png',
+        characterAlias: '???',
         dialogue: [
-            { speaker: '', text: '주황빛 머리카락. 캐주얼한 옷차림.' },
-            { speaker: '', text: '이 상황에 전혀 어울리지 않는 모습이다.' },
+            { speaker: '', text: '한 사람이 — 좌석에 쪼그려 앉아 있다.' },
+            { speaker: '', text: '주황빛이 도는 긴 머리. 그 위로 무심하게 걸친 선글라스.' },
+            { speaker: '', text: '쇄골이 드러난 흰 크롭탑, 짧은 검은 반바지, 다리에는 레이스 가터.' },
+            { speaker: '', text: '가죽 가방에는 — 분홍색 곰인형이 매달려 흔들린다.' },
+            { speaker: '', text: '한밤중 클럽에서 막 빠져나온 듯한, 이 텅 빈 세상에 — 너무, 어울리지 않는 모습이다.' },
             { speaker: '', text: '그녀가 고개를 들어 나를 본다.' },
             { speaker: '', text: '잠깐 놀란 눈. 하지만 금방 경계하는 표정으로 바뀐다.' },
             { speaker: '???', text: '...너도 여기 갇힌 거야?', voice: 'assets/audio/voice/1.mp3' },
@@ -193,7 +202,7 @@ const SCENES = {
     // --- 정보 요청 ---
     encounter_ask: {
         image: 'assets/images/prologue_subway_inside.png',
-        character: { char: 'haeun' },
+        character: { char: 'haeun', alias: '???' },
         dialogue: [
             { speaker: '???', text: '나도 몰라. 나도 아무것도...', voice: 'assets/audio/voice/3.mp3' },
             { speaker: '', text: '그녀가 죽은 핸드폰을 보여준다.' },
@@ -210,7 +219,7 @@ const SCENES = {
     // --- 안도 ---
     encounter_relief: {
         image: 'assets/images/prologue_subway_inside.png',
-        character: { char: 'haeun' },
+        character: { char: 'haeun', alias: '???' },
         dialogue: [
             { speaker: '', text: '그녀의 굳었던 표정이 살짝 풀린다.' },
             { speaker: '???', text: '...나도. 혼자인 줄 알고 진짜 무서웠어.' },
@@ -225,7 +234,7 @@ const SCENES = {
     // --- 경계 ---
     encounter_cautious: {
         image: 'assets/images/prologue_subway_inside.png',
-        character: { char: 'haeun' },
+        character: { char: 'haeun', alias: '???' },
         dialogue: [
             { speaker: '', text: '경계심을 드러내자, 그녀가 양손을 들어 보인다.' },
             { speaker: '???', text: '야야, 나도 겁나서 그런 건데...' },
@@ -243,7 +252,7 @@ const SCENES = {
 
     encounter_more_questions: {
         image: 'assets/images/prologue_subway_inside.png',
-        character: { char: 'haeun' },
+        character: { char: 'haeun', alias: '???' },
         dialogue: [
             { speaker: '', text: '같은 처지인 것 같다. 하지만 모르는 사람이다.' },
             { speaker: '', text: '좀 더 물어봐야 할 것 같다.' },
@@ -273,7 +282,7 @@ const SCENES = {
     // --- 이름 ---
     encounter_ask_name: {
         image: 'assets/images/prologue_subway_inside.png',
-        character: { char: 'haeun' },
+        character: { char: 'haeun', alias: '???' },
         dialogue: [
             { speaker: '', text: '그녀가 잠깐 망설인다.' },
             { speaker: '', text: '시선이 흔들린다. 말할지 말지 재고 있는 눈이다.' },
@@ -303,7 +312,7 @@ const SCENES = {
     // --- 이름: 진짜 이름을 알려준다 ---
     encounter_name_real: {
         image: 'assets/images/prologue_subway_inside.png',
-        character: { char: 'haeun' },
+        character: { char: 'haeun', alias: '???' },
         dialogue: [
             { speaker: '', text: '부드러운 말투에 그녀의 경계가 조금 풀린다.' },
             { speaker: '???', text: '...하은. 서하은.' },
@@ -320,7 +329,7 @@ const SCENES = {
     // --- 이름: 거짓 이름을 알려준다 ---
     encounter_name_fake: {
         image: 'assets/images/prologue_subway_inside.png',
-        character: { char: 'haeun' },
+        character: { char: 'haeun', alias: '???' },
         dialogue: [
             { speaker: '', text: '논리적으로는 맞는 말이다. 하지만 그녀의 표정이 살짝 굳는다.' },
             { speaker: '???', text: '...유진. 이유진.' },
@@ -337,7 +346,7 @@ const SCENES = {
     // --- 이름: 알려주지 않는다 ---
     encounter_name_unknown: {
         image: 'assets/images/prologue_subway_inside.png',
-        character: { char: 'haeun' },
+        character: { char: 'haeun', alias: '???' },
         dialogue: [
             { speaker: '', text: '그녀가 살짝 놀란 눈으로 나를 본다.' },
             { speaker: '???', text: '...고마워. 그렇게 말해줘서.' },
@@ -352,7 +361,7 @@ const SCENES = {
     // --- 이전 상황 ---
     encounter_ask_before: {
         image: 'assets/images/prologue_subway_inside.png',
-        character: { char: 'haeun' },
+        character: { char: 'haeun', alias: '???' },
         dialogue: [
             { speaker: '???', text: '야근하고 집에 가는 길이었어. 막차 타고.' },
             { speaker: '???', text: '평소에도 지하철에서 많이 졸거든. 근데 이번엔...' },
@@ -368,7 +377,7 @@ const SCENES = {
     // --- 의심 ---
     encounter_ask_suspect: {
         image: 'assets/images/prologue_subway_inside.png',
-        character: { char: 'haeun' },
+        character: { char: 'haeun', alias: '???' },
         dialogue: [
             { speaker: '', text: '그녀의 눈이 커진다.' },
             { speaker: '???', text: '...뭘 숨겨? 나도 무서워 죽겠는데.' },
@@ -387,7 +396,7 @@ const SCENES = {
 
     encounter_second_question: {
         image: 'assets/images/prologue_subway_inside.png',
-        character: { char: 'haeun' },
+        character: { char: 'haeun', alias: '???' },
         dialogue: [
             { speaker: '', text: '...' },
             { speaker: '', text: '아직 궁금한 게 있다.' },
@@ -417,7 +426,7 @@ const SCENES = {
     // --- 다른 사람 ---
     encounter_ask_others: {
         image: 'assets/images/prologue_subway_inside.png',
-        character: { char: 'haeun' },
+        character: { char: 'haeun', alias: '???' },
         dialogue: [
             { speaker: '???', text: '없어. 한 명도.' },
             { speaker: '???', text: '나 여기서 몇 칸을 걸어다녔는데, 전부 비어있었어.' },
@@ -433,7 +442,7 @@ const SCENES = {
     // --- 소리 ---
     encounter_ask_sound: {
         image: 'assets/images/prologue_subway_inside.png',
-        character: { char: 'haeun' },
+        character: { char: 'haeun', alias: '???' },
         dialogue: [
             { speaker: '???', text: '...나도 들었어.' },
             { speaker: '', text: '그녀의 얼굴이 어두워진다.' },
@@ -453,7 +462,7 @@ const SCENES = {
 
     encounter_together_choice: {
         image: 'assets/images/prologue_subway_inside.png',
-        character: { char: 'haeun' },
+        character: { char: 'haeun', alias: '???' },
         dialogue: [
             { speaker: '', text: '잠깐의 침묵.' },
             { speaker: '', text: '형광등이 한 번 깜빡인다. 둘 다 천장을 올려다본다.' },
@@ -486,7 +495,7 @@ const SCENES = {
 
     // --- 함께 ---
     prologue_end_together: {
-        image: 'assets/images/character_haeun_back.png',
+        image: 'assets/images/portraits/haeun_back.png',
         addCompanion: {
             id: 'haeun',
             name: '???',
@@ -511,7 +520,7 @@ const SCENES = {
 
     // --- 조심하며 함께 ---
     prologue_end_careful: {
-        image: 'assets/images/character_haeun_back.png',
+        image: 'assets/images/portraits/haeun_back.png',
         addCompanion: {
             id: 'haeun',
             name: '???',
@@ -536,7 +545,7 @@ const SCENES = {
     // --- 거절 ---
     prologue_end_reject: {
         image: 'assets/images/prologue_subway_inside.png',
-        character: { char: 'haeun' },
+        character: { char: 'haeun', alias: '???' },
         dialogue: [
             { speaker: '', text: '그녀의 표정이 굳는다.' },
             { speaker: '???', text: '...진짜로? 이 상황에서?' },
@@ -605,8 +614,8 @@ const SCENES = {
 
     prologue_final: {
         imageIf: [
-            { flag: 'with_girl', image: 'assets/images/character_haeun_back.png' },
-            { flag: 'cautious_together', image: 'assets/images/character_haeun_back.png' }
+            { flag: 'with_girl', image: 'assets/images/portraits/haeun_back.png' },
+            { flag: 'cautious_together', image: 'assets/images/portraits/haeun_back.png' }
         ],
         image: 'assets/images/prologue_station_exit.png',
         showFlowchart: 'prologue',
@@ -616,6 +625,11 @@ const SCENES = {
             { speaker: '', text: '출구 너머에 펼쳐진 건 밤이다. 달도 별도 없는 밤.' },
             { speaker: '', text: '서울의 풍경이 보인다. 건물, 도로, 가로등.' },
             { speaker: '', text: '전부 그대로인데 — 사람이 없다.' },
+            { react: [
+                { text: '...어떻게 된 거야.', say: '...어떻게 된 거야. 머리가 따라가지를 않는다.' },
+                { text: '꿈이라면 깨야 한다.', say: '꿈이라면 깨야 한다. 근데 — 깰 방법을 모르겠다.' },
+                { text: '...받아들이자.',    say: '...받아들이자. 일단은 그래야 다음을 생각할 수 있다.' },
+            ]},
             { speaker: '', text: '여기가 어디인지 모른다.' },
             { speaker: '', text: '확실한 건 하나뿐이다.' },
             { speaker: '', text: '이곳은 내가 알던 서울이 아니다.' },

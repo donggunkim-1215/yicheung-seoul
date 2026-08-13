@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -9,6 +9,14 @@
 <body>
     <div id="game-wrapper">
         <div id="game-container">
+            <button id="btn-fullscreen" class="fullscreen-toggle" type="button" aria-label="전체화면 전환">
+                <svg class="fs-icon fs-icon-enter" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <svg class="fs-icon fs-icon-exit" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
             <!-- BGM -->
             <audio id="bgm-title" loop preload="auto">
                 <source src="assets/audio/title_bgm.mp3" type="audio/mpeg">
@@ -23,82 +31,87 @@
                 <source src="assets/audio/ch1_battle_bgm.mp3" type="audio/mpeg">
             </audio>
             <audio id="bgm-ch2" loop preload="auto">
-                <source src="assets/audio/ch2_bgm.mp3" type="audio/mpeg">
+                <source src="assets/audio/ch1_bgm.mp3" type="audio/mpeg">
             </audio>
             <audio id="bgm-ch3" loop preload="auto">
-                <source src="assets/audio/ch3_bgm.mp3" type="audio/mpeg">
+                <source src="assets/audio/ch1_bgm.mp3" type="audio/mpeg">
             </audio>
             <audio id="bgm-ch3-tense" loop preload="auto">
-                <source src="assets/audio/ch3_tense_bgm.mp3" type="audio/mpeg">
+                <source src="assets/audio/ch1_battle_bgm.mp3" type="audio/mpeg">
             </audio>
             <audio id="bgm-ch4" loop preload="auto">
-                <source src="assets/audio/ch4_bgm.mp3" type="audio/mpeg">
+                <source src="assets/audio/ch1_bgm.mp3" type="audio/mpeg">
             </audio>
             <audio id="bgm-ch4-combat" loop preload="auto">
-                <source src="assets/audio/ch4_combat_bgm.mp3" type="audio/mpeg">
+                <source src="assets/audio/ch1_battle_bgm.mp3" type="audio/mpeg">
             </audio>
             <audio id="bgm-ch4-hero" loop preload="auto">
-                <source src="assets/audio/ch4_hero_bgm.mp3" type="audio/mpeg">
+                <source src="assets/audio/ch1_battle_bgm.mp3" type="audio/mpeg">
             </audio>
             <audio id="bgm-ch5" loop preload="auto">
-                <source src="assets/audio/ch5_bgm.mp3" type="audio/mpeg">
+                <source src="assets/audio/ch1_bgm.mp3" type="audio/mpeg">
             </audio>
             <audio id="bgm-ch5-calm" loop preload="auto">
-                <source src="assets/audio/ch5_calm_bgm.mp3" type="audio/mpeg">
+                <source src="assets/audio/ch1_bgm.mp3" type="audio/mpeg">
             </audio>
             <audio id="bgm-ch6" loop preload="auto">
-                <source src="assets/audio/ch6_bgm.mp3" type="audio/mpeg">
+                <source src="assets/audio/ch1_bgm.mp3" type="audio/mpeg">
             </audio>
             <audio id="bgm-ch7" loop preload="auto">
-                <source src="assets/audio/ch7_bgm.mp3" type="audio/mpeg">
+                <source src="assets/audio/ch1_bgm.mp3" type="audio/mpeg">
             </audio>
             <audio id="bgm-ch8" loop preload="auto">
-                <source src="assets/audio/ch8_bgm.mp3" type="audio/mpeg">
+                <source src="assets/audio/ch1_bgm.mp3" type="audio/mpeg">
             </audio>
             <audio id="bgm-ch8-tense" loop preload="auto">
-                <source src="assets/audio/ch8_tense_bgm.mp3" type="audio/mpeg">
+                <source src="assets/audio/ch1_battle_bgm.mp3" type="audio/mpeg">
             </audio>
             <audio id="bgm-ch8-combat" loop preload="auto">
-                <source src="assets/audio/ch8_combat_bgm.mp3" type="audio/mpeg">
+                <source src="assets/audio/ch1_battle_bgm.mp3" type="audio/mpeg">
             </audio>
             <audio id="bgm-ch9" loop preload="auto">
-                <source src="assets/audio/ch9_bgm.mp3" type="audio/mpeg">
+                <source src="assets/audio/ch1_bgm.mp3" type="audio/mpeg">
             </audio>
             <audio id="bgm-ch10" loop preload="auto">
-                <source src="assets/audio/ch10_bgm.mp3" type="audio/mpeg">
+                <source src="assets/audio/ch1_bgm.mp3" type="audio/mpeg">
             </audio>
             <audio id="bgm-ch10-solemn" loop preload="auto">
-                <source src="assets/audio/ch10_solemn_bgm.mp3" type="audio/mpeg">
+                <source src="assets/audio/ch1_bgm.mp3" type="audio/mpeg">
             </audio>
             <audio id="bgm-ch11" loop preload="auto">
-                <source src="assets/audio/ch11_bgm.mp3" type="audio/mpeg">
+                <source src="assets/audio/ch1_bgm.mp3" type="audio/mpeg">
             </audio>
             <audio id="bgm-ch11-combat" loop preload="auto">
-                <source src="assets/audio/ch11_combat_bgm.mp3" type="audio/mpeg">
+                <source src="assets/audio/ch1_battle_bgm.mp3" type="audio/mpeg">
             </audio>
             <audio id="bgm-ch11-awakening" loop preload="auto">
-                <source src="assets/audio/ch11_awakening_bgm.mp3" type="audio/mpeg">
+                <source src="assets/audio/ch1_battle_bgm.mp3" type="audio/mpeg">
             </audio>
             <audio id="bgm-ch12" loop preload="auto">
-                <source src="assets/audio/ch12_bgm.mp3" type="audio/mpeg">
+                <source src="assets/audio/ch1_bgm.mp3" type="audio/mpeg">
             </audio>
             <audio id="bgm-ch12-ritual" loop preload="auto">
-                <source src="assets/audio/ch12_ritual_bgm.mp3" type="audio/mpeg">
+                <source src="assets/audio/ch1_bgm.mp3" type="audio/mpeg">
             </audio>
             <audio id="bgm-ch12-battle" loop preload="auto">
-                <source src="assets/audio/ch12_battle_bgm.mp3" type="audio/mpeg">
+                <source src="assets/audio/ch1_battle_bgm.mp3" type="audio/mpeg">
             </audio>
             <audio id="bgm-ch12-song" loop preload="auto">
-                <source src="assets/audio/ch12_song_bgm.mp3" type="audio/mpeg">
+                <source src="assets/audio/ch1_bgm.mp3" type="audio/mpeg">
             </audio>
             <audio id="bgm-ch13" loop preload="auto">
-                <source src="assets/audio/ch13_bgm.mp3" type="audio/mpeg">
+                <source src="assets/audio/ch1_bgm.mp3" type="audio/mpeg">
             </audio>
             <audio id="bgm-ch13-true" loop preload="auto">
-                <source src="assets/audio/ch13_true_bgm.mp3" type="audio/mpeg">
+                <source src="assets/audio/ch1_bgm.mp3" type="audio/mpeg">
             </audio>
             <audio id="bgm-ch13-credits" loop preload="auto">
-                <source src="assets/audio/ch13_credits_bgm.mp3" type="audio/mpeg">
+                <source src="assets/audio/ch1_bgm.mp3" type="audio/mpeg">
+            </audio>
+
+            <!-- SE: 인트로 NO 속삭임 (placeholder — 추후 assets/audio/se/intro_whisper.mp3 로 교체) -->
+            <audio id="se-intro-whisper" preload="auto">
+                <source src="assets/audio/voice/1.mp3" type="audio/mpeg">
             </audio>
 
             <!-- 인트로 화면 -->
@@ -126,13 +139,26 @@
                     </div>
                     <p class="title-sub">서울, 0시</p>
                     <p class="title-tagline">아무도 없는 서울에서, 당신의 선택이 시작된다</p>
-                    <button id="btn-continue" class="title-btn title-btn-secondary hidden">이어하기</button>
                     <button id="btn-start" class="title-btn">
                         <span class="btn-line left"></span>
                         시작하기
                         <span class="btn-line right"></span>
                     </button>
-                    <p id="title-endings-counter" class="title-endings-counter hidden"></p>
+                    <button id="btn-continue" class="title-btn title-btn-secondary hidden">이어하기</button>
+                    <button id="title-endings-counter" class="title-endings-counter hidden" type="button"></button>
+
+                    <!-- 엔딩 도감 모달 -->
+                    <div id="endings-gallery" class="endings-gallery hidden" role="dialog" aria-modal="true">
+                        <div class="endings-gallery-backdrop"></div>
+                        <div class="endings-gallery-panel">
+                            <div class="endings-gallery-header">
+                                <h2 class="endings-gallery-title">엔딩 도감</h2>
+                                <p class="endings-gallery-subtitle"><span id="endings-gallery-count">0</span> / 8</p>
+                                <button id="btn-endings-gallery-close" class="endings-gallery-close" type="button" aria-label="닫기">×</button>
+                            </div>
+                            <div id="endings-gallery-grid" class="endings-gallery-grid"></div>
+                        </div>
+                    </div>
                     <div class="title-bottom-line"></div>
                 </div>
                 <!-- 떠다니는 한자 파티클 -->

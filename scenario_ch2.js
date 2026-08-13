@@ -132,6 +132,11 @@ const SCENES_CH2 = {
     // --- 어둑시니 vs 닷냥이 갈등 ---
     ch2_cat_eoduksini_conflict: {
         image: 'assets/images/ch2_meeting_cat.png',
+        characters: {
+            left:   { char: 'haeun',     condition: { flag: 'ch2_haeun_in' } },
+            right:  { char: 'seoyeon',   condition: { flag: 'ch2_seoyeon_in' } },
+            center: { char: 'datnyangi', kind: 'pet' },
+        },
         dialogue: [
             { speaker: '', text: '한 발 다가간다.' },
             { speaker: '', text: '그 순간 — 고양이의 등이 활처럼 휜다.' },
@@ -149,16 +154,16 @@ const SCENES_CH2 = {
         choices: [
             { text: '"잠깐, 어둑시니. 내가 잠깐 비켜 있을게."',
               setFlags: { cat_route_eoduksini_stays: true },
-              affinity: { eoduksini: 5 },
-              stats: { love: 2, wisdom: 1 },
+              affinity: { eoduksini: 1 },
+              stats: { love: 1, calm: -1 },
               next: 'ch2_cat_eoduksini_stays' },
             { text: '"어둑시니, 네가 떠나는 게 — 맞을지도 몰라."',
               setFlags: { cat_route_eoduksini_leaves: true, eoduksini_left: true },
-              stats: { courage: 2 },
+              stats: { calm: 1, love: -1 },
               next: 'ch2_cat_eoduksini_leaves' },
             { text: '"우리, 둘 다 함께 갈 방법은 없을까?"',
               setFlags: { cat_route_try_both: true },
-              stats: { love: 2, wisdom: 1 },
+              stats: { wisdom: 1 },
               next: 'ch2_cat_try_both' },
         ]
     },
@@ -166,6 +171,11 @@ const SCENES_CH2 = {
     // 어둑시니가 잠시 비켜줌 → 닷냥이 안고 다시 합류 (긴장 유지)
     ch2_cat_eoduksini_stays: {
         image: 'assets/images/ch2_meeting_cat.png',
+        characters: {
+            left:   { char: 'haeun',     condition: { flag: 'ch2_haeun_in' } },
+            right:  { char: 'seoyeon',   condition: { flag: 'ch2_seoyeon_in' } },
+            center: { char: 'datnyangi', kind: 'pet' },
+        },
         dialogue: [
             { speaker: '어둑시니', text: '...너는 이상한 사람이야.', emotion: 'smile' },
             { speaker: '어둑시니', text: '나를, 어둠을 — 비켜 달라고 부탁하는 사람이 어디 있어.' },
@@ -179,6 +189,11 @@ const SCENES_CH2 = {
     // 어둑시니 떠남 (탈퇴)
     ch2_cat_eoduksini_leaves: {
         image: 'assets/images/ch2_meeting_cat.png',
+        characters: {
+            left:   { char: 'haeun',     condition: { flag: 'ch2_haeun_in' } },
+            right:  { char: 'seoyeon',   condition: { flag: 'ch2_seoyeon_in' } },
+            center: { char: 'datnyangi', kind: 'pet' },
+        },
         dialogue: [
             { speaker: '어둑시니', text: '...그래.', emotion: 'sad' },
             { speaker: '어둑시니', text: '다행이야. 네 입에서 그 말을 들어서.', emotion: 'sad' },
@@ -199,6 +214,11 @@ const SCENES_CH2 = {
     // 둘 다 데려가려고 시도 → 어둑시니가 스스로 거리 두기로 결정
     ch2_cat_try_both: {
         image: 'assets/images/ch2_meeting_cat.png',
+        characters: {
+            left:   { char: 'haeun',     condition: { flag: 'ch2_haeun_in' } },
+            right:  { char: 'seoyeon',   condition: { flag: 'ch2_seoyeon_in' } },
+            center: { char: 'datnyangi', kind: 'pet' },
+        },
         dialogue: [
             { speaker: '어둑시니', text: '...방법이라.', emotion: 'serious' },
             { speaker: '어둑시니', text: '있어. 한 가지.' },
@@ -215,6 +235,11 @@ const SCENES_CH2 = {
     // --- 닷냥이 만남 (공통) ---
     ch2_cat_meet: {
         image: 'assets/images/ch2_meeting_cat.png',
+        characters: {
+            left:   { char: 'haeun',     condition: { flag: 'ch2_haeun_in' } },
+            right:  { char: 'seoyeon',   condition: { flag: 'ch2_seoyeon_in' } },
+            center: { char: 'datnyangi', kind: 'pet' },
+        },
         dialogue: [
             { speaker: '', text: '천천히 무릎을 꿇는다.' },
             { speaker: '', text: '손을 내민다. 강요하지 않은 채로 — 그저 거기에.' },
@@ -322,6 +347,11 @@ const SCENES_CH2 = {
     // 어둑시니 vs 황덕구: 도망 안 감, 으르렁대는 정도. 호감도 변화.
     ch2_dog_eoduksini_friction: {
         image: 'assets/images/ch2_meeting_dog.png',
+        characters: {
+            left:   { char: 'haeun',      condition: { flag: 'ch2_haeun_in' } },
+            right:  { char: 'seoyeon',    condition: { flag: 'ch2_seoyeon_in' } },
+            center: { char: 'hwangdokgu', kind: 'pet' },
+        },
         dialogue: [
             { speaker: '', text: '한 발 다가간다.' },
             { speaker: '', text: '강아지가 — 갑자기 고개를 든다.' },
@@ -343,6 +373,11 @@ const SCENES_CH2 = {
     // --- 황덕구 만남 ---
     ch2_dog_meet: {
         image: 'assets/images/ch2_meeting_dog.png',
+        characters: {
+            left:   { char: 'haeun',      condition: { flag: 'ch2_haeun_in' } },
+            right:  { char: 'seoyeon',    condition: { flag: 'ch2_seoyeon_in' } },
+            center: { char: 'hwangdokgu', kind: 'pet' },
+        },
         dialogue: [
             { speaker: '', text: '천천히 무릎을 꿇는다.' },
             { speaker: '', text: '손등을 내민다. 손바닥이 아니라 — 등을. 위협이 아니라는 신호.' },
@@ -416,15 +451,25 @@ const SCENES_CH2 = {
     // ==========================================
 
     ch2_safe_house_arrive: {
-        image: 'assets/images/ch2_safe_room.png',
+        image: 'assets/images/ch2_safe_house_door.png',
         imageEffect: 'ken-burns',
+        characters: {
+            left:  { char: 'haeun',   condition: { flag: 'ch2_haeun_in' } },
+            right: { char: 'seoyeon', condition: { flag: 'ch2_seoyeon_in' } },
+            center: [
+                { char: 'datnyangi',  kind: 'pet', condition: { flag: 'has_datnyangi' } },
+                { char: 'hwangdokgu', kind: 'pet', condition: { flag: 'has_hwangdokgu' } },
+            ],
+        },
         dialogue: [
             { speaker: '', text: '동물의 뒤를 따른다.' },
             { speaker: '', text: '골목을 한 번, 두 번 — 빌라 입구.' },
-            { speaker: '', text: '문이 — 살짝 열려 있다.' },
-            { speaker: '', text: '안으로 들어선다.' },
             { speaker: '', text: '복도, 계단, 그리고 — 2층 끝의 한 집.' },
+            { speaker: '', text: '302호. 문 위 작은 등이, 우리만 비추듯 켜져 있다.' },
             { speaker: '', text: '문은 잠겨 있지 않다.' },
+            // 문 안으로 진입 — 이미지 전환
+            { speaker: '', text: '문을 — 천천히 연다.', image: 'assets/images/ch2_safe_room.png' },
+            { speaker: '', text: '좁은 현관. 가지런히 놓인 신발 한 켤레. 벽에는 누군가의 취향이 묻은 포스터들.' },
             { speaker: '', text: '거실은 정돈되어 있다. 누군가의 흔적 — 따뜻한 흔적.' },
             { speaker: '', text: '식탁 위에 반쯤 마신 차. 소파 위에 접힌 담요. 텔레비전은 꺼져 있다.' },
             { speaker: '', text: '하지만, 사람은 — 없다.' },
@@ -441,6 +486,14 @@ const SCENES_CH2 = {
     // --- 휴식 분기: 동물과의 상호작용 (호감도/스탯) ---
     ch2_rest_choice: {
         image: 'assets/images/ch2_safe_room.png',
+        characters: {
+            left:  { char: 'haeun',   condition: { flag: 'ch2_haeun_in' } },
+            right: { char: 'seoyeon', condition: { flag: 'ch2_seoyeon_in' } },
+            center: [
+                { char: 'datnyangi',  kind: 'pet', condition: { flag: 'has_datnyangi' } },
+                { char: 'hwangdokgu', kind: 'pet', condition: { flag: 'has_hwangdokgu' } },
+            ],
+        },
         dialogue: [
             { speaker: '', text: '몸이 무겁다.' },
             { speaker: '', text: '하루 동안 — 너무 많은 것을 봤고, 너무 많이 걸었다.' },
@@ -449,24 +502,32 @@ const SCENES_CH2 = {
         choices: [
             { text: '쓰다듬어 본다 (천천히, 부드럽게)',
               setFlags: { rest_pet: true },
-              stats: { love: 2 },
-              affinity: { datnyangi: 5, hwangdokgu: 5 },
+              stats: { love: 1, wisdom: -1 },
+              affinity: { datnyangi: 1, hwangdokgu: 1 },
               next: 'ch2_rest_pet' },
             { text: '관찰한다 (왜 이 집으로 데려왔을까?)',
               setFlags: { rest_observe: true },
-              stats: { wisdom: 3 },
+              stats: { wisdom: 1, love: -1 },
               affinity: { datnyangi: 1, hwangdokgu: 1 },
               next: 'ch2_rest_observe' },
             { text: '함께 잠든다 (잠깐만, 아주 잠깐만)',
               setFlags: { rest_sleep: true },
-              stats: { calm: 2, courage: 1 },
-              affinity: { datnyangi: 3, hwangdokgu: 3 },
+              stats: { calm: 1, courage: -1 },
+              affinity: { datnyangi: 1, hwangdokgu: 1 },
               next: 'ch2_rest_sleep' },
         ]
     },
 
     ch2_rest_pet: {
         image: 'assets/images/ch2_safe_room.png',
+        characters: {
+            left:  { char: 'haeun',   condition: { flag: 'ch2_haeun_in' } },
+            right: { char: 'seoyeon', condition: { flag: 'ch2_seoyeon_in' } },
+            center: [
+                { char: 'datnyangi',  kind: 'pet', condition: { flag: 'has_datnyangi' } },
+                { char: 'hwangdokgu', kind: 'pet', condition: { flag: 'has_hwangdokgu' } },
+            ],
+        },
         dialogue: [
             { speaker: '', text: '손을 천천히 — 등을 따라 쓰다듬는다.' },
             { speaker: '', text: '털의 결을 거스르지 않게.' },
@@ -482,6 +543,14 @@ const SCENES_CH2 = {
 
     ch2_rest_observe: {
         image: 'assets/images/ch2_safe_room.png',
+        characters: {
+            left:  { char: 'haeun',   condition: { flag: 'ch2_haeun_in' } },
+            right: { char: 'seoyeon', condition: { flag: 'ch2_seoyeon_in' } },
+            center: [
+                { char: 'datnyangi',  kind: 'pet', condition: { flag: 'has_datnyangi' } },
+                { char: 'hwangdokgu', kind: 'pet', condition: { flag: 'has_hwangdokgu' } },
+            ],
+        },
         dialogue: [
             { speaker: '', text: '...왜 이 집이지?' },
             { speaker: '', text: '동물이 우리를 끌어들인 데에는 — 이유가 있을 것이다.' },
@@ -499,6 +568,14 @@ const SCENES_CH2 = {
 
     ch2_rest_sleep: {
         image: 'assets/images/ch2_safe_room.png',
+        characters: {
+            left:  { char: 'haeun',   condition: { flag: 'ch2_haeun_in' } },
+            right: { char: 'seoyeon', condition: { flag: 'ch2_seoyeon_in' } },
+            center: [
+                { char: 'datnyangi',  kind: 'pet', condition: { flag: 'has_datnyangi' } },
+                { char: 'hwangdokgu', kind: 'pet', condition: { flag: 'has_hwangdokgu' } },
+            ],
+        },
         dialogue: [
             { speaker: '', text: '소파에 — 그대로 주저앉는다.' },
             { speaker: '', text: '동물이 내 옆으로 올라온다. 따뜻하다.' },
@@ -520,6 +597,14 @@ const SCENES_CH2 = {
 
     ch2_clue_setup: {
         image: 'assets/images/ch2_safe_room.png',
+        characters: {
+            left:  { char: 'haeun',   condition: { flag: 'ch2_haeun_in' } },
+            right: { char: 'seoyeon', condition: { flag: 'ch2_seoyeon_in' } },
+            center: [
+                { char: 'datnyangi',  kind: 'pet', condition: { flag: 'has_datnyangi' } },
+                { char: 'hwangdokgu', kind: 'pet', condition: { flag: 'has_hwangdokgu' } },
+            ],
+        },
         dialogue: [
             { speaker: '', text: '몸이 조금 가벼워졌다.' },
             { speaker: '', text: '동물이 — 갑자기 한쪽 방향으로 걸어간다.' },
@@ -530,11 +615,37 @@ const SCENES_CH2 = {
         ],
         choices: [
             { text: '문을 연다',
-              stats: { courage: 2 },
+              stats: { courage: 1 },
               next: 'ch2_clue_open' },
             { text: '문틈으로 먼저 본다',
-              stats: { wisdom: 2 },
+              stats: { wisdom: 1 },
               setFlags: { peeked_first: true },
+              next: 'ch2_clue_open' },
+            // 동료 고유 능력 게이트 — 어둑시니가 그림자 속을 먼저 확인
+            { text: '"어둑시니 — 안쪽 그림자, 살펴봐 줘."',
+              requires: { hasCompanion: 'eoduksini' },
+              lockedText: '어둑시니가 곁에 있어야 한다',
+              statHint: '어둠 속에선 어둑시니가 가장 밝다',
+              stats: { wisdom: 1 },
+              affinity: { eoduksini: 1 },
+              setFlags: { eoduksini_scouted_clue: true, peeked_first: true },
+              next: 'ch2_clue_open' },
+            // 동물 고유 능력 — 닷냥이/황덕구가 안쪽 기운을 감지
+            { text: '동물에게 — 한 번 더 확인을 시킨다',
+              requires: { hasCompanion: 'datnyangi' },
+              lockedText: '닷냥이가 곁에 있어야 한다',
+              statHint: '동물의 직감을 따른다',
+              stats: { calm: 1 },
+              affinity: { datnyangi: 1 },
+              setFlags: { pet_confirmed_clue: true, peeked_first: true },
+              next: 'ch2_clue_open' },
+            { text: '동물에게 — 한 번 더 확인을 시킨다',
+              requires: { hasCompanion: 'hwangdokgu' },
+              lockedText: '황덕구가 곁에 있어야 한다',
+              statHint: '동물의 직감을 따른다',
+              stats: { calm: 1 },
+              affinity: { hwangdokgu: 1 },
+              setFlags: { pet_confirmed_clue: true, peeked_first: true },
               next: 'ch2_clue_open' },
         ]
     },
@@ -561,6 +672,11 @@ const SCENES_CH2 = {
             { speaker: '', text: '...자정. 종로.' },
             { speaker: '', text: '글씨가 끝나는 자리에, 펜이 떨어져 있다.' },
             { speaker: '', text: '집어 든다. 아직 — 따뜻하다.' },
+            { react: [
+                { text: '방금까지 누가 있었다.',  say: '방금까지 누가 있었다. 우리가 도착하기 직전에 — 사라진 거야.' },
+                { text: '함정일지도.',            say: '...함정일지도 모른다. 이렇게 친절한 단서가 우연일까.' },
+                { text: '가야 한다.',             say: '...가야 한다. 다른 길도 안 보인다.' },
+            ]},
         ],
         setFlags: { found_clue_jongno: true },
         next: 'ch2_aftermath'
@@ -606,6 +722,7 @@ const SCENES_CH2 = {
         image: 'assets/images/ch2_dawn_alley.png',
         showFlowchart: 'ch2',
         dialogue: [],
+        next: 'ch3_intro',
     },
 };
 
